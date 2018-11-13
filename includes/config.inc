@@ -7,7 +7,7 @@ Auther Spencer McConnell
 define("mysql_host", "localhost");
 define("mysql_database", "BoiseCAP073");
 define("mysql_user", "root");
-define("mysql_password", "nacer#1");
+define("mysql_password", "");
 
 define("CAN_REGISTER", "any");
 define("DEFAULT_ROLE", "member");
