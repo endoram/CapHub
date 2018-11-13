@@ -22,7 +22,6 @@ if (login_check($mysqli) == true) {
         <title>Cap ID Login:</title>
         <link rel="stylesheet" href="styles/main.css" />
         <script type="text/JavaScript" src="js/sha512.js"></script> 
-        <script type="text/JavaScript" src="js/forms.js"></script> 
     </head>
     <body>
         <?php
@@ -30,11 +29,9 @@ if (login_check($mysqli) == true) {
             echo '<p class="error">Error Logging In!</p>';
         }
         ?> 
-        <form action="logIn.php">                      
+        <form action="logIn.php" method="post">                      
             Email: <input type="text" name="email" />
-            Password: <input type="password" 
-                             name="password" 
-                             id="password"/>
+            Password: <input type="password" name="password" id="password"/>
             <input type="submit" value="Login"/> 
         </form>
  
