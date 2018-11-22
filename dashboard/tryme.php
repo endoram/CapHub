@@ -6,7 +6,7 @@ require "mysql_config.php";
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="/css/index.css">
     <title>CapHub</title>
   </head>
   <body>
@@ -23,7 +23,7 @@ require "mysql_config.php";
         echo "<tr> <th>Squadren</th> </tr>";
 
         while($row = $result->fetch_assoc()) {
-            echo "<tr><td><a href='https://caphub.org/".$row['sq_name'] . "/login.php'>" . $row['sq_name'] . "</a></td> </tr>";
+            echo "<tr><td><a href='https://caphub.org/".$row['sq_name'] . "/'>" . $row['sq_name'] . "</a></td> </tr>";
         }
         echo "</table>";
         $conn->close();
