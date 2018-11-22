@@ -1,5 +1,4 @@
 <?php
-require "header.php";
 require "mysql_config.php";
 ?>
 
@@ -7,6 +6,7 @@ require "mysql_config.php";
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="/css/index.css">
+    <img src="header.jpg">
     <title>CapHub</title>
   </head>
   <body>
