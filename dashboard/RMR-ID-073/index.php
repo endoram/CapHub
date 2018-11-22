@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($result->num_rows > 0) {
       while($row = $result->fetch_assoc()) {
-          $db_pass = $_row["password"];
+          $db_pass = $row["password"];
       }
       if ($db_pas == $password) {
         header("Location: main.php");
@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $conn->close();
     }
     else {
-      echo "<p style=\"color: red;\">invalid Cap ID</p>\n\n";
+      echo "<p style=\"color: red;\">*Invalid Cap ID or password</p>\n\n";
         $conn->close();
     }
   }
