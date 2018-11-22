@@ -12,14 +12,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   else {
     $conn = new mysqli($mysql_host, $mysql_user, $mysql_password, $mysql_database) or die("Database Connection Failed : " . mysql_error());
 
-    $query = "SELECT user_pass FROM sq_membsers WHERE cap_id=" . $capid;
+    $query = "SELECT user_pass FROM sq_members WHERE cap_id=" . $capid;
     $result = $conn->query($query);
 
     if ($result->num_rows > 0) {
       while($row = $result->fetch_assoc()) {
           $db_pass = $row["password"];
       }
-      if ($db_pas == $password) {
+      if (strcmp($db_pas,$password)) {
         header("Location: main.php");
       }
       else {$errorMsg = "Invalid Cap ID or password";}
