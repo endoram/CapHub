@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       }
       if ($db_pass == $password) {
         $conn->close();
-        header("Location: https://caphub.org/RMR-ID-073/main.php");
+        header("Location: main.php");
         exit();
       }
       else {$errorMsg = "Invalid Cap ID or password";}
