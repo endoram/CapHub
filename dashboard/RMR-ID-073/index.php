@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       while($row = $result->fetch_assoc()) {
           $db_pass = $row['user_pass'];
       }
-      if (strcmp($db_pas,$password)) {
+      if ($db_pass == $password) {
         $conn->close();
         header("Location: https://caphub.org/RMR-ID-073/main.php");
         exit();
