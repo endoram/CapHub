@@ -19,14 +19,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($result->num_rows > 0) {
       while($row = $result->fetch_assoc()) {
           $db_pass = $row['user_pass'];
+          $db_priv = $row['privlage_level'];
       }
-      if ($db_pass == $password) {
+      if ($db_priv == 1){
+        if ($db_pass == $password) {
+          $conn->close();
+          header("Location: main.php");
+          exit();
+        }
+        else {$errorMsg = "Invalid Cap ID or password";}
         $conn->close();
-        header("Location: main.php");
-        exit();
       }
       else {$errorMsg = "Invalid Cap ID or password";}
-      $conn->close();
     }
     else {
       $errorMsg = "Invalid Cap ID or password";
