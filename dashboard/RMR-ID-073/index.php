@@ -1,5 +1,10 @@
 <?php
+session_start();
 require "config_m.php";
+
+unset($_SESSION["capid"]);
+unset($_SESSION["password"]);
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $capid = $_POST['capid'];
   $password = $_POST['password'];
@@ -24,6 +29,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       if ($db_priv == 1){
         if ($db_pass == $password) {
           $conn->close();
+          $_SESSION['capid'] = $capid;
+          $_SESSION['password'] = $password;
           header("Location: main.php");
           exit();
         }
