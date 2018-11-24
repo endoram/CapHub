@@ -7,14 +7,8 @@ body{
 }
 
 .loginform {
-  margin: auto;
-  height: 13%;
-  width: 15%;
-  border: 3px solid red;
-  padding: 10px;
-}
-
-img {
-    max-width: 100%;
-    height: auto;
+  text-align: center;
+  -webkit-transform: translateY(100%);
+  transform: translateY(100%);
+  margin-top: 200px;
 }
