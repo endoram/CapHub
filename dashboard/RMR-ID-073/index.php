@@ -1,6 +1,6 @@
 <?php
-session_start();
 require "includes/config_m.php";
+session_start();
 
 unset($_SESSION["capid"]);
 unset($_SESSION["password"]);
@@ -62,7 +62,7 @@ require "../header.php";
         if(isset($errorMsg) && $errorMsg) {
           echo "<p style=\"color: red;\">*",htmlspecialchars($errorMsg),"</p>\n\n";
         }?>
-        <label for="EMIAL">cap ID:</label> <input type="text" name="capid" align="right" value="<?PHP if(isset($_POST['capid'])) echo htmlspecialchars($_POST['capid']); ?>"><br>
+        <label for="EMIAL">CAP ID:</label> <input type="text" name="capid" align="right" value="<?PHP if(isset($_POST['capid'])) echo htmlspecialchars($_POST['capid']); ?>"><br>
         <label for="PASSWORD">Password:</label> <input type="password" name="password" align="right" value="<?PHP if(isset($_POST['password'])) echo htmlspecialchars($_POST['password']); ?>"><br>
         <input type="submit" value="Login">
       </form>
