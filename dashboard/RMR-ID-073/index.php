@@ -1,6 +1,6 @@
 <?php
 session_start();
-require "config_m.php";
+require "includes/config_m.php";
 
 unset($_SESSION["capid"]);
 unset($_SESSION["password"]);
