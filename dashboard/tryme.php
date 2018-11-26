@@ -54,10 +54,10 @@ require "mysql_config.php";
     <title>CapHub</title>
   </head>
   <body>
-    <h2>Please select your squadren:</h2>
+    <h2>Please select your squadron:</h2>
 
     <div class="dropdown">
-        <button class="dropbtn">Squadrens</button>
+        <button class="dropbtn">Squadrons</button>
         <div class="dropdown-content">
             <?php
               $conn = new mysqli($mysql_host2, $mysql_user2, $mysql_password2, $mysql_database2) or die("Database Connection Failed : " . mysql_error());
