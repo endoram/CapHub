@@ -1,6 +1,11 @@
 <?php
-require "includes/control_access.php";
-
-
-echo "<h1>Logged IN</h1>";
+require "includes/header.php";
 ?>
+
+<html>
+  <head>
+    <title>CapHub MainPage</title>
+  </head>
+  <body>
+  </body>
+</html>
