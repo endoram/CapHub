@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           $conn->close();
           $_SESSION['capid'] = $capid;
           $_SESSION['password'] = $password;
-          header("Location: main.php");
+          header("Location: protected/main.php");
           exit();
         }
         else {$errorMsg = "Invalid Cap ID or password";}
