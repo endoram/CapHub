@@ -4,36 +4,31 @@
   if(isset($_GET['logout'])) {
     header("Location: ../index.php");
   }
-
-  echo '<meta name="viewport" content="width=device-width, initial-scale=1.0">';
-  echo '<img src="../images/banner.png">';
 ?>
 
-
-<style>
-table {
-  text-align: center;
-  border: 1px solid black;
-}
-
-th, td {
-  border: 1px solid black;
-  padding: 5px;
-  text-align: left;
-}
-</style>
-
 <html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <img src="../images/banner.png">
+    <link rel="stylesheet" type="text/css" href="style.css">
+  </head>
   <body>
-    <table style="width:50%">
-        <tr>
-          <td><a href="coms.php">Comunications</a></td>
-          <td><a href="events.php">Events</a></td>
-          <td><a href="qmembers.php">Squadron Members</a></td>
-          <td><a href="help.php">Help</a></td>
-          <td><a href="meeting_nights.php">Meeting Nights</a></td>
-          <td><a href="?logout=1">Log out</a></td>
-        </tr>
-    </table>
+    <div class="menubar">
+      <table style="width:50%">
+          <tr>
+            <td><a href="coms.php">Comunications</a></td>
+            <td><a href="events.php">Events</a></td>
+            <td><a href="qmembers.php">Squadron Members</a></td>
+            <td><a href="help.php">Help</a></td>
+            <td><a href="meeting_nights.php">Meeting Nights</a></td>
+            <td><a href="?logout=1">Log out</a></td>
+          </tr>
+      </table>
+    </div>
+    <div class="foot">
+      <center>
+        <p>Developed by Spencer McConnell - CapHub is a nonprofitable website</p>
+      </center>
+    </div>
   </body>
 </html>
