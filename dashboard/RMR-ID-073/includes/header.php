@@ -27,7 +27,7 @@
     </div>
     <div class="foot">
       <center>
-        <p>Developed by Spencer McConnell - CapHub is a nonprofitable website</p>
+        <p>Developed by Spencer McConnell</p>
       </center>
     </div>
   </body>
