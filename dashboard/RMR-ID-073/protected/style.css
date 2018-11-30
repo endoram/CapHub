@@ -1,0 +1,21 @@
+<style>
+.menubar {
+  text-align: center;
+  border: 1px solid black;
+}
+
+th, td {
+  border: 1px solid black;
+  padding: 5px;
+  text-align: left;
+}
+
+.foot {
+ position: absolute;
+ width: auto;
+ height: auto;
+ bottom: 0px;
+ left: 35%;
+
+}
+</style>
