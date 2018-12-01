@@ -1,14 +1,21 @@
-<style>
-.menubar {
-  text-align: center;
-  border: 1px solid black;
+.menubar ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 200px;
+  background-color: lightblue;
+}
+.menubar li a {
+  display: block;
+  color: #000;
+  padding: 8px 12px;
+  text-decoration: none;
+}
+.menubar li a:hover {
+  background-color: #555;
+  color: white;
 }
 
-th, td {
-  border: 1px solid black;
-  padding: 5px;
-  text-align: left;
-}
 
 .foot {
  position: absolute;
@@ -18,4 +25,3 @@ th, td {
  left: 35%;
 
 }
-</style>
