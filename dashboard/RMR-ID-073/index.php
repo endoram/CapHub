@@ -12,12 +12,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $errorMsg = "Invalid Cap ID or password";
   }
   else {
-    $conn = new mysqli($mysql_host, $mysql_user, $mysql_password, $mysql_database) or die("Database Connection Failed : " . mysql_error());
-
-    if ($conn->connect_error) {
-      die("Connection failed: " . $conn->connect_error);
-    }
-
     $query = "SELECT * FROM sq_members WHERE cap_id=$capid";
     $result = $conn->query($query);
 
