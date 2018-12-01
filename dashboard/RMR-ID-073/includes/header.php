@@ -14,16 +14,13 @@
   </head>
   <body>
     <div class="menubar">
-      <table style="width:50%">
-          <tr>
-            <td><a href="coms.php">Comunications</a></td>
-            <td><a href="events.php">Events</a></td>
-            <td><a href="qmembers.php">Squadron Members</a></td>
-            <td><a href="help.php">Help</a></td>
-            <td><a href="meeting_nights.php">Meeting Nights</a></td>
-            <td><a href="?logout=1">Log out</a></td>
-          </tr>
-      </table>
+      <ul>
+        <li><a href="coms.php">Radios</a></li>
+        <li><a href="events.php">Events</a></li>
+        <li><a href="sqmembers.php">Squadron Members</a></li>
+        <li><a href="help.php">Help</a></li>
+        <li><a href="?logout=1">Log out</a></li>
+      </ul>
     </div>
     <div class="foot">
       <center>
