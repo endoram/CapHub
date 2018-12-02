@@ -41,7 +41,7 @@ function submit() {
       echo "<p style='color: red'>Names don't have numbers in them - try again<p>";
     }
     else {
-      $data = "first_name='" . $_POST['input'] . "'";
+      $data = "first_name LIKE '" . $_POST['input'] . "%'";
       queryit($data);
     }
   }
@@ -51,7 +51,7 @@ function submit() {
       echo "<p style='color: red'>Names don't have numbers in them - try again<p>";
     }
     else {
-      $data = "last_name='" . $_POST['input'] . "'";
+      $data = "last_name LIKE '" . $_POST['input'] . "%'";
       queryit($data);
     }
   }
@@ -61,7 +61,7 @@ function submit() {
       echo "<p style='color: red'>Invalid Cap ID<p>";
     }
     else {
-      $data = "cap_id=" . $_POST['input'];
+      $data = "cap_id LIKE '" . $_POST['input'] . "%'";
       queryit($data);
     }
   }
