@@ -134,18 +134,25 @@ function closeForm() {
     <title>CapHub Squadron Members</title>
   </head>
   <body>
+    <div class="dropdown">
+      <p>Search by:</p>
+      <button class="dropbtn">Options</button>
+      <div class="dropdown-content">
+        <p>Search by:</p>
+        <a href="?firstname=1">First Name</a>
+        <a href="?lastname=1">Last Name</a>
+        <a href="?capid">CAP ID</a>
+        <a href="?priv">Privlage</a>
+      </div>
+    </div>
+    <br>
     <div class="row">
       <div class="leftside">
         <div class="sqmenubar">
-          <p>Seach By:</p>
           <ul>
-            <li><a href="?firstname=1">First Name</a></li>
-            <li><a href="?lastname">Last Name</a></li>
-            <li><a href="?capid">CAP ID</a></li>
             <li><a href="?export">Export</a><li>
             <li><a href="">Add Member</a><li>
             <li><a href="">Remove Member</a><li>
-            <li><a href="?priv">Privlage</a><li>
           </ul>
         </div>
       </div>
