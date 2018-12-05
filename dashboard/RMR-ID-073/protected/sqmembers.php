@@ -1,9 +1,12 @@
 <?php
-require "../includes/header.php";
-require "../includes/config_m.php";
+#require "../includes/header.php";
+#require "../includes/config_m.php";
 
 if(isset($_GET['export'])){
 
+}
+if(isset($_GET['addmember'])){
+  header("Location: ../includes/addmember.php");
 }
 
 if(isset($_GET['firstname'])) {
@@ -107,7 +110,7 @@ function queryit($data) {
     }
   }
   else {
-    $errorMsg = "<h4 style='color: yellow'>No Reults found</h4>";
+    echo "<h4 style='color: yellow'>No Reults found</h4>";
     $conn->close();
   }
   $conn->close();
@@ -151,7 +154,7 @@ function closeForm() {
         <div class="sqmenubar">
           <ul>
             <li><a href="?export">Export</a><li>
-            <li><a href="">Add Member</a><li>
+            <li><a href="?addmember">Add Member</a><li>
             <li><a href="">Remove Member</a><li>
           </ul>
         </div>
