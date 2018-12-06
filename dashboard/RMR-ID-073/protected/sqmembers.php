@@ -1,6 +1,6 @@
 <?php
-#require "../includes/header.php";
-#require "../includes/config_m.php";
+require "../includes/header.php";
+require "../includes/config_m.php";
 
 if(isset($_GET['export'])){
 
@@ -154,7 +154,7 @@ function closeForm() {
         <div class="sqmenubar">
           <ul>
             <li><a href="?export">Export</a><li>
-            <li><a href="?addmember">Add Member</a><li>
+            <li><a href="../includes/addmember.php">Add Member</a><li>
             <li><a href="">Remove Member</a><li>
           </ul>
         </div>
