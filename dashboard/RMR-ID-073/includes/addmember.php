@@ -63,5 +63,8 @@ require "config_m.php";
         <input type="submit" value="Add Member">
       </form>
     </div>
+    <form action="../protected/main.php">
+      <input type="submit" value="Cancel" />
+    </form>
   </body>
 </html>
