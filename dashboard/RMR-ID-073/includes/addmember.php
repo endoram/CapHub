@@ -1,40 +1,46 @@
 <?php
-#require "header.php";
-#require "config_m.php";
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $firstname = $_POST['firstname'];
   $lastname = $_POST['lastname'];
   $capid = $_POST['capid'];
   $cadetornot = $_POST['cadetornot'];
 
-  if (!is_numeric($capid) or null) {
+  $x = 0;
+
+  if ($capid == "" or !is_numeric($capid)) {
     $errorMsg = "Invalid Cap ID";
+    $x = 1;
   }
-    if (preg_match('/[^A-Za-z]/', $firstname) or null) {
-      $errorMsg = "Invalid Firstname";
-    }
-      if (preg_match('/[^A-Za-z]/', $lastname)) {
-        $errorMsg = "Invalid lastname";
-      }
-        if ($cadetornot == "senior" or "cadet"){
-          adduser($capid, $firstname, $lastname, $capid);
-        }
-        else{$errorMsg = "Invalid cadet or senior option";}
+  if ($firstname == NULL or preg_match('/[^A-Za-z]/', $firstname)) {
+    $errorMsg = "Invalid Firstname";
+    $x = 1;
+  }
+  if ($lastname == NULL or preg_match('/[^A-Za-z]/', $lastname)) {
+    $errorMsg = "Invalid lastname";
+    $x = 1;
+  }
+  if ($cadetornot == ""){
+    $errorMsg = "Invalid cadet or senior optionasdfsadfad";
+    $x = 1;
+  }
+  if (!in_array($cadetornot, array('cadet','senior', 'Cadet', 'Senior'), true )) {
+    $errorMsg = "Invalid cadet or senior option";
+    $x = 1;
+  }
+  if ($x == 0) {adduser($firstname, $lastname, $capid, $cadetornot);}
 }
 
-function adduser() {
+function adduser($firstname, $lastname, $capid, $cadetornot) {
   require "config_m.php";
 
-  $query = "INSERT INTO sq_members (cap_id, first_name, last_name )";
-  $result = $conn->query($query);
-
-  echo "Added Member";
-
-  #Also add check for null
-  #Might need a commit function here
+  $query = "INSERT INTO sq_members (cap_id, first_name, last_name, cadet_senior) VALUES (" . $capid . ",'" . $firstname . "', '" . $lastname . "', '" . $cadetornot . "')";
+  $conn->query($query);
   $conn->close();
+  header("Location: ../protected/sqmembers.php");
 }
+
+require "header.php";
+require "config_m.php";
 ?>
 
 
