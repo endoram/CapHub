@@ -118,10 +118,12 @@ function queryit($data) {
     echo "Enter CAPID of user to remove:";
     echo "<br>";
     echo '
-      <form action="sqmembers.php">
-        <input type="text" name="capidrm">
-        <input type="submit" value="Remove Users" name="rmuser">
-      </form>';
+      <div class="deluser">
+        <form action="sqmembers.php">
+          <input type="text" name="capidrm">
+          <input type="submit" value="Remove Users" name="rmuser">
+        </form>
+      </div>';
   }
   else {
     echo "<h4 style='color: darkyellow'>No Reults found</h4>";
