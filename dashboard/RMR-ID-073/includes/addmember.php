@@ -77,7 +77,11 @@ require "config_m.php";
         <label for="firstname">First name:</label> <input type="text" name="firstname" align="right" value=<?PHP if(isset($_POST['capid'])) echo htmlspecialchars($_POST['firstname']); ?>><br>
         <label for="firstname">Last name:</label> <input type="text" name="lastname" align="right" value=<?PHP if(isset($_POST['capid'])) echo htmlspecialchars($_POST['lastname']); ?>><br>
         <label for="capid">CAP ID:</label> <input type="text" name="capid" align="right" value="<?PHP if(isset($_POST['capid'])) echo htmlspecialchars($_POST['capid']); ?>"><br>
-        <label for="cadetornot">Cadet Or Senior:</label> <input type="cadetornot" name="cadetornot" align="right" value="<?PHP if(isset($_POST['senior'])) echo htmlspecialchars($_POST['senior']); ?>"><br>
+        <select name="cadetornot">
+          <option value="cadet">Cadet</option>
+          <option value="senior">Senior</option>
+        <select>
+        <br>
         <input type="submit" value="Add Member">
       </form>
     </div>

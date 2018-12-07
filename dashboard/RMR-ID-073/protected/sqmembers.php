@@ -6,11 +6,22 @@ if(isset($_GET['export'])){
 
 }
 if(isset($_GET['rmuser'])) {
+  echo "Enter CAPID of user to remove:";
+  echo "<br>";
+  echo '
+    <div class="deluser">
+      <form action="sqmembers.php">
+        <input type="text" name="capidrm">
+        <input type="submit" value="Remove Users" name="rmuser1">
+      </form>
+    </div>';
+}
+if(isset($_GET['rmuser1'])) {
   require "../includes/config_m.php";
-
   $query = "DELETE FROM `sq_members` WHERE cap_id=" . $_GET['capidrm'];
   $conn->query($query);
 }
+
 if(isset($_GET['addmember'])) {
   header("Location: ../includes/addmember.php");
 }
@@ -115,15 +126,6 @@ function queryit($data) {
         </tr>";
         $rm_capid = $row["cap_id"];
     }
-    echo "Enter CAPID of user to remove:";
-    echo "<br>";
-    echo '
-      <div class="deluser">
-        <form action="sqmembers.php">
-          <input type="text" name="capidrm">
-          <input type="submit" value="Remove Users" name="rmuser">
-        </form>
-      </div>';
   }
   else {
     echo "<h4 style='color: darkyellow'>No Reults found</h4>";
@@ -171,6 +173,7 @@ function closeForm() {
           <ul>
             <li><a href="?export">Export</a><li>
             <li><a href="../includes/addmember.php">Add Member</a><li>
+            <li><a href="?rmuser=1">Remove Member</a><li>
           </ul>
         </div>
       </div>
