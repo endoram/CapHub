@@ -1,9 +1,13 @@
 <?php
+session_start();
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $firstname = $_POST['firstname'];
   $lastname = $_POST['lastname'];
   $capid = $_POST['capid'];
   $cadetornot = $_POST['cadetornot'];
+  $priv = $_POST['privlage_level'];
+  $password_password = $_POST['password'];
 
   $x = 0;
 
@@ -26,6 +30,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if (!in_array($cadetornot, array('cadet','senior', 'Cadet', 'Senior'), true )) {
     $errorMsg = "Invalid cadet or senior option";
     $x = 1;
+  }
+  if ($priv == "" or !in_array($priv, array('0','1', '2', '3'), true )) {
+    $errorMsg = "Invalid privlage level";
+  }
+  if ($priv == "") {
+    $errorMsg = "Invalid password";
   }
   if ($x == 0) {adduser($firstname, $lastname, $capid, $cadetornot, $errorMsg);}
 }
@@ -77,6 +87,10 @@ require "config_m.php";
         <label for="firstname">First name:</label> <input type="text" name="firstname" align="right" value=<?PHP if(isset($_POST['capid'])) echo htmlspecialchars($_POST['firstname']); ?>><br>
         <label for="firstname">Last name:</label> <input type="text" name="lastname" align="right" value=<?PHP if(isset($_POST['capid'])) echo htmlspecialchars($_POST['lastname']); ?>><br>
         <label for="capid">CAP ID:</label> <input type="text" name="capid" align="right" value="<?PHP if(isset($_POST['capid'])) echo htmlspecialchars($_POST['capid']); ?>"><br>
+        <?php if($_SESSION['privlv'] >= 2){ ?>
+          <label for="privlage_level">Privlage Level:</label> <input type="text" name="privlage_level" align="right" value="<?PHP if(isset($_POST['privlage_level'])) echo htmlspecialchars($_POST['privlage_level']); ?>"><br>
+          <label for="passsword">Password:</label> <input type="text" name="password" align="right" value="<?PHP if(isset($_POST['password'])) echo htmlspecialchars($_POST['password']); ?>"><br>
+        <?php } ?>
         <select name="cadetornot">
           <option value="cadet">Cadet</option>
           <option value="senior">Senior</option>

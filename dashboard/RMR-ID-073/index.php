@@ -4,6 +4,7 @@ session_start();
 
 unset($_SESSION["capid"]);
 unset($_SESSION["password"]);
+unset($_SESSION["privlv"]);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $capid = $_POST['capid'];
@@ -20,11 +21,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           $db_pass = $row['user_pass'];
           $db_priv = $row['privlage_level'];
       }
-      if ($db_priv == 1){
+      if ($db_priv >= 1){
         if ($db_pass == $password) {
           $conn->close();
           $_SESSION['capid'] = $capid;
           $_SESSION['password'] = $password;
+          $_SESSION['privlv'] = $db_priv;
           header("Location: protected/main.php");
           exit();
         }
