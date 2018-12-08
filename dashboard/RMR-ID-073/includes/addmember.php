@@ -33,14 +33,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   }
   if ($priv == "" or !in_array($priv, array('0','1', '2', '3'), true )) {
     $errorMsg = "Invalid privlage level";
+    $x = 1;
   }
-  if ($priv == "") {
+  if ($password_password == "") {
     $errorMsg = "Invalid password";
+    $x = 1;
   }
-  if ($x == 0) {adduser($firstname, $lastname, $capid, $cadetornot, $errorMsg);}
+  if ($x == 0) {adduser($firstname, $lastname, $capid, $cadetornot, $errorMsg, $priv, $password_password);}
 }
 
-function adduser($firstname, $lastname, $capid, $cadetornot, $errorMsg) {
+function adduser($firstname, $lastname, $capid, $cadetornot, $errorMsg, $priv, $password_password) {
   require "config_m.php";
 
   $y = 0;
@@ -58,7 +60,7 @@ function adduser($firstname, $lastname, $capid, $cadetornot, $errorMsg) {
   }
 
   if ($y == 0) {
-    $query = "INSERT INTO sq_members (cap_id, first_name, last_name, cadet_senior) VALUES (" . $capid . ",'" . $firstname . "', '" . $lastname . "', '" . $cadetornot . "')";
+    $query = "INSERT INTO sq_members (cap_id, first_name, last_name, cadet_senior, privlage_level, user_pass) VALUES (" . $capid . ",'" . $firstname . "', '" . $lastname . "', '" . $cadetornot . "', '" . $priv . "', '" . $password_password . "')";
     $conn->query($query);
     $conn->close();
     header("Location: ../protected/sqmembers.php");
