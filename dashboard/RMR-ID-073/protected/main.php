@@ -8,7 +8,10 @@ session_start();
     <title>CapHub MainPage</title>
   </head>
   <body>
-    <h4>Logged in as:</h4> <?php echo $_SESSION['name'];?>
-    <br> <h4>Privlage Level at <h4> <?php echo $_SESSION['privlv'];?>
+    <div class="userid">
+      <?php echo "Logged in as: " . $_SESSION['name'];?>
+      <br>
+      <?php echo "Privlage Level: " . $_SESSION['privlv'];?>
+  </div>
   </body>
 </html>
