@@ -8,7 +8,7 @@
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <img src="../images/banner.png">
+    <a href="../protected/main.php"><img src="../images/banner.png"></a>
     <link rel="stylesheet" type="text/css" href="style.css">
   </head>
   <body>

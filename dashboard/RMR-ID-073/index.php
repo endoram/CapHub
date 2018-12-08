@@ -5,6 +5,7 @@ session_start();
 unset($_SESSION["capid"]);
 unset($_SESSION["password"]);
 unset($_SESSION["privlv"]);
+unset($_SESSION["name"]);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $capid = $_POST['capid'];
@@ -20,6 +21,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       while($row = $result->fetch_assoc()) {
           $db_pass = $row['user_pass'];
           $db_priv = $row['privlage_level'];
+          $db_fname = $row['first_name'];
+          $db_lname = $row['last_name'];
       }
       if ($db_priv >= 1){
         if ($db_pass == $password) {
@@ -27,6 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           $_SESSION['capid'] = $capid;
           $_SESSION['password'] = $password;
           $_SESSION['privlv'] = $db_priv;
+          $_SESSION['name'] = $db_fname . " " . $db_lname;
           header("Location: protected/main.php");
           exit();
         }
