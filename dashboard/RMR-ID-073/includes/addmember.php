@@ -31,13 +31,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $errorMsg = "Invalid cadet or senior option";
     $x = 1;
   }
-  if ($priv == "" or !in_array($priv, array('0','1', '2', '3'), true )) {
-    $errorMsg = "Invalid privlage level";
-    $x = 1;
+  if(isset($_POST['privlage_level'])){
+    if ($priv == "" or !in_array($priv, array('0','1', '2', '3'), true )) {
+      $errorMsg = "Invalid privlage level";
+      $x = 1;
+    }
   }
-  if ($password_password == "") {
-    $errorMsg = "Invalid password";
-    $x = 1;
+  if(isset($_POST['passwod'])){
+    if ($password_password == "") {
+      $errorMsg = "Invalid password";
+      $x = 1;
+    }
   }
   if ($x == 0) {adduser($firstname, $lastname, $capid, $cadetornot, $errorMsg, $priv, $password_password);}
 }
