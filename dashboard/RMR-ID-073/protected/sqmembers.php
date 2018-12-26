@@ -20,6 +20,7 @@ if(isset($_GET['rmuser1'])) {
   require "../includes/config_m.php";
   $query = "DELETE FROM `sq_members` WHERE cap_id=" . $_GET['capidrm'];
   $conn->query($query);
+  $conn->close();
 }
 
 if(isset($_GET['addmember'])) {
