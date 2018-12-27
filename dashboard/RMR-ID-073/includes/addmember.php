@@ -49,6 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 function adduser($firstname, $lastname, $capid, $cadetornot, $errorMsg, $priv, $password_password) {
   require "config_m.php";
 
+  $hash_pass = password_hash($password, PASSWORD_DEFAULT);
   $y = 0;
 
   $query = "SELECT cap_id FROM sq_members WHERE cap_id=" . $capid;
@@ -64,7 +65,7 @@ function adduser($firstname, $lastname, $capid, $cadetornot, $errorMsg, $priv, $
   }
 
   if ($y == 0) {
-    $query = "INSERT INTO sq_members (cap_id, first_name, last_name, cadet_senior, privlage_level, user_pass) VALUES (" . $capid . ",'" . $firstname . "', '" . $lastname . "', '" . $cadetornot . "', '" . $priv . "', '" . $password_password . "')";
+    $query = "INSERT INTO sq_members (cap_id, first_name, last_name, cadet_senior, privlage_level, user_pass) VALUES (" . $capid . ",'" . $firstname . "', '" . $lastname . "', '" . $cadetornot . "', '" . $priv . "', '" . $hash_pass. "')";
     $conn->query($query);
     $conn->close();
     header("Location: ../protected/sqmembers.php");
