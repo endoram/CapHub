@@ -22,10 +22,5 @@
         <li><a href="?logout=1">Log out</a></li>
       </ul>
     </div>
-    <div class="foot">
-      <center>
-        <p>Developed by Spencer McConnell</p>
-      </center>
-    </div>
   </body>
 </html>
