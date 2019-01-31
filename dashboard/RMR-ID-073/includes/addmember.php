@@ -96,7 +96,7 @@ require "config_m.php";
         <label for="capid">CAP ID:</label> <input type="text" name="capid" align="right" value="<?PHP if(isset($_POST['capid'])) echo htmlspecialchars($_POST['capid']); ?>"><br>
         <?php if($_SESSION['privlv'] >= 2){ ?>
           <label for="privlage_level">Privlage Level:</label> <input type="text" name="privlage_level" align="right" value="<?PHP if(isset($_POST['privlage_level'])) echo htmlspecialchars($_POST['privlage_level']); ?>"><br>
-          <label for="passsword">Password:</label> <input type="text" name="password" align="right" value="<?PHP if(isset($_POST['password'])) echo htmlspecialchars($_POST['password']); ?>"><br>
+          <label for="passsword">Password:</label> <input type="password" name="password" align="right" value="<?PHP if(isset($_POST['password'])) echo htmlspecialchars($_POST['password']); ?>"><br>
         <?php } ?>
         <select name="cadetornot">
           <option value="cadet">Cadet</option>
