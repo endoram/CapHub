@@ -5,21 +5,21 @@ session_start();
 
 if(isset($_POST['sent'])) {submit();}
 
-if(isset($_GET['rmuser0'])) {
+if(isset($_GET['rmuser0'])) {     //If user has intered an input
   date_default_timezone_set("America/Denver");
   $time = date("h:i:s");
   $capid = $_GET['capidrm'];
 
-  if ($capid == "" or !is_numeric($capid)) {$errorMsg = "Invalid Cap ID";}
+  if ($capid == "" or !is_numeric($capid)) {$errorMsg = "Invalid Cap ID";}    //Validate all numbers
   else {
     require "../includes/config_m.php";
     unset($_SESSION["name"]);
 
-    $query = "SELECT * FROM sq_members WHERE cap_id=" . $capid;
+    $query = "SELECT * FROM sq_members WHERE cap_id=" . $capid;   //Validate number is a CAPID in the database
     $result = $conn->query($query);
 
     if ($result->num_rows > 0) {
-      while($row = $result->fetch_assoc()) {
+      while($row = $result->fetch_assoc()) {  //Get first and last name from database
         $db_capid = $row['cap_id'];
         $name = $row['first_name'];
         $name0 = $row['last_name'];
@@ -31,14 +31,14 @@ if(isset($_GET['rmuser0'])) {
         $query = "SELECT * FROM meeting_nights WHERE cap_id=" . $db_capid . " AND date='" . $date . "'";
         $result = $conn->query($query);
 
-        if ($result->num_rows > 0) {
+        if ($result->num_rows > 0) {    //If already signed in for that day sign out
           $message = $name . " signed out";
           $date = date("Y/m/d");
           $time = date("h:i:s");
           $query = "UPDATE meeting_nights SET time_out='" . $time . "' WHERE cap_id=" . $capid . " AND date='" . $date . "'";
           $conn->query($query);
         }
-        else {
+        else {      //If not sign you in
           $message = $name . " signed in";
           $date = date("Y/m/d");
           $time = date("h:i:s");
@@ -54,6 +54,7 @@ if(isset($_GET['rmuser0'])) {
   }
 }
 
+//Detects whitch one to display when searching
 if(isset($_GET['name'])) {
   $data = "Name:";  handleit($data);
 }
@@ -79,19 +80,19 @@ function handleit($data) {
   echo '</div>';
 }
 
-function submit() {
-  if($_POST['sent'] == "Name:") {
+function submit() {                 //Input validation
+  if($_POST['sent'] == "Name:") {   //Validation for names
     $firstname = $_POST['input'];
     if (preg_match('/[^A-Z a-z]/', $firstname)) {
       echo "<p style='color: red'>Names don't have numbers in them - try again<p>";
     }
     else {
-      $data = "name LIKE '" . $_POST['input'] . "%'";
-      queryit($data);
+      $data = "name LIKE '" . $_POST['input'] . "%'";   //Query statment
+      queryit($data);     //Take data to be queryed
     }
   }
 
-  if($_POST['sent'] == "CAP ID:") {
+  if($_POST['sent'] == "CAP ID:") { //Validation for CAPID
     $capid = $_POST['input'];
     if(!is_numeric($capid)) {
       echo "<p style='color: red'>Invalid Cap ID<p>";
@@ -102,7 +103,7 @@ function submit() {
     }
   }
 
-  if($_POST['sent'] == "Date(Y/M/D):") {
+  if($_POST['sent'] == "Date(Y/M/D):") {  //Validation for date
     $priv = $_POST['input'];
     if(preg_match('/[^0-9]/', $firstname)) {
       echo "<p style='color: red'>Invalid Datel<p>";
@@ -114,11 +115,12 @@ function submit() {
   }
 }
 
-function queryit($data) {
+function queryit($data) {           //Query the data and present it
   require "../includes/config_m.php";
   $query = "SELECT * FROM meeting_nights WHERE " . $data;
   $result = $conn->query($query);
 
+  //Creating table to display information from query
   echo '<div class="sqsearch">
     <br>
     <table>
@@ -133,7 +135,7 @@ function queryit($data) {
         <th>Time Out</th>
       </tr>';
 
-  if ($result->num_rows > 0) {
+  if ($result->num_rows > 0) {    //If the query is not empty
     while($row = $result->fetch_assoc()) {
         echo "<tr>
         <td>" . $row["date"] . "</td>
@@ -154,6 +156,7 @@ function queryit($data) {
 }
 ?>
 
+<!--Script to handle opeing and closing of search box-->
 <script>
 function openForm() {
     document.getElementById("myForm").style.display = "block";
@@ -165,7 +168,7 @@ function closeForm() {
 </script>
 
 
-
+<!--Start of main html code -->
 <html>
   <head>
     <title>CapHub MeetingNights</title>
@@ -175,7 +178,7 @@ function closeForm() {
     <?php echo "Today is " . date("Y/m/d") . "<br>";?>
     <div class="dropdown">
       <button class="dropbtn">Search for</button>
-      <div class="dropdown-content">
+      <div class="dropdown-content">    <!--Class creating the list of options to search-->
         <p>Search For:</p>
         <a href="?name=1">Name</a>
         <a href="?capid=1">CAP ID</a>
@@ -184,7 +187,7 @@ function closeForm() {
     </div>
     <br>
     <div class="meetingform">
-      <?php
+      <?php       //Handles promting any error messages
       if(isset($errorMsg) && $errorMsg) {
         echo "<p style=\"color: red;\">*",htmlspecialchars($errorMsg),"</p>\n\n";
       }
@@ -194,7 +197,7 @@ function closeForm() {
       ?>
       <label>CAP ID:</label>
       <form action="meeting_nights.php">
-        <input type="text" name="capidrm" autofocus>
+        <input type="text" name="capidrm" autofocus> <!--Getting user's CAPID-->
         <br>
         <input type="submit" value="Submit" name="rmuser0">
       </form>

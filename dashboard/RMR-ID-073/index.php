@@ -13,9 +13,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if(!is_numeric($capid)) {
     $errorMsg = "Invalid Cap ID or password";
   }
+  elseif ($password == '') {
+    $errorMsg = "Invalid Cap ID or password";
+  }
   else {
-    $hash_pass = password_hash($password, PASSWORD_DEFAULT);
-
     $query = "SELECT * FROM sq_members WHERE cap_id=$capid";
     $result = $conn->query($query);
 
@@ -27,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           $db_lname = $row['last_name'];
       }
       if ($db_priv >= 1){
-        if (password_verify($password, $hash_pass)) {
+        if (password_verify($password, $db_pass)) {
           $conn->close();
           $_SESSION['capid'] = $capid;
           $_SESSION['password'] = $password;
