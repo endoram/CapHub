@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $x = 1;
     }
   }
-  if(isset($_POST['passwod'])){
+  if(isset($_POST['password'])){
     if ($password_password == "") {
       $errorMsg = "Invalid password";
       $x = 1;
