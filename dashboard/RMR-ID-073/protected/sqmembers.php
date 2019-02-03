@@ -174,6 +174,7 @@ function closeForm() {
           <ul>
             <li><a href="?export">Export</a><li>
             <li><a href="../includes/addmember.php">Add Member</a><li>
+            <li><a href="../includes/update.php">Update Member</a></li>
             <li><a href="?rmuser=1">Remove Member</a><li>
           </ul>
         </div>

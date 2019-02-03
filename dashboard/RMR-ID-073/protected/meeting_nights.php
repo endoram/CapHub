@@ -106,10 +106,10 @@ function submit() {                 //Input validation
   if($_POST['sent'] == "Date(Y/M/D):") {  //Validation for date
     $priv = $_POST['input'];
     if(preg_match('/[^0-9]/', $firstname)) {
-      echo "<p style='color: red'>Invalid Datel<p>";
+      echo "<p style='color: red'>Invalid Date<p>";
     }
     else {
-      $data = "date='" . $_POST['input'] . "'";
+      $data = "date like'" . $_POST['input'] . "'";
       queryit($data);
     }
   }
