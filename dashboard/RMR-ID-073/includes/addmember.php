@@ -94,49 +94,114 @@ input {
         <p id="length2" class="invalid">Must be <b>at least</b> 6 numbers</p>
       </div>
     </div>
-    <div class="column">
-      <div id="message1">
-        <h3>Privlage Level must be between 0 and 2:</h3>
-        <p id="number1" class="invalid">Not <b>between</b> 0 and 2</p>
-        <p id="length1" class="invalid">Must be <b>Less</b> then 1 character</p>
+    <?php if($_SESSION['privlv'] >= 2){ ?>
+      <div class="column">
+        <div id="message1">
+          <h3>Privlage Level must be between 0 and 2:</h3>
+          <p id="number1" class="invalid">Not <b>between</b> 0 and 2</p>
+          <p id="length1" class="invalid">Must be <b>Less</b> then 1 character</p>
+        </div>
       </div>
-    </div>
-    <div class="column">
-      <div id="message">
-        <h3>Password must contain the following:</h3>
-        <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
-        <p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
-        <p id="number" class="invalid">A <b>number</b></p>
-        <p id="length" class="invalid">Minimum <b>8 characters</b></p>
+      <div class="column">
+        <div id="message">
+          <h3>Password must contain the following:</h3>
+          <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
+          <p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
+          <p id="number" class="invalid">A <b>number</b></p>
+          <p id="length" class="invalid">Minimum <b>8 characters</b></p>
+        </div>
       </div>
-    </div>
+    <?php } ?>
   </body>
 </html>
 
+<?php if($_SESSION['privlv'] >= 2){ ?>
+<script>
+  var privinput = document.getElementById("privlevel");
+  var number1 = document.getElementById("number1");
+  var length1 = document.getElementById("length1");
+
+  var passinput = document.getElementById("psw");
+  var letter = document.getElementById("letter");
+  var capital = document.getElementById("capital");
+  var number = document.getElementById("number");
+  var length = document.getElementById("length");
+
+  privinput.onfocus = function() {document.getElementById("message1").style.display = "block";}
+  privinput.onblur = function() {document.getElementById("message1").style.display = "none";}
+
+  passinput.onfocus = function() {document.getElementById("message").style.display = "block";}
+  passinput.onblur = function() {document.getElementById("message").style.display = "none";}
+
+  privinput.onkeyup = function() {
+    var numbers = /[0-2]/g;
+    if(privinput.value.match(numbers)) {
+      number1.classList.remove("invalid");
+      number1.classList.add("valid");
+    } else {
+      number1.classList.remove("valid");
+      number1.classList.add("invalid");
+    }
+    if(privinput.value.length == 1) {
+      length1.classList.remove("invalid");
+      length1.classList.add("valid");
+    } else {
+      length1.classList.remove("valid");
+      length1.classList.add("invalid");
+    }
+  }
+
+  passinput.onkeyup = function() {
+    // Validate lowercase letters
+    var lowerCaseLetters = /[a-z]/g;
+    if(passinput.value.match(lowerCaseLetters)) {
+      letter.classList.remove("invalid");
+      letter.classList.add("valid");
+    } else {
+      letter.classList.remove("valid");
+      letter.classList.add("invalid");
+    }
+
+    // Validate capital letters
+    var upperCaseLetters = /[A-Z]/g;
+    if(passinput.value.match(upperCaseLetters)) {
+      capital.classList.remove("invalid");
+      capital.classList.add("valid");
+    } else {
+      capital.classList.remove("valid");
+      capital.classList.add("invalid");
+    }
+
+    // Validate numbers
+    var numbers = /[0-9]/g;
+    if(passinput.value.match(numbers)) {
+      number.classList.remove("invalid");
+      number.classList.add("valid");
+    } else {
+      number.classList.remove("valid");
+      number.classList.add("invalid");
+    }
+
+    // Validate length
+    if(passinput.value.length >= 8) {
+      length.classList.remove("invalid");
+      length.classList.add("valid");
+    } else {
+      length.classList.remove("valid");
+      length.classList.add("invalid");
+    }
+  }
+
+</script>
+<?php } ?>
 
 <script>
 var capid1 = document.getElementById("capid");
 var number2 = document.getElementById("number2");
 var length2 = document.getElementById("length2");
 
-var privinput = document.getElementById("privlevel");
-var number1 = document.getElementById("number1");
-var length1 = document.getElementById("length1");
-
-var passinput = document.getElementById("psw");
-var letter = document.getElementById("letter");
-var capital = document.getElementById("capital");
-var number = document.getElementById("number");
-var length = document.getElementById("length");
-
 capid1.onfocus = function() {document.getElementById("message2").style.display = "block";}
 capid1.onblur = function() {document.getElementById("message2").style.display = "none";}
-
-privinput.onfocus = function() {document.getElementById("message1").style.display = "block";}
-privinput.onblur = function() {document.getElementById("message1").style.display = "none";}
-
-passinput.onfocus = function() {document.getElementById("message").style.display = "block";}
-passinput.onblur = function() {document.getElementById("message").style.display = "none";}
 
 capid1.onkeyup = function() {
   var numbers = /[0-9]/g;
@@ -153,65 +218,6 @@ capid1.onkeyup = function() {
   } else {
     length2.classList.remove("valid");
     length2.classList.add("invalid");
-  }
-}
-
-privinput.onkeyup = function() {
-  var numbers = /[0-2]/g;
-  if(privinput.value.match(numbers)) {
-    number1.classList.remove("invalid");
-    number1.classList.add("valid");
-  } else {
-    number1.classList.remove("valid");
-    number1.classList.add("invalid");
-  }
-  if(privinput.value.length == 1) {
-    length1.classList.remove("invalid");
-    length1.classList.add("valid");
-  } else {
-    length1.classList.remove("valid");
-    length1.classList.add("invalid");
-  }
-}
-
-passinput.onkeyup = function() {
-  // Validate lowercase letters
-  var lowerCaseLetters = /[a-z]/g;
-  if(passinput.value.match(lowerCaseLetters)) {
-    letter.classList.remove("invalid");
-    letter.classList.add("valid");
-  } else {
-    letter.classList.remove("valid");
-    letter.classList.add("invalid");
-  }
-
-  // Validate capital letters
-  var upperCaseLetters = /[A-Z]/g;
-  if(passinput.value.match(upperCaseLetters)) {
-    capital.classList.remove("invalid");
-    capital.classList.add("valid");
-  } else {
-    capital.classList.remove("valid");
-    capital.classList.add("invalid");
-  }
-
-  // Validate numbers
-  var numbers = /[0-9]/g;
-  if(passinput.value.match(numbers)) {
-    number.classList.remove("invalid");
-    number.classList.add("valid");
-  } else {
-    number.classList.remove("valid");
-    number.classList.add("invalid");
-  }
-
-  // Validate length
-  if(passinput.value.length >= 8) {
-    length.classList.remove("invalid");
-    length.classList.add("valid");
-  } else {
-    length.classList.remove("valid");
-    length.classList.add("invalid");
   }
 }
 </script>
