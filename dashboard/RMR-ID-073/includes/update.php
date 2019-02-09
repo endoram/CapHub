@@ -1,5 +1,6 @@
 <?php
 session_start();
+require "control_access.php";
 require "config_m.php";
 $y = 0;
 $x = 0;

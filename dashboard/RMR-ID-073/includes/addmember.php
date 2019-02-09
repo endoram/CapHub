@@ -1,5 +1,6 @@
 <?php
   session_start();
+  require "control_access.php";
 
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $firstname = $_POST['firstname'];
