@@ -1,8 +1,5 @@
 <?php
   require "control_access.php";
-  if(isset($_GET['logout'])) {
-    header("Location: ../index.php");
-  }
 ?>
 
 <html>

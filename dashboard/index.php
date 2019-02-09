@@ -1,13 +1,11 @@
 <?php
 session_start();
-
 if(empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] == "off"){
     $redirect = 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
     header('HTTP/1.1 301 Moved Permanently');
     header('Location: ' . $redirect);
     exit();
 }
-
 
 unset($_SESSION["capid"]);
 unset($_SESSION["password"]);
@@ -21,6 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $password = $_POST['password'];
 
   $something = $squadrons . "/config_m.php";
+  $_SESSION['something'] = $something;
   require $something;
 
   if(!is_numeric($capid)) {
@@ -62,11 +61,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   }
 }
 ?>
+<style>
+  h1, h2 {
+    align-self: center;
+    color: #00FF00;
+  }
+
+  body{
+  }
+
+  .loginform {
+    text-align: center;
+    -webkit-transform: translateY(100%);
+    transform: translateY(100%);
+    margin-top: 200px;
+  }
+</style>
 
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <img src="images/banner.png">
   </head>
   <body>
     <div class="loginform">
