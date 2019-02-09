@@ -1,0 +1,263 @@
+/*HEADER MENU*/
+.menubar ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #001489;
+}
+.menubar li {
+  float: left;
+}
+.menubar li a {
+  display: block;
+  color: #000;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  color: white;
+}
+.menubar li a:hover {
+  background-color: #555;
+  color: white;
+}
+
+
+/*HEADER FOOTER*/
+.foot {
+ position: absolute;
+ width: auto;
+ height: auto;
+ bottom: 0px;
+ left: 35%;
+}
+
+/*TABLE IN squadron Members*/
+.leftside {
+  float: left;
+  width: 25%;
+}
+.middle {
+  float: left;
+  width: 75%;
+}
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+@media screen and (max-width: 600px) {
+  .leftside, .middle {
+    width: 100%;
+  }
+}
+
+
+/*MENU FOR SQ members*/
+.sqmenubar ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #d6e3ff;
+}
+.sqmenubar li {
+  float: left;
+}
+.sqmenubar li a {
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 12px 14px;
+  text-decoration: none;
+}
+.sqmenubar li a:hover {
+  background-color: #555;
+  color: white;
+}
+
+
+/*TABLE FOR sqmembers*/
+.sqtable table {
+  width: 75%;
+  margin-left:auto;
+  margin-right:auto;
+  align-items: center;
+  text-align: center;
+  border: 1px solid black;
+}
+.sqsearch table {
+  width: 75%;
+  margin-left:auto;
+  margin-right:auto;
+  align-items: center;
+  text-align: center;
+  border: 4px solid #001489;
+}
+
+.dropbtn {
+    background-color: #001489;
+    color: white;
+    padding: 15px;
+    font-size: 15px;
+    border: none;
+    cursor: pointer;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover .dropbtn {
+    background-color: #3e8e41;
+}
+
+
+/*addmember page*/
+.addmemberform {
+  text-align: center;
+}
+.addmemberform label {
+  color: blue;
+}
+.addmemberform input[type=button], input[type=submit], input[type=reset] {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
+    width: auto;
+}
+.addmemberform input:focus {
+    border: 3px solid #555;
+}
+
+.addmemberform input{
+  input {
+    width: 15%;
+    padding: 6px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 6px;
+    margin-bottom: 16px;
+  }
+}
+
+/* Style the container for inputs */
+.container {
+  background-color: #f1f1f1;
+  padding: 10px;
+}
+
+/* The message box is shown when the user clicks on the password field */
+#message {
+  display:none;
+  background: #f1f1f1;
+  color: #000;
+  position: relative;
+  padding: 5px;
+  margin-top: 5px;
+}
+
+#message p {
+  padding: 5px 35px;
+  font-size: 14px;
+}
+
+/* Add a green text color and a checkmark when the requirements are right */
+.valid {
+  color: green;
+}
+
+.valid:before {
+  position: relative;
+  left: -35px;
+  content: "✔";
+}
+
+/* Add a red text color and an "x" when the requirements are wrong */
+.invalid {
+  color: red;
+}
+
+.invalid:before {
+  position: relative;
+  left: -35px;
+  content: "✖";
+}
+
+.column {
+  background: white;
+  align-self: center;
+  margin: auto;
+  width: 40%;
+  padding: 5px;
+  border-radius: 25px;
+  border: 10px solid lightgrey;
+}
+/* Clear floats after image containers */
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.cancelbutton input {
+    background-color: red;
+}
+
+.deluser input {
+  background-color: red;
+  color: black;
+}
+
+
+.userid {
+  float: right;
+  background-color: red;
+}
+
+.meetingform {
+  text-align: center;
+  -webkit-transform: translateY(100%);
+  transform: translateY(100%);
+  margin-top: 100px;
+}
+.meetingform input[type=button], input[type=submit], input[type=reset] {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+.meetingform input[type=text]:focus {
+  border: 3px solid #555;
+}
