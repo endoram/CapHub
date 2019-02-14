@@ -83,7 +83,7 @@
   margin-left:auto;
   margin-right:auto;
   align-items: center;
-  text-align: center;
+  text-align: left;
   border: 1px solid black;
 }
 .sqsearch table {
@@ -93,6 +93,9 @@
   align-items: center;
   text-align: center;
   border: 4px solid #001489;
+}
+th {
+  background-color: #d6e3ff;
 }
 
 .dropbtn {

@@ -191,10 +191,9 @@ function closeForm() {
               <th>First Name</th>
               <th>Last Name</th>
               <th>CAPID</th>
-              <th>Priv</th>
             </tr>
             <?php
-              $query = "SELECT * FROM sq_members";
+              $query = "SELECT * FROM sq_members WHERE hide=0";
               $result = $conn->query($query);
 
               if ($result->num_rows > 0) {
@@ -203,7 +202,6 @@ function closeForm() {
                   <td>" . $row["first_name"] . "</td>
                   <td>" . $row["last_name"] . "</td>
                   <td>" . $row["cap_id"] . "</td>
-                  <td>" . $row["privlage_level"] . "</td>
                   </tr>";
                 }
               }
