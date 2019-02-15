@@ -97,6 +97,11 @@ function queryit($data) {
   $query = "SELECT * FROM sq_members " . $data;
   $result = $conn->query($query);
 
+  $today = date("D M j G:i:s T Y");
+  $log = $today . ": Added user " . $firstname . " " . $lastname . " By " . $_SESSION['name'];
+  $logfile = "../" . $_SESSION['something'] . "/rmr-id-log.txt";
+  file_put_contents($logfile, $log, FILE_APPEND);
+
   echo '<div class="sqsearch">
     <br>
     <table>

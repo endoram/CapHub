@@ -22,10 +22,10 @@
         <?php } ?>
         <li><a href="sqmembers.php">Squadron</a></li>
         <li><a href="Meeting_nights.php">Meetings</a></li>
-        <?php if($_SESSION['privlv'] <= 1 || $_SESSION['privlv'] == 2 || $_SESSION['privlv'] == 4){ //Only shows up for cadets and Senior working with cadets?>
+        <?php if($_SESSION['privlv'] <= 2 || $_SESSION['privlv'] == 4){ //Only shows up for cadets and Senior working with cadets?>
           <li><a href="physical_testing.php">PT</a></li>
         <?php } ?>
-        <?php if($_SESSION['privlv'] >= 3){ ?>
+        <?php if($_SESSION['privlv'] >= 2){ ?>
           <li><a href="vehicles.php">Vehicles</a></li>
         <?php } ?>
         <li><a href="help.php">Help</a></li>

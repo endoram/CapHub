@@ -7,7 +7,7 @@ if(isset($_POST['sent'])) {submit();}
 
 if(isset($_GET['rmuser0'])) {     //If user has intered an input
   date_default_timezone_set("America/Denver");
-  $time = date("h:i:s");
+  $time = date("H:i:s");
   $capid = $_GET['capidrm'];
 
   if ($capid == "" or !is_numeric($capid)) {$errorMsg = "Invalid Cap ID";}    //Validate all numbers
@@ -34,14 +34,14 @@ if(isset($_GET['rmuser0'])) {     //If user has intered an input
         if ($result->num_rows > 0) {    //If already signed in for that day sign out
           $message = $name . " signed out";
           $date = date("Y/m/d");
-          $time = date("h:i:s");
+          $time = date("H:i:s");
           $query = "UPDATE meeting_nights SET time_out='" . $time . "' WHERE cap_id=" . $capid . " AND date='" . $date . "'";
           $conn->query($query);
         }
         else {      //If not sign you in
           $message = $name . " signed in";
           $date = date("Y/m/d");
-          $time = date("h:i:s");
+          $time = date("H:i:s");
           $capid = $_GET['capidrm'];
 
           $query = "INSERT INTO meeting_nights (date, cap_id, name, time_in) VALUES ('" . $date . "', " .  $capid . ", '" . $name . "', '" . $time . "')";

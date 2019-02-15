@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $password = $_POST['password'];
 
   $something = $squadrons . "/config_m.php";
-  $_SESSION['something'] = $something;
+  $_SESSION['something'] = $squadrons;
   require $something;
 
   if(!is_numeric($capid)) {

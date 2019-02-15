@@ -35,6 +35,12 @@
       $query = "INSERT INTO sq_members (cap_id, first_name, last_name, cadet_senior, privlage_level, user_pass) VALUES (" . $capid . ",'" . $firstname . "', '" . $lastname . "', '" . $cadetornot . "', '" . $priv . "', '" . $hash_pass. "')";
       $conn->query($query);
       $conn->close();
+
+      $today = date("D M j G:i:s T Y");
+      $log = $today . ": Added user " . $firstname . " " . $lastname . " By " . $_SESSION['name'];
+      $logfile = "../" . $_SESSION['something'] . "/rmr-id-log.txt";
+      file_put_contents($logfile, $log, FILE_APPEND);
+
       header("Location: ../protected/sqmembers.php");
     }
     $conn->close();
