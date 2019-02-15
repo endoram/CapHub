@@ -1,8 +1,6 @@
 <?php
 require "../includes/header.php";
 
-session_start();
-
 if(isset($_POST['sent'])) {submit();}
 
 if(isset($_GET['rmuser0'])) {     //If user has intered an input

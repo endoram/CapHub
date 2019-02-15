@@ -38,7 +38,7 @@
 
       $today = date("D M j G:i:s T Y");
       $log = $today . ": Added user " . $firstname . " " . $lastname . " By " . $_SESSION['name'];
-      $logfile = "../" . $_SESSION['something'] . "/rmr-id-log.txt";
+      $logfile = "../" . $_SESSION['something'] . "/log.txt";
       file_put_contents($logfile, $log, FILE_APPEND);
 
       header("Location: ../protected/sqmembers.php");

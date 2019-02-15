@@ -1,5 +1,4 @@
 <?php
-session_start();
 
 $something = "../" . $_SESSION['something'] . "/config_m.php";
 require $something;
