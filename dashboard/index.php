@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $capid = $_POST['capid'];
   $password = $_POST['password'];
 
-  $something = $squadrons . "/config_m.php";
+  $something = "squadrons/" .  $squadrons . "/config_m.php";
   $_SESSION['something'] = $squadrons;
   require $something;
 
