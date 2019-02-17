@@ -143,9 +143,10 @@ if(isset($_POST['sent'])) {submit();}
 
 <script src="../libs/jquery-3.2.1.js"></script>
 <script src="../libs/jquery-ui.js"></script>
-<link href="../libs/tabulator.min.css" rel="stylesheet">
-<script type="text/javascript" src="../libs/tabulator.min.js">
+<link href="../libs/tabulator.min.css" rel="stylesheet"></script>
+<script src="../libs/tabulator.min.js"></script>
 
+<script>
 function openForm() {
     document.getElementById("myForm").style.display = "block";
 }
@@ -185,31 +186,30 @@ function closeForm() {
         </div>
       </div>
       <div class="middle">
-        <div id="sq_table" class="sqtable"></div>
+        <div id="example-table"></div>
         <script>
         function reqListener () {
           console.log(this.responseText);
         }
-
         var oReq = new XMLHttpRequest();
         oReq.onload = function() {
           var tabledata = this.responseText;
 
-          $( function() {
-            $("#sq_table").tabulator({
-              layout:"fitDataFill",
-              fitColumns:true,
-              columns:[
-                {title:"CAP ID", field:"cap_id", sorter:"string"},
-                {title:"First Name", field:"first_name", sorter:"string", align:"left"},
-                {title:"Last Name", field:"last_name", sorter:"string"},
-              ],
-              rowClick:function(e, id, data, row){
-                  alert("Row " + id + " Clicked!!!!");
-              },
-            });
-            $("#sq_table").tabulator("setData", tabledata);
+          var table = new Tabulator("#example-table", {
+            layout:"fitColumns",
+            fitColumns:true,
+            selectable:true,
+            columns:[
+              {title:"CAP ID", field:"cap_id", sorter:"string"},
+              {title:"First Name", field:"first_name", sorter:"string"},
+              {title:"Last Name", field:"last_name", sorter:"string"},
+            ],
+            rowSelectionChanged:function(data, rows){
+                //update selected row counter on selection change
+              $("#select-stats span").text(data.length);
+            },
           });
+        table.setData(tabledata);
         };
         oReq.open("get", "../includes/sqmem_get-data.php", true);
         oReq.send();
