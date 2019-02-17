@@ -2,6 +2,8 @@
 require "../includes/header.php";
 require "../includes/config_m.php";
 
+$_SESSION['table'] = 0;
+
 if(isset($_GET['export'])){
 
 }
@@ -139,8 +141,11 @@ function queryit($data) {
 if(isset($_POST['sent'])) {submit();}
 ?>
 
+<script src="../libs/jquery-3.2.1.js"></script>
+<script src="../libs/jquery-ui.js"></script>
+<link href="../libs/tabulator.min.css" rel="stylesheet">
+<script type="text/javascript" src="../libs/tabulator.min.js">
 
-<script>
 function openForm() {
     document.getElementById("myForm").style.display = "block";
 }
@@ -180,39 +185,35 @@ function closeForm() {
         </div>
       </div>
       <div class="middle">
-        <div class="sqtable">
-          <br>
-          <table>
-            <colgroup>
-              <col span="3" style="background-color:lightgrey">
-              <col style="background-color:red">
-            </colgroup>
-            <tr>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>CAPID</th>
-            </tr>
-            <?php
-              $query = "SELECT * FROM sq_members WHERE hide=0";
-              $result = $conn->query($query);
+        <div id="sq_table" class="sqtable"></div>
+        <script>
+        function reqListener () {
+          console.log(this.responseText);
+        }
 
-              if ($result->num_rows > 0) {
-                while($row = $result->fetch_assoc()) {
-                  echo "<tr>
-                  <td>" . $row["first_name"] . "</td>
-                  <td>" . $row["last_name"] . "</td>
-                  <td>" . $row["cap_id"] . "</td>
-                  </tr>";
-                }
-              }
-              else {
-              echo "0 results";
-              $conn->close();
-              }
-              $conn->close();
-            ?>
-          </table>
-        </div>
+        var oReq = new XMLHttpRequest();
+        oReq.onload = function() {
+          var tabledata = this.responseText;
+
+          $( function() {
+            $("#sq_table").tabulator({
+              layout:"fitDataFill",
+              fitColumns:true,
+              columns:[
+                {title:"CAP ID", field:"cap_id", sorter:"string"},
+                {title:"First Name", field:"first_name", sorter:"string", align:"left"},
+                {title:"Last Name", field:"last_name", sorter:"string"},
+              ],
+              rowClick:function(e, id, data, row){
+                  alert("Row " + id + " Clicked!!!!");
+              },
+            });
+            $("#sq_table").tabulator("setData", tabledata);
+          });
+        };
+        oReq.open("get", "../includes/sqmem_get-data.php", true);
+        oReq.send();
+        </script>
       </div>
     </div>
   </body>

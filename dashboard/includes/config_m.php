@@ -1,5 +1,7 @@
 <?php
-
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 $something = "../squadrons/" . $_SESSION['something'] . "/config_m.php";
 require $something;
 
