@@ -22,6 +22,7 @@ if(isset($_GET['rmuser0'])) {     //If user has intered an input
         $name = $row['first_name'];
         $name0 = $row['last_name'];
         $name = $name . ' ' . $name0;
+        $membertype = $row['member_type'];
       }
       if($db_capid == $capid) {
         $date = date("Y/m/d");
@@ -42,8 +43,10 @@ if(isset($_GET['rmuser0'])) {     //If user has intered an input
           $time = date("H:i:s");
           $capid = $_GET['capidrm'];
 
-          $query = "INSERT INTO meeting_nights (date, cap_id, name, time_in) VALUES ('" . $date . "', " .  $capid . ", '" . $name . "', '" . $time . "')";
-          $conn->query($query);
+          $query = "INSERT INTO meeting_nights (date, cap_id, name, time_in, member_type) VALUES ('" . $date . "', " .  $capid . ", '" . $name . "', '" . $time . "','" . $membertype . "')";
+          echo $query;
+          echo $row['member_type'];
+        $conn->query($query);
         }
       }
     }
