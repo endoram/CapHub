@@ -51,7 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $errorMsg = "Invalid cadet or senior option";
     }
     else {
-      $querys[] = $query3 = "UPDATE sq_members SET cadet_senior = $cadetornot WHERE cap_id = " . $_SESSION['cap_id'] ;
+      $querys[] = $query3 = "UPDATE sq_members SET member_type = $cadetornot WHERE cap_id = " . $_SESSION['cap_id'] ;
     }
   }
   if (isset($_POST['priv'])){

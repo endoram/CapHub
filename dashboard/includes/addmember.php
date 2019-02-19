@@ -32,7 +32,7 @@
     }
 
     if ($y == 0) {
-      $query = "INSERT INTO sq_members (cap_id, first_name, last_name, cadet_senior, privlage_level, user_pass) VALUES (" . $capid . ",'" . $firstname . "', '" . $lastname . "', '" . $cadetornot . "', '" . $priv . "', '" . $hash_pass. "')";
+      $query = "INSERT INTO sq_members (cap_id, first_name, last_name, member_type, privlage_level, user_pass) VALUES (" . $capid . ",'" . $firstname . "', '" . $lastname . "', '" . $cadetornot . "', '" . $priv . "', '" . $hash_pass. "')";
       $conn->query($query);
       $conn->close();
 
@@ -63,6 +63,7 @@ input {
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../protected/style.css">
+    <a href="../protected/main.php"><img src="../images/banner.png"></a>
     <title>CapHub Add Member</title>
   </head>
   <body>
