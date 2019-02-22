@@ -3,30 +3,6 @@ require "../includes/header.php";
 require "../includes/config_m.php";
 $_SESSION["table"] = 1;
 
-if(isset($_GET['export'])){
-
-}
-if(isset($_GET['rmuser'])) {
-  echo "Enter CAPID of user to remove:";
-  echo "<br>";
-  echo '
-    <div class="deluser">
-      <form action="sqmembers.php">
-        <input type="text" name="capidrm">
-        <input type="submit" value="Remove Users" name="rmuser1">
-      </form>
-    </div>';
-}
-if(isset($_GET['rmuser1'])) {
-  require "../includes/config_m.php";
-  $query = "DELETE FROM `sq_members` WHERE cap_id=" . $_GET['capidrm'];
-  $conn->query($query);
-  $conn->close();
-}
-
-if(isset($_GET['addmember'])) {
-  header("Location: ../includes/addmember.php");
-}
 
 if(isset($_GET['firstname'])) {
   $data = "Firstname:"; handleit($data);
@@ -55,6 +31,11 @@ function handleit($data) {
   echo '</form>';
   echo '</div>';
 }
+
+if(isset($_POST['myData'])){
+ $obj = $_POST['myData'];
+ echo $obj;
+}
 ?>
 
 <script>
@@ -67,7 +48,6 @@ function closeForm() {
 }
 </script>
 
-
 <script src="../libs/jquery-3.2.1.js"></script>
 <script src="../libs/jquery-ui.js"></script>
 <link href="../libs/tabulator.min.css" rel="stylesheet"></script>
@@ -78,6 +58,7 @@ function closeForm() {
     echo  '<div id="life">
         <input id="clickMe" type="button" value="New Row" onclick="myFunction();" />
         <input id="clickMe1" type="button" value="save" onclick="myFunction();" />
+        <input id="clickMe2" type="button" name="finish" value="Finish" onclick="myFunction2();"/>
         </div>';
     echo '<div id="example-table"></div>';
     $hide = 0;
@@ -98,7 +79,6 @@ function closeForm() {
       var oReq = new XMLHttpRequest();
       oReq.onload = function() {
         var tabledata = this.responseText;
-      //  alert(tabledata);
 
         var table = new Tabulator("#example-table", {
           layout:"fitColumns",
@@ -114,22 +94,38 @@ function closeForm() {
       	    {title:"Sit & Reach", field:"sit_reach", editor:"input", width:250},
           ],
           rowSelectionChanged:function(data, rows){
-              //update selected row counter on selection change
           	$("#select-stats span").text(data.length);
           },
           dataEdited:function(data){
-            var data1 = table.getData();
-            console.log(data1);
           },
         });
 
         document.getElementById("clickMe").onclick = function myFunction() {
             table.addRow({});
         }
-        document.getElementById("clickMe1").onclick = function save() {
+        document.getElementById("clickMe1").onclick = function Save() {
           var data1 = table.getData();
-          console.log(data1);
-          alert(data1);
+          data1 = JSON.stringify(data1);
+
+          $.ajax({
+            url: '../includes/sqmem_get-data.php',
+            data: 'myData=' + data1 ,
+            success: function(data) {
+              alert(data);
+            }
+          });
+        }
+        document.getElementById("clickMe2").onclick = function finish() {
+          var data1 = table.getData();
+          data1 = JSON.stringify(data1);
+
+          $.ajax({
+            url: '../includes/sqmem_get-data.php',
+            data: {myData: data1, stuff: "1" },
+            success: function(data) {
+              alert(data);
+            }
+          });
         }
 
         table.setData(tabledata);
@@ -156,6 +152,5 @@ function closeForm() {
         </div>
       </div>
     <?php }?>
-
   </body>
 </html>
