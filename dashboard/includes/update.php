@@ -99,7 +99,7 @@ function queryit($data) {
 
   $today = date("D M j G:i:s T Y");
   $log = $today . ": Added user " . $firstname . " " . $lastname . " By " . $_SESSION['name'];
-  $logfile = "../" . $_SESSION['something'] . "/log.txt";
+  $logfile = "../squadrons/" . $_SESSION['something'] . "/log.txt";
   file_put_contents($logfile, $log, FILE_APPEND);
 
   echo '<div class="sqsearch">

@@ -7,16 +7,21 @@
     $lastname = $_POST['lastname'];
     $capid = $_POST['capid'];
     $cadetornot = $_POST['cadetornot'];
-    $priv = $_POST['privlage_level'];
-    $password_password = $_POST['password'];
-
-    adduser($firstname, $lastname, $capid, $cadetornot, $errorMsg, $priv, $password_password);
+    if($_SESSION['privlv'] <= 1){
+      $priv = "0";
+      $password_password = NULL;
+    }
+    else {
+      $priv = $_POST['privlage_level'];
+      $password_password = $_POST['password'];
+    }
+    adduser($firstname, $lastname, $capid, $cadetornot, $priv, $password_password);
   }
 
-  function adduser($firstname, $lastname, $capid, $cadetornot, $errorMsg, $priv, $password_password) {
+  function adduser($firstname, $lastname, $capid, $cadetornot, $priv, $password_password) {
     require "config_m.php";
 
-    $hash_pass = password_hash($password, PASSWORD_DEFAULT);
+    $hash_pass = password_hash($password_password, PASSWORD_DEFAULT);
     $y = 0;
 
     $query = "SELECT cap_id FROM sq_members WHERE cap_id=" . $capid;
@@ -38,12 +43,11 @@
 
       $today = date("D M j G:i:s T Y");
       $log = $today . ": Added user " . $firstname . " " . $lastname . " By " . $_SESSION['name'];
-      $logfile = "../" . $_SESSION['something'] . "/log.txt";
+      $logfile = "../squadrons/" . $_SESSION['something'] . "/log.txt";
       file_put_contents($logfile, $log, FILE_APPEND);
-
       header("Location: ../protected/sqmembers.php");
     }
-    $conn->close();
+    else {$conn->close();}
   }
 ?>
 
