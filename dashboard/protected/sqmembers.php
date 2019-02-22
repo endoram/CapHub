@@ -134,7 +134,6 @@ function queryit($data) {
     echo "<h4 style='color: darkyellow'>No Reults found</h4>";
     $conn->close();
   }
-  $conn->close();
   echo "</table></div></div>";
 }
 
@@ -200,9 +199,9 @@ function closeForm() {
             fitColumns:true,
             selectable:true,
             columns:[
-              {title:"CAP ID", field:"cap_id", sorter:"string"},
               {title:"First Name", field:"first_name", sorter:"string"},
               {title:"Last Name", field:"last_name", sorter:"string"},
+              {title:"CAP ID", field:"cap_id", sorter:"string"},
             ],
             rowSelectionChanged:function(data, rows){
                 //update selected row counter on selection change
