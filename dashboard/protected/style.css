@@ -46,7 +46,8 @@
     display: table;
     clear: both;
 }
-@media screen and (max-width: 600px) {
+
+@media only screen and (max-device-width: 480px) {
   .leftside, .middle {
     width: 100%;
   }
@@ -263,4 +264,15 @@ th {
 }
 .meetingform input[type=text]:focus {
   border: 3px solid #555;
+}
+
+.newptrecord input[type=submit] {
+  min-height: 10%;
+  display: block;
+  background-color: darkblue;
+  color: whitesmoke;
+  margin-left: auto;
+  margin-right: auto;
+  vertical-align: middle;
+  width: 11em;
 }
