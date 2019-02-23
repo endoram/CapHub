@@ -21,7 +21,15 @@
   background-color: #555;
   color: white;
 }
+.dropdownheader button {display: none;}
+.menubar ul {display: block;}
 
+@media (max-width: 800px) {
+  .menubar ul{
+     display: none;
+   }
+  .dropdownheader button {display: block;}
+}
 
 /*HEADER FOOTER*/
 .foot {
@@ -107,7 +115,20 @@ th {
     border: none;
     cursor: pointer;
 }
+/*Phone Header*/
+.dropdownheader {
+    position: relative;
+    display: inline-block;
+}
+.dropdownheader:hover .dropdown-content {
+    display: block;
+}
+.dropdownheader:hover .dropbtn {
+    background-color: #3e8e41;
+}
 
+
+/*Dearch options*/
 .dropdown {
     position: relative;
     display: inline-block;
@@ -275,4 +296,68 @@ th {
   margin-right: auto;
   vertical-align: middle;
   width: 11em;
+}
+
+.life {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+}
+
+#clickMe {
+  margin: 0 auto;
+  border-radius: 10px;
+  width: 10%;
+  height: 15%;
+  background-color: darkblue;
+  border-color: red;
+  color: white;
+}
+#clickMe1 {
+  margin: 0 auto;
+  border-radius: 10px;
+  width: 10%;
+  height: 15%;
+  background-color: darkblue;
+  border-color: red;
+  color: white;
+}
+#clickMe2 {
+  margin: 0 auto;
+  border-radius: 10px;
+  width: 10%;
+  height: 15%;
+  background-color: darkblue;
+  border-color: red;
+  color: white;
+}
+
+@media (max-width: 800px) {
+  #clickMe {
+    margin: 0 auto;
+    border-radius: 10px;
+    width: auto;
+    height: auto;
+    background-color: darkblue;
+    border-color: red;
+    color: white;
+  }
+  #clickMe1 {
+    margin: 0 auto;
+    border-radius: 10px;
+    width: auto;
+    height: auto;
+    background-color: darkblue;
+    border-color: red;
+    color: white;
+  }
+  #clickMe2 {
+    margin: 0 auto;
+    border-radius: 10px;
+    width: auto;
+    height: auto;
+    background-color: darkblue;
+    border-color: red;
+    color: white;
+  }
 }
