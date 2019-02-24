@@ -1,8 +1,6 @@
 <?php
 require "../includes/header.php";
 require "../includes/config_m.php";
-$_SESSION["table"] = 1;
-
 
 if(isset($_GET['firstname'])) {
   $data = "Firstname:"; handleit($data);
@@ -55,13 +53,15 @@ function closeForm() {
 
 <?php
   if(isset($_POST['input'])) {
-    echo  '<div id="life">
+    echo  '<div class="life">
+      <br>
         <input id="clickMe" type="button" value="New Row" onclick="myFunction();" />
         <input id="clickMe1" type="button" value="save" onclick="myFunction();" />
         <input id="clickMe2" type="button" name="finish" value="Finish" onclick="myFunction2();"/>
         </div>';
     echo '<div id="example-table"></div>';
     $hide = 0;
+    $_SESSION["table"] = 1;
   }
   else { $hide = 1; }
 ?>
@@ -81,17 +81,20 @@ function closeForm() {
         var tabledata = this.responseText;
 
         var table = new Tabulator("#example-table", {
+          height:"500px",
+          autoResize:true,
+          selectable:false,
+          responseiveLayout:"hide",
           layout:"fitColumns",
-          fitColumns:true,
           addRowPos:"top",
           columns:[
-      	    {title:"Name", field:"name", editor:"input", width:200},
-            {title:"Age", field:"age", editor:"input", width:150},
-      	    {title:"Push Ups", field:"push_ups", editor:"input", width:150},
-      	    {title:"Sit Ups", field:"sit_ups", editor:"input", width:150},
-      	    {title:"Mile Run", field:"mile_run", editor:"input", width:200},
-      	    {title:"Pacer Test", field:"pacer_test", editor:"input", width:200},
-      	    {title:"Sit & Reach", field:"sit_reach", editor:"input", width:250},
+      	    {title:"Name", field:"name", editor:"input", minWidth:"150px"},
+            {title:"Age", field:"age", editor:"input", minWidth:"75"},
+      	    {title:"Push Ups", field:"push_ups", editor:"input", minWidth:"100"},
+      	    {title:"Sit Ups", field:"sit_ups", editor:"input", minWidth:"100"},
+      	    {title:"Mile Run", field:"mile_run", editor:"input", minWidth:"100"},
+      	    {title:"Pacer Test", field:"pacer_test", editor:"input", minWidth:"100"},
+      	    {title:"Sit & Reach", field:"sit_reach", editor:"input", minWidth:"100"},
           ],
           rowSelectionChanged:function(data, rows){
           	$("#select-stats span").text(data.length);
@@ -111,7 +114,6 @@ function closeForm() {
             url: '../includes/sqmem_get-data.php',
             data: 'myData=' + data1 ,
             success: function(data) {
-              alert(data);
             }
           });
         }

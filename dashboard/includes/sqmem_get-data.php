@@ -10,21 +10,41 @@ if (isset($_GET['myData'])) {
   file_put_contents($logfile, $mydata, FILE_APPEND);
 
   if (isset($_GET['stuff']) == 1) {
-    echo "Moveing on";
-    $_SESSION['table'] == 5;
-    $regex = "/\{(.*?)\}/";
-    $keywords = preg_split($regex, $mydata);
-    echo "IT WORKS IF YOU CAN SEE PAST THIS POINT";
-  //  echo $keywords;
+    $file = fopen($logfile, "r") or die("Unable to open file");
+    $contents = fgets($file);
+    fclose($file);
+
+    $search = array("[", "]", ":", 'age', "name", "push_ups", "sit_ups", "mile_run", "pacer_test", "sit_reach", ",,", ",,,", ",,,,", ",,,,,", ",,,,,,", ",,,,,,,");
+    $contents = str_replace($search, "", $contents);
+
+    $search = array("},{");
+    $contents = str_replace($search, "),(", $contents);
+    $contents = str_replace("{),(", "", $contents);
+    $search = array("}", "{");
+    $contents = str_replace($search, "", $contents);
+    $contents = str_replace(',""', ",", $contents);
+    $contents = str_replace('("""', '("', $contents);
+    $contents = str_replace('"""', '"', $contents);
+    $contents = str_replace("(),", '', $contents);
+
+
+    $query = "INSERT INTO physical_testing (name, age, push_ups, sit_ups, mile_run, pacer_test, sit_reach) VALUES ($contents)";
+    $query = $query . ";";
+    echo $query;
+    require 'config_m.php';
+    $conn->query($query);
+    $conn->close();
   }
   else {$_SESSION['table'] == 5;}
 }
+
 
 if ($_SESSION['table'] == 0) {
   $query = "SELECT * FROM sq_members WHERE hide=0";
   queryit($query);
 }
 if ($_SESSION['table'] == 1) {
+  $_SESSION['table'] == 5;
   date_default_timezone_set("America/Denver");
   $date = date("Y/m/d");
   $query = "SELECT name FROM meeting_nights WHERE member_type='cadet' AND date='$date'";
