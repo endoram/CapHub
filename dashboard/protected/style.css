@@ -50,9 +50,9 @@
   width: 75%;
 }
 .row:after {
-    content: "";
-    display: table;
-    clear: both;
+  content: "";
+  display: table;
+  clear: both;
 }
 
 @media only screen and (max-device-width: 480px) {

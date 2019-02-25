@@ -73,22 +73,15 @@ function closeForm() {
   </head>
   </body>
     <script>
-      function reqListener () {
-        console.log(this.responseText);
-      }
-      var oReq = new XMLHttpRequest();
-      oReq.onload = function() {
-        var tabledata = this.responseText;
-
         var table = new Tabulator("#example-table", {
           height:"500px",
-          autoResize:true,
           selectable:false,
-          responseiveLayout:"hide",
+          resizableColumns:false,
           layout:"fitColumns",
           addRowPos:"top",
           columns:[
-      	    {title:"Name", field:"name", editor:"input", minWidth:"150px"},
+      	    {title:"Name", field:"name", editor:"input", minWidth:"150px", frozen:true},
+            {title:"CAP ID", field:"cap_id", editor:"input", minWidth:"100px"},
             {title:"Age", field:"age", editor:"input", minWidth:"75"},
       	    {title:"Push Ups", field:"push_ups", editor:"input", minWidth:"100"},
       	    {title:"Sit Ups", field:"sit_ups", editor:"input", minWidth:"100"},
@@ -99,12 +92,10 @@ function closeForm() {
           rowSelectionChanged:function(data, rows){
           	$("#select-stats span").text(data.length);
           },
-          dataEdited:function(data){
-          },
         });
 
         document.getElementById("clickMe").onclick = function myFunction() {
-            table.addRow({});
+            table.addRow({name:"Insert Name", cap_id:" ", age:" ", push_ups:" ", sit_ups:" ", mile_run:" ", pacer_test:" ", sit_reach:" "});
         }
         document.getElementById("clickMe1").onclick = function Save() {
           var data1 = table.getData();
@@ -125,15 +116,18 @@ function closeForm() {
             url: '../includes/sqmem_get-data.php',
             data: {myData: data1, stuff: "1" },
             success: function(data) {
-              alert(data);
+              window.location.replace("../protected/physical_testing.php");
             }
           });
         }
-
-        table.setData(tabledata);
-    };
-    oReq.open("get", "../includes/sqmem_get-data.php", true);
-    oReq.send();
+      $.ajax({
+        url: '../includes/sqmem_get-data.php',
+        data: 'stuffmore=1',
+        success: function(data) {
+          var tabledata = data;
+          table.addData(tabledata);
+        }
+      });
     </script>
 
     <?php if($hide == 1) {?>

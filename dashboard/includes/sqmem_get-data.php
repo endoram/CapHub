@@ -14,7 +14,7 @@ if (isset($_GET['myData'])) {
     $contents = fgets($file);
     fclose($file);
 
-    $search = array("[", "]", ":", 'age', "name", "push_ups", "sit_ups", "mile_run", "pacer_test", "sit_reach", ",,", ",,,", ",,,,", ",,,,,", ",,,,,,", ",,,,,,,");
+    $search = array("[", "]", ":", 'age', "cap_id", "name", "push_ups", "sit_ups", "mile_run", "pacer_test", "sit_reach", ",,", ",,,", ",,,,", ",,,,,", ",,,,,,", ",,,,,,,");
     $contents = str_replace($search, "", $contents);
 
     $search = array("},{");
@@ -28,7 +28,7 @@ if (isset($_GET['myData'])) {
     $contents = str_replace("(),", '', $contents);
 
 
-    $query = "INSERT INTO physical_testing (name, age, push_ups, sit_ups, mile_run, pacer_test, sit_reach) VALUES ($contents)";
+    $query = "INSERT INTO physical_testing (name, cap_id, age, push_ups, sit_ups, mile_run, pacer_test, sit_reach) VALUES ($contents)";
     $query = $query . ";";
     echo $query;
     require 'config_m.php';
@@ -43,12 +43,27 @@ if ($_SESSION['table'] == 0) {
   $query = "SELECT * FROM sq_members WHERE hide=0";
   queryit($query);
 }
-if ($_SESSION['table'] == 1) {
+
+if (isset($_GET['stuffmore']) == 1) {
+  require 'config_m.php';
   $_SESSION['table'] == 5;
+
   date_default_timezone_set("America/Denver");
   $date = date("Y/m/d");
-  $query = "SELECT name FROM meeting_nights WHERE member_type='cadet' AND date='$date'";
-  queryit($query);
+
+  $query = "SELECT name, cap_id FROM meeting_nights WHERE member_type='cadet' AND date='$date'";
+  $result = $conn->query($query);
+  $conn->close();$row1 = "";
+
+  if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+      $row1 = '{"name":"' . $row['name'] . '", "cap_id":"' . $row['cap_id'] . '", "age":" ", "push_ups":" ", "sit_ups":" ", "mile_run":" ", "pacer_test":" ", "sit_reach":" "}' . $row1;
+    }
+    $row1 = str_replace("}{", '},{', $row1);
+    $row1 = "[" . $row1 . "]";
+    echo $row1;
+  }
+#  echo json_encode($row1);
 }
 
 function queryit($query) {
