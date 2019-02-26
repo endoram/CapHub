@@ -38,6 +38,10 @@ if (isset($_GET['myData'])) {
   else {$_SESSION['table'] == 5;}
 }
 
+if ($_GET['recover'] == 1) {
+  $logfile = "../squadrons/" . $_SESSION['something'] . "/pt_log.txt";
+  echo file_get_contents($logfile);
+}
 
 if ($_SESSION['table'] == 0) {
   $query = "SELECT * FROM sq_members WHERE hide=0";
@@ -63,7 +67,6 @@ if (isset($_GET['stuffmore']) == 1) {
     $row1 = "[" . $row1 . "]";
     echo $row1;
   }
-#  echo json_encode($row1);
 }
 
 function queryit($query) {

@@ -58,6 +58,7 @@ function closeForm() {
         <input id="clickMe" type="button" value="New Row" onclick="myFunction();" />
         <input id="clickMe1" type="button" value="save" onclick="myFunction();" />
         <input id="clickMe2" type="button" name="finish" value="Finish" onclick="myFunction2();"/>
+        <input id="clickMe3" type="button" name="recover" value="Recover Last Save" onclick="myFunction3();"/>
         </div>';
     echo '<div id="example-table"></div>';
     $hide = 0;
@@ -120,6 +121,18 @@ function closeForm() {
             }
           });
         }
+        document.getElementById("clickMe3").onclick = function recover() {
+          $.ajax({
+            url: '../includes/sqmem_get-data.php',
+            data: 'recover=1',
+            success: function(data) {
+              var tabledata = data;
+              table.clearData();
+              table.addData(tabledata);
+            }
+          });
+        }
+
       $.ajax({
         url: '../includes/sqmem_get-data.php',
         data: 'stuffmore=1',
@@ -138,15 +151,14 @@ function closeForm() {
       </div>
       <br>
       <div class="dropdown">
-        <button class="dropbtn">Search Opt.</button>
+        <button class="dropbtn">Options</button>
         <div class="dropdown-content">
-          <p>Search by:</p>
           <a href="?firstname=1">First Name</a>
           <a href="?lastname=1">Last Name</a>
           <a href="?capid">CAP ID</a>
           <a href="?priv">Privlage</a>
+          <a href="?recover=1">Recover Last Save</a>
         </div>
-      </div>
     <?php }?>
   </body>
 </html>
