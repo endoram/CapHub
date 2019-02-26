@@ -1,25 +1,27 @@
 <?php
 require "../includes/header.php";
-require "../includes/config_m.php";
 
-if(isset($_GET['firstname'])) {
-  $data = "Firstname:"; handleit($data);
-}
-if(isset($_GET['lastname'])) {
-  $data = "Lastname:"; handleit($data);
+if(isset($_POST['sent'])) {submit();}
+
+//Detects whitch one to display when searching
+if(isset($_GET['name'])) {
+  $data = "Name:";  handleit($data);
 }
 if(isset($_GET['capid'])) {
   $data = "CAP ID:"; handleit($data);
+}
+if(isset($_GET['date'])) {
+  $data = "Date(YY-MM-DD):"; handleit($data);
 }
 if(isset($_GET['priv'])) {
   $data = "Privlage Level:"; handleit($data);
 }
 
 function handleit($data) {
-  unset($_GET['firstname, lastname, capid, priv']);
+  unset($_GET['firstname, lastname, capid']);
 
   echo '<div class="form-popup" id="myForm">';
-  echo '<form method="post" action="sqmembers.php" class="form-container">';
+  echo '<form method="post" action="physical_testing.php" class="form-container">';
 
   echo '<label for="input"><b>' . $data . '</b></label>';
   echo '<input type="text" name="input" required>';
@@ -30,12 +32,90 @@ function handleit($data) {
   echo '</div>';
 }
 
-if(isset($_POST['myData'])){
- $obj = $_POST['myData'];
- echo $obj;
+function submit() {                 //Input validation
+  if($_POST['sent'] == "Name:") {   //Validation for names
+    $firstname = $_POST['input'];
+    if (preg_match('/[^A-Z a-z]/', $firstname)) {
+      echo "<p style='color: red'>Names don't have numbers in them - try again<p>";
+    }
+    else {
+      $data = "name LIKE '" . $_POST['input'] . "%'";   //Query statment
+      queryit($data);     //Take data to be queryed
+    }
+  }
+
+  if($_POST['sent'] == "CAP ID:") { //Validation for CAPID
+    $capid = $_POST['input'];
+    if(!is_numeric($capid)) {
+      echo "<p style='color: red'>Invalid Cap ID<p>";
+    }
+    else {
+      $data = "cap_id LIKE '" . $_POST['input'] . "%'";
+      queryit($data);
+    }
+  }
+
+  if($_POST['sent'] == "Date(YY-MM-DD):") {  //Validation for date
+    if($_POST['input'] == "") {
+      echo "<p style='color: red'>Invalid Date<p>";
+    }
+    else {
+      $data = "date='" . $_POST['input'] . "%'";
+      queryit($data);
+    }
+  }
+}
+
+function queryit($data) {           //Query the data and present it
+  require "../includes/config_m.php";
+  $query = "SELECT * FROM physical_testing WHERE " . $data;
+  $result = $conn->query($query);
+
+  //Creating table to display information from query
+  echo '<div class="sqsearch">
+    <br>
+    <table>
+      <colgroup>
+        <col span="9" style="background-color:lightgrey">
+      </colgroup>
+      <tr>
+        <th>Name</th>
+        <th>CAP ID</th>
+        <th>Age</th>
+        <th>Push_ups</th>
+        <th>sit_ups</th>
+        <th>mile_run</th>
+        <th>pacer_test</th>
+        <th>sit_reach</th>
+        <th>data</th>
+      </tr>';
+
+  if ($result->num_rows > 0) {    //If the query is not empty
+    while($row = $result->fetch_assoc()) {
+        echo "<tr>
+        <td>" . $row["name"] . "</td>
+        <td>" . $row["cap_id"] . "</td>
+        <td>" . $row["age"] . "</td>
+        <td>" . $row["push_ups"] . "</td>
+        <td>" . $row["sit_ups"] . "</td>
+        <td>" . $row["mile_run"] . "</td>
+        <td>" . $row["pacer_test"] . "</td>
+        <td>" . $row["sit_reach"] . "</td>
+        <td>" . $row["date"] . "</td>
+        </tr>";
+        $rm_capid = $row["cap_id"];
+    }
+    $conn->close();
+  }
+  else {
+    echo "<h4 style='color: darkyellow'>No Reults found</h4>";
+    $conn->close();
+  }
+  echo "</table></div></div>";
 }
 ?>
 
+<!--Script to handle opeing and closing of search box-->
 <script>
 function openForm() {
     document.getElementById("myForm").style.display = "block";
@@ -52,7 +132,7 @@ function closeForm() {
 <script src="../libs/tabulator.min.js"></script>
 
 <?php
-  if(isset($_POST['input'])) {
+  if(isset($_POST['newrec'])) {
     echo  '<div class="life">
       <br>
         <input id="clickMe" type="button" value="New Row" onclick="myFunction();" />
@@ -143,20 +223,26 @@ function closeForm() {
       });
     </script>
 
-    <?php if($hide == 1) {?>
+    <?php if($hide == 1) {
+      if(isset($errorMsg) && $errorMsg) {
+        echo "<p style=\"color: red;\">*",htmlspecialchars($errorMsg),"</p>\n\n";
+      }
+      if(isset($message) && $message) {
+        echo "<p style=\"color: green;\">*",htmlspecialchars($message),"</p>\n\n";
+      }
+      ?>
       <div class="newptrecord">
         <form method="post" action="../protected/physical_testing.php">
-          <input type="submit" name="input" value="New PT Record">
+          <input type="submit" name="newrec" value="New PT Record">
         </form>
       </div>
       <br>
       <div class="dropdown">
         <button class="dropbtn">Options</button>
         <div class="dropdown-content">
-          <a href="?firstname=1">First Name</a>
-          <a href="?lastname=1">Last Name</a>
-          <a href="?capid">CAP ID</a>
-          <a href="?priv">Privlage</a>
+          <a href="?name=1">Name</a>
+          <a href="?capid=1">CAP ID</a>
+          <a href="?date=1">Date</a>
         </div>
     <?php }?>
   </body>
