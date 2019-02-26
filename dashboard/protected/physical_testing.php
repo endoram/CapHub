@@ -69,6 +69,7 @@ function submit() {                 //Input validation
 function queryit($data) {           //Query the data and present it
   require "../includes/config_m.php";
   $query = "SELECT * FROM physical_testing WHERE " . $data;
+  echo $query;
   $result = $conn->query($query);
 
   //Creating table to display information from query
@@ -82,12 +83,12 @@ function queryit($data) {           //Query the data and present it
         <th>Name</th>
         <th>CAP ID</th>
         <th>Age</th>
-        <th>Push_ups</th>
-        <th>sit_ups</th>
-        <th>mile_run</th>
-        <th>pacer_test</th>
-        <th>sit_reach</th>
-        <th>data</th>
+        <th>Push Ups</th>
+        <th>Sit Ups</th>
+        <th>Mile Run</th>
+        <th>Pacer Test</th>
+        <th>Sit & Reach</th>
+        <th>Date Time</th>
       </tr>';
 
   if ($result->num_rows > 0) {    //If the query is not empty
