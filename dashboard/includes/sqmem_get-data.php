@@ -38,7 +38,7 @@ if (isset($_GET['myData'])) {
   else {$_SESSION['table'] == 5;}
 }
 
-if ($_GET['recover'] == 1) {
+if (isset($_GET['recover'])) {
   $logfile = "../squadrons/" . $_SESSION['something'] . "/pt_log.txt";
   echo file_get_contents($logfile);
 }

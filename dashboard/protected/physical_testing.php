@@ -157,7 +157,6 @@ function closeForm() {
           <a href="?lastname=1">Last Name</a>
           <a href="?capid">CAP ID</a>
           <a href="?priv">Privlage</a>
-          <a href="?recover=1">Recover Last Save</a>
         </div>
     <?php }?>
   </body>

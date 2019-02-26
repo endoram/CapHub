@@ -331,6 +331,15 @@ th {
   border-color: red;
   color: white;
 }
+#clickMe3 {
+  margin: 0 auto;
+  border-radius: 10px;
+  width: 10%;
+  height: 15%;
+  background-color: darkblue;
+  border-color: red;
+  color: white;
+}
 
 @media (max-width: 800px) {
   #clickMe {
@@ -352,6 +361,15 @@ th {
     color: white;
   }
   #clickMe2 {
+    margin: 0 auto;
+    border-radius: 10px;
+    width: auto;
+    height: auto;
+    background-color: darkblue;
+    border-color: red;
+    color: white;
+  }
+  #clickMe3 {
     margin: 0 auto;
     border-radius: 10px;
     width: auto;
