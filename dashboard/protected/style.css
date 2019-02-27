@@ -304,6 +304,14 @@ th {
   padding: 10px;
 }
 
+.news {
+  margin: 0 auto;
+  border-radius: 10px;
+  width: 50%;
+  height: 70%;
+  background-color: #E8E8E8;
+}
+
 #clickMe {
   margin: 0 auto;
   border-radius: 10px;
