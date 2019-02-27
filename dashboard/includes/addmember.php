@@ -7,16 +7,21 @@
     $lastname = $_POST['lastname'];
     $capid = $_POST['capid'];
     $cadetornot = $_POST['cadetornot'];
-    $priv = $_POST['privlage_level'];
-    $password_password = $_POST['password'];
-
-    adduser($firstname, $lastname, $capid, $cadetornot, $errorMsg, $priv, $password_password);
+    if($_SESSION['privlv'] <= 1){
+      $priv = "0";
+      $password_password = NULL;
+    }
+    else {
+      $priv = $_POST['privlage_level'];
+      $password_password = $_POST['password'];
+    }
+    adduser($firstname, $lastname, $capid, $cadetornot, $priv, $password_password);
   }
 
-  function adduser($firstname, $lastname, $capid, $cadetornot, $errorMsg, $priv, $password_password) {
+  function adduser($firstname, $lastname, $capid, $cadetornot, $priv, $password_password) {
     require "config_m.php";
 
-    $hash_pass = password_hash($password, PASSWORD_DEFAULT);
+    $hash_pass = password_hash($password_password, PASSWORD_DEFAULT);
     $y = 0;
 
     $query = "SELECT cap_id FROM sq_members WHERE cap_id=" . $capid;
@@ -32,12 +37,17 @@
     }
 
     if ($y == 0) {
-      $query = "INSERT INTO sq_members (cap_id, first_name, last_name, cadet_senior, privlage_level, user_pass) VALUES (" . $capid . ",'" . $firstname . "', '" . $lastname . "', '" . $cadetornot . "', '" . $priv . "', '" . $hash_pass. "')";
+      $query = "INSERT INTO sq_members (cap_id, first_name, last_name, member_type, privlage_level, user_pass) VALUES (" . $capid . ",'" . $firstname . "', '" . $lastname . "', '" . $cadetornot . "', '" . $priv . "', '" . $hash_pass. "')";
       $conn->query($query);
       $conn->close();
+
+      $today = date("D M j G:i:s T Y");
+      $log = $today . ": Added user " . $firstname . " " . $lastname . " By " . $_SESSION['name'];
+      $logfile = "../squadrons/" . $_SESSION['something'] . "/log.txt";
+      file_put_contents($logfile, $log, FILE_APPEND);
       header("Location: ../protected/sqmembers.php");
     }
-    $conn->close();
+    else {$conn->close();}
   }
 ?>
 
@@ -57,6 +67,7 @@ input {
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../protected/style.css">
+    <a href="../protected/main.php"><img src="../images/banner.png"></a>
     <title>CapHub Add Member</title>
   </head>
   <body>

@@ -21,7 +21,15 @@
   background-color: #555;
   color: white;
 }
+.dropdownheader button {display: none;}
+.menubar ul {display: block;}
 
+@media (max-width: 800px) {
+  .menubar ul{
+     display: none;
+   }
+  .dropdownheader button {display: block;}
+}
 
 /*HEADER FOOTER*/
 .foot {
@@ -42,11 +50,12 @@
   width: 75%;
 }
 .row:after {
-    content: "";
-    display: table;
-    clear: both;
+  content: "";
+  display: table;
+  clear: both;
 }
-@media screen and (max-width: 600px) {
+
+@media only screen and (max-device-width: 480px) {
   .leftside, .middle {
     width: 100%;
   }
@@ -83,7 +92,7 @@
   margin-left:auto;
   margin-right:auto;
   align-items: center;
-  text-align: center;
+  text-align: left;
   border: 1px solid black;
 }
 .sqsearch table {
@@ -94,6 +103,9 @@
   text-align: center;
   border: 4px solid #001489;
 }
+th {
+  background-color: #d6e3ff;
+}
 
 .dropbtn {
     background-color: #001489;
@@ -103,7 +115,20 @@
     border: none;
     cursor: pointer;
 }
+/*Phone Header*/
+.dropdownheader {
+    position: relative;
+    display: inline-block;
+}
+.dropdownheader:hover .dropdown-content {
+    display: block;
+}
+.dropdownheader:hover .dropbtn {
+    background-color: #3e8e41;
+}
 
+
+/*Dearch options*/
 .dropdown {
     position: relative;
     display: inline-block;
@@ -260,4 +285,105 @@
 }
 .meetingform input[type=text]:focus {
   border: 3px solid #555;
+}
+
+.newptrecord input[type=submit] {
+  min-height: 10%;
+  display: block;
+  background-color: darkblue;
+  color: whitesmoke;
+  margin-left: auto;
+  margin-right: auto;
+  vertical-align: middle;
+  width: 11em;
+}
+
+.life {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+}
+
+.news {
+  margin: 0 auto;
+  border-radius: 10px;
+  width: 50%;
+  height: 70%;
+  background-color: #E8E8E8;
+}
+
+#clickMe {
+  margin: 0 auto;
+  border-radius: 10px;
+  width: 10%;
+  height: 15%;
+  background-color: darkblue;
+  border-color: red;
+  color: white;
+}
+#clickMe1 {
+  margin: 0 auto;
+  border-radius: 10px;
+  width: 10%;
+  height: 15%;
+  background-color: darkblue;
+  border-color: red;
+  color: white;
+}
+#clickMe2 {
+  margin: 0 auto;
+  border-radius: 10px;
+  width: 10%;
+  height: 15%;
+  background-color: darkblue;
+  border-color: red;
+  color: white;
+}
+#clickMe3 {
+  margin: 0 auto;
+  border-radius: 10px;
+  width: 10%;
+  height: 15%;
+  background-color: darkblue;
+  border-color: red;
+  color: white;
+}
+
+@media (max-width: 800px) {
+  #clickMe {
+    margin: 0 auto;
+    border-radius: 10px;
+    width: auto;
+    height: auto;
+    background-color: darkblue;
+    border-color: red;
+    color: white;
+  }
+  #clickMe1 {
+    margin: 0 auto;
+    border-radius: 10px;
+    width: auto;
+    height: auto;
+    background-color: darkblue;
+    border-color: red;
+    color: white;
+  }
+  #clickMe2 {
+    margin: 0 auto;
+    border-radius: 10px;
+    width: auto;
+    height: auto;
+    background-color: darkblue;
+    border-color: red;
+    color: white;
+  }
+  #clickMe3 {
+    margin: 0 auto;
+    border-radius: 10px;
+    width: auto;
+    height: auto;
+    background-color: darkblue;
+    border-color: red;
+    color: white;
+  }
 }

@@ -2,6 +2,8 @@
 require "../includes/header.php";
 require "../includes/config_m.php";
 
+$_SESSION['table'] = 0;
+
 if(isset($_GET['export'])){
 
 }
@@ -132,13 +134,16 @@ function queryit($data) {
     echo "<h4 style='color: darkyellow'>No Reults found</h4>";
     $conn->close();
   }
-  $conn->close();
   echo "</table></div></div>";
 }
 
 if(isset($_POST['sent'])) {submit();}
 ?>
 
+<script src="../libs/jquery-3.2.1.js"></script>
+<script src="../libs/jquery-ui.js"></script>
+<link href="../libs/tabulator.min.css" rel="stylesheet"></script>
+<script src="../libs/tabulator.min.js"></script>
 
 <script>
 function openForm() {
@@ -180,41 +185,34 @@ function closeForm() {
         </div>
       </div>
       <div class="middle">
-        <div class="sqtable">
-          <br>
-          <table>
-            <colgroup>
-              <col span="3" style="background-color:lightgrey">
-              <col style="background-color:red">
-            </colgroup>
-            <tr>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>CAPID</th>
-              <th>Priv</th>
-            </tr>
-            <?php
-              $query = "SELECT * FROM sq_members";
-              $result = $conn->query($query);
+        <div id="example-table"></div>
+        <script>
+        function reqListener () {
+          console.log(this.responseText);
+        }
+        var oReq = new XMLHttpRequest();
+        oReq.onload = function() {
+          var tabledata = this.responseText;
 
-              if ($result->num_rows > 0) {
-                while($row = $result->fetch_assoc()) {
-                  echo "<tr>
-                  <td>" . $row["first_name"] . "</td>
-                  <td>" . $row["last_name"] . "</td>
-                  <td>" . $row["cap_id"] . "</td>
-                  <td>" . $row["privlage_level"] . "</td>
-                  </tr>";
-                }
-              }
-              else {
-              echo "0 results";
-              $conn->close();
-              }
-              $conn->close();
-            ?>
-          </table>
-        </div>
+          var table = new Tabulator("#example-table", {
+            layout:"fitColumns",
+            fitColumns:true,
+            selectable:true,
+            columns:[
+              {title:"First Name", field:"first_name", sorter:"string"},
+              {title:"Last Name", field:"last_name", sorter:"string"},
+              {title:"CAP ID", field:"cap_id", sorter:"string"},
+            ],
+            rowSelectionChanged:function(data, rows){
+                //update selected row counter on selection change
+              $("#select-stats span").text(data.length);
+            },
+          });
+        table.setData(tabledata);
+        };
+        oReq.open("get", "../includes/sqmem_get-data.php", true);
+        oReq.send();
+        </script>
       </div>
     </div>
   </body>
