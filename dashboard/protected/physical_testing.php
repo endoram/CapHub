@@ -69,7 +69,6 @@ function submit() {                 //Input validation
 function queryit($data) {           //Query the data and present it
   require "../includes/config_m.php";
   $query = "SELECT * FROM physical_testing WHERE " . $data;
-  echo $query;
   $result = $conn->query($query);
 
   //Creating table to display information from query

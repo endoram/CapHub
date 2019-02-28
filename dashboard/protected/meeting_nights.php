@@ -44,8 +44,6 @@ if(isset($_GET['rmuser0'])) {     //If user has intered an input
           $capid = $_GET['capidrm'];
 
           $query = "INSERT INTO meeting_nights (date, cap_id, name, time_in, member_type) VALUES ('" . $date . "', " .  $capid . ", '" . $name . "', '" . $time . "','" . $membertype . "')";
-          echo $query;
-          echo $row['member_type'];
         $conn->query($query);
         }
       }
