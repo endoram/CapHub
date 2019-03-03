@@ -13,7 +13,7 @@ require "../includes/header.php";
       <?php echo "Privlage Level: " . $_SESSION['privlv'];?>
     </div>
     <div class="news">
-      <h3>Alpha 1.0.0:</h3>
+      <h3>1.0:</h3>
       <div class="lists">
         <dl>
           <dt><b>Squadron page:</b></dt>
