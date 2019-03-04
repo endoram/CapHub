@@ -30,10 +30,38 @@ if(isset($_POST['sent'])) {
     }
     else{$errorMsg = "No radio has that ID"; $conn->close();}
   }
+  if($_POST['sent'] == "CheckOut Radio ID:") {
+    require "../includes/config_m.php";
+    $radio_id = $_POST['input'];
+    $cap_id = $_POST['capid'];
+
+    $query = "SELECT * FROM sq_members WHERE cap_id='$cap_id'";
+    $result = $conn->query($query);
+
+    if ($result->num_rows > 0) {
+      while($row = $result->fetch_assoc()) {
+        $firstname = $row['first_name'];
+        $lastname = $row['last_name'];
+      }
+      $name = $firstname . " " . $lastname;
+    }
+
+    $query = "UPDATE coms SET status='OUT', name='$name' WHERE radio_id='$radio_id'";
+    $conn->query($query);$conn->close();
+  }
+  if($_POST['sent'] == "CheckIn Radio ID:") {
+    require "../includes/config_m.php";
+    $radio_id = $_POST['input'];
+    $query = "UPDATE coms SET status='IN', name='' WHERE radio_id='$radio_id'";
+
+    $conn->query($query);$conn->close();
+  }
 }
 
 if(isset($_GET['addradio'])) {$data = "Radio ID:";  handleit($data);}
 if(isset($_GET['removeradio'])) {$data = "Remove Radio ID:";  handleit($data);}
+if(isset($_GET['checkout'])) {$data = "CheckOut Radio ID:"; handleit($data);}
+if(isset($_GET['checkin'])) {$data = "CheckIn Radio ID:"; handleit($data);}
 
 function handleit($data) {
   unset($_GET['firstname, lastname, capid']);
@@ -43,6 +71,12 @@ function handleit($data) {
 
   echo '<label for="input"><b>' . $data . '</b></label>';
   echo '<input type="text" name="input" required>';
+
+  if(isset($_GET['checkout'])){
+    echo '<label for="input"><b>CAP ID:</b></label>';
+    echo '<input type="text" name="capid" required>';
+  }
+
   echo '
     <select name="radio_type">
       <option value=ISR>ISR</option>
@@ -80,7 +114,8 @@ function closeForm() {
           <ul>
             <li><a href="?addradio">Add Radio</a><li>
             <li><a href="?removeradio">Remove Radio</a><li>
-            <li><a href="?checkout">Checkout Radio</a><li>
+            <li><a href="?checkout">CheckOut Radio</a><li>
+            <li><a href="?checkin">CheckIn Radio</a><li>
           </ul>
         </div>
       </div>
@@ -90,7 +125,7 @@ function closeForm() {
         }
       ?>
       <div class="middle">
-        <div class="sqtable">
+        <div class="radiotable">
           <br>
           <?php
           $table = array("SELECT * FROM coms WHERE status='OUT'","SELECT * FROM coms WHERE radio_type='ISR'", "SELECT * FROM coms WHERE radio_type='VHF'", "SELECT * FROM coms WHERE radio_type='HF'");
@@ -100,7 +135,7 @@ function closeForm() {
             <br>
               <table>
                 <colgroup>
-                  <col span="3" style="background-color:lightgrey">
+                  <col span="4" style="background-color:lightgrey">
                 </colgroup>
                 <tr>
                   <th>Radio ID</th>
@@ -118,6 +153,7 @@ function closeForm() {
                 <td>" . $row["radio_id"] . "</td>
                 <td>" . $row["radio_type"] . "</td>
                 <td>" . $row["status"] . "</td>
+                <td>" . $row["name"] . "</td>
                 </tr>";
               }
             }

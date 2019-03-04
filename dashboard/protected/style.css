@@ -85,6 +85,16 @@
   color: white;
 }
 
+.radiotable table {
+  width: 85%;
+  margin-left:auto;
+  margin-right:auto;
+  align-items: center;
+  border: 1px solid black;
+}
+.radiotable th {
+  width: 25%;
+}
 
 /*TABLE FOR sqmembers*/
 .sqtable table {
@@ -108,30 +118,30 @@ th {
 }
 
 .dropbtn {
-    background-color: #001489;
-    color: white;
-    padding: 15px;
-    font-size: 15px;
-    border: none;
-    cursor: pointer;
+  background-color: #001489;
+  color: white;
+  padding: 15px;
+  font-size: 15px;
+  border: none;
+  cursor: pointer;
 }
 /*Phone Header*/
 .dropdownheader {
-    position: relative;
-    display: inline-block;
+  position: relative;
+  display: inline-block;
 }
 .dropdownheader:hover .dropdown-content {
-    display: block;
+  display: block;
 }
 .dropdownheader:hover .dropbtn {
-    background-color: #3e8e41;
+  background-color: #3e8e41;
 }
 
 
 /*Dearch options*/
 .dropdown {
-    position: relative;
-    display: inline-block;
+  position: relative;
+  display: inline-block;
 }
 
 .dropdown-content {
