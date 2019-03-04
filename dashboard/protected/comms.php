@@ -7,23 +7,23 @@ if(isset($_POST['sent'])) {
     $radio_type = $_POST['radio_type'];
 
     require "../includes/config_m.php";
-    $query = "SELECT * FROM coms WHERE radio_id='$radio_id'";
+    $query = "SELECT * FROM comms WHERE radio_id='$radio_id'";
     $result = $conn->query($query);
     if ($result->num_rows > 0) {$errorMsg = "A radio with that ID has already been added"; $conn->close();}
     else {
-      $query = "INSERT INTO coms (radio_id, radio_type, status) VALUES ('$radio_id', '$radio_type', 'IN')";
+      $query = "INSERT INTO comms (radio_id, radio_type, status) VALUES ('$radio_id', '$radio_type', 'IN')";
       $conn->query($query);
       $conn->close();
     }
   }
   if($_POST['sent'] == "Remove Radio ID:") {
     $radio_id = $_POST['input'];
-    $query = "SELECT * FROM coms WHERE radio_id='$radio_id'";
+    $query = "SELECT * FROM comms WHERE radio_id='$radio_id'";
 
     require "../includes/config_m.php";
     $result = $conn->query($query);
     if ($result->num_rows > 0) {
-      $query = "DELETE FROM coms WHERE radio_id='$radio_id'";
+      $query = "DELETE FROM comms WHERE radio_id='$radio_id'";
       $conn->query($query);
       $conn->close();
       echo "Removed radio: $radio_id";
@@ -46,13 +46,13 @@ if(isset($_POST['sent'])) {
       $name = $firstname . " " . $lastname;
     }
 
-    $query = "UPDATE coms SET status='OUT', name='$name' WHERE radio_id='$radio_id'";
+    $query = "UPDATE comms SET status='OUT', name='$name' WHERE radio_id='$radio_id'";
     $conn->query($query);$conn->close();
   }
   if($_POST['sent'] == "CheckIn Radio ID:") {
     require "../includes/config_m.php";
     $radio_id = $_POST['input'];
-    $query = "UPDATE coms SET status='IN', name='' WHERE radio_id='$radio_id'";
+    $query = "UPDATE comms SET status='IN', name='' WHERE radio_id='$radio_id'";
 
     $conn->query($query);$conn->close();
   }
@@ -67,7 +67,7 @@ function handleit($data) {
   unset($_GET['firstname, lastname, capid']);
 
   echo '<div class="form-popup" id="myForm">';
-  echo '<form method="post" action="coms.php" class="form-container">';
+  echo '<form method="post" action="comms.php" class="form-container">';
 
   echo '<label for="input"><b>' . $data . '</b></label>';
   echo '<input type="text" name="input" required>';
@@ -128,7 +128,7 @@ function closeForm() {
         <div class="radiotable">
           <br>
           <?php
-          $table = array("SELECT * FROM coms WHERE status='OUT'","SELECT * FROM coms WHERE radio_type='ISR'", "SELECT * FROM coms WHERE radio_type='VHF'", "SELECT * FROM coms WHERE radio_type='HF'");
+          $table = array("SELECT * FROM comms WHERE status='OUT'","SELECT * FROM comms WHERE radio_type='ISR'", "SELECT * FROM comms WHERE radio_type='VHF'", "SELECT * FROM comms WHERE radio_type='HF'");
 
           foreach ($table as $key => $value) {
             echo '
