@@ -135,11 +135,13 @@ function closeForm() {
   if(isset($_POST['newrec'])) {
     echo  '<div class="life">
       <br>
-        <input id="clickMe" type="button" value="New Row" onclick="myFunction();" />
-        <input id="clickMe1" type="button" value="save" onclick="myFunction();" />
-        <input id="clickMe2" type="button" name="finish" value="Finish" onclick="myFunction2();"/>
-        <input id="clickMe3" type="button" name="recover" value="Recover Last Save" onclick="myFunction3();"/>
-        </div>';
+        <div class=container-life>
+          <input id="clickMe" type="button" value="New Row" onclick="myFunction();" />
+          <input id="clickMe1" type="button" value="save" onclick="myFunction();" />
+          <input id="clickMe2" type="button" name="finish" value="Finish" onclick="myFunction2();"/>
+          <input id="clickMe3" type="button" name="recover" value="Recover Last Save" onclick="myFunction3();"/>
+        </div>
+      </div>';
     echo '<div id="example-table"></div>';
     $hide = 0;
     $_SESSION["table"] = 1;
