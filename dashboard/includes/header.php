@@ -16,7 +16,7 @@
   <body>
     <div class="menubar">
       <ul>
-          <li><a href="coms.php">Radios</a></li>
+        <li><a href="comms.php">Comms</a></li>
         <li><a href="sqmembers.php">Squadron</a></li>
         <li><a href="meeting_nights.php">Meetings</a></li>
         <li><a href="physical_testing.php">PT</a></li>
@@ -29,10 +29,10 @@
     <div class="dropdownheader">
       <button class="dropbtn">Menu</button>
       <div class="dropdown-content">
-        <a href="coms.php">Radios</a>
+        <a href="comms.php">Comms</a>
         <a href="sqmembers.php">Squadron</a>
         <a href="meeting_nights.php">Meetings</a>
-        <li><a href="physical_testing.php">PT</a></li>
+        <a href="physical_testing.php">PT</a>
         <?php if($_SESSION['privlv'] >= 2){ ?>
         <?php } ?>
         <a href="help.php">Help</a>
