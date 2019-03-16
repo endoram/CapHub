@@ -2,18 +2,22 @@
 require "../includes/header.php";
 
 if(isset($_POST['sent'])) {
-  if($_POST['sent'] == "Radio ID:") {   //Validation for names
+  if($_POST['sent'] == "Radio ID:") {
     $radio_id = $_POST['input'];
     $radio_type = $_POST['radio_type'];
+    $radio_name = $_POST['radio_name'];
 
     require "../includes/config_m.php";
     $query = "SELECT * FROM comms WHERE radio_id='$radio_id'";
     $result = $conn->query($query);
     if ($result->num_rows > 0) {$errorMsg = "A radio with that ID has already been added"; $conn->close();}
     else {
-      $query = "INSERT INTO comms (radio_id, radio_type, status) VALUES ('$radio_id', '$radio_type', 'IN')";
-      $conn->query($query);
-      $conn->close();
+      if(isset($_POST['radio_name'])){
+        $query = "INSERT INTO comms (radio_id, radio_name, radio_type, status) VALUES ('$radio_id','$radio_name', '$radio_type', 'IN')";
+        echo $query;
+        $conn->query($query);
+        $conn->close();
+      }
     }
   }
   if($_POST['sent'] == "Remove Radio ID:") {
@@ -76,6 +80,10 @@ function handleit($data) {
     echo '<label for="input"><b>CAP ID:</b></label>';
     echo '<input type="text" name="capid" required>';
   }
+  if(isset($_GET['addradio'])) {
+    echo '<label for="input"><b>Radio Name:</b></label>';
+    echo '<input type="text" name="radio_name" required>';
+  }
 
   echo '
     <select name="radio_type">
@@ -135,10 +143,11 @@ function closeForm() {
             <br>
               <table>
                 <colgroup>
-                  <col span="4" style="background-color:lightgrey">
+                  <col span="5" style="background-color:lightgrey">
                 </colgroup>
                 <tr>
                   <th>Radio ID</th>
+                  <th>Radio Name</th>
                   <th>Type</th>
                   <th>Status</th>
                   <th>Name</th>
@@ -151,6 +160,7 @@ function closeForm() {
               while($row = $result->fetch_assoc()) {
                 echo "<tr>
                 <td>" . $row["radio_id"] . "</td>
+                <td>" . $row["radio_name"] . "</td>
                 <td>" . $row["radio_type"] . "</td>
                 <td>" . $row["status"] . "</td>
                 <td>" . $row["name"] . "</td>
