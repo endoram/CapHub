@@ -11,7 +11,25 @@ if(isset($_GET['capid'])) {
   $data = "CAP ID:"; handleit($data);
 }
 if(isset($_GET['date'])) {
-  $data = "Date(YY-MM-DD):"; handleit($data);
+  $data = "date";
+?>
+  <script src="../libs/calendar/datepicker.min.js"></script>
+  <script>
+    const picker = datepicker('.form-popup', {
+      alwaysShow: true
+    })
+  </script>
+<?
+echo '<div class="form-popup" id="myForm">';
+echo '<form method="post" action="physical_testing.php" class="form-container">';
+
+echo '<label for="input"><b> Select a date:</b></label>';
+echo '<input type="date" name="input" required>';
+
+echo '<button type="submit" value="' . $data . '" name="sent" class="btn">Submit</button>';
+echo '<button type="button" class="btn cancel" onclick="closeForm()">Close</button>';
+echo '</form>';
+echo '</div>';
 }
 if(isset($_GET['priv'])) {
   $data = "Privlage Level:"; handleit($data);
@@ -55,12 +73,13 @@ function submit() {                 //Input validation
     }
   }
 
-  if($_POST['sent'] == "Date(YY-MM-DD):") {  //Validation for date
-    if($_POST['input'] == "") {
+  if($_POST['sent'] == "date") {  //Validation for date
+    $date = $_POST['input'];
+    if(!isset($date)) {
       echo "<p style='color: red'>Invalid Date<p>";
     }
     else {
-      $data = "date='" . $_POST['input'] . "%'";
+      $data = "DATE(date)= '" . $date . "'";
       queryit($data);
     }
   }
@@ -126,10 +145,10 @@ function closeForm() {
 }
 </script>
 
-<script src="../libs/jquery-3.2.1.js"></script>
-<script src="../libs/jquery-ui.js"></script>
-<link href="../libs/tabulator.min.css" rel="stylesheet"></script>
-<script src="../libs/tabulator.min.js"></script>
+<script src="../libs/tabulator/jquery-3.2.1.js"></script>
+<script src="../libs/tabulator/jquery-ui.js"></script>
+<link href="../libs/tabulator/tabulator.min.css" rel="stylesheet"></script>
+<script src="../libs/tabulator/tabulator.min.js"></script>
 
 <?php
   if(isset($_POST['newrec'])) {
@@ -153,6 +172,7 @@ function closeForm() {
   <head>
     <title>PT CAPhub</title>
     <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="../libs/calendar/datepicker.min.css">
   </head>
   </body>
     <script>

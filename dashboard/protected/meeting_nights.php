@@ -61,7 +61,25 @@ if(isset($_GET['capid'])) {
   $data = "CAP ID:"; handleit($data);
 }
 if(isset($_GET['date'])) {
-  $data = "Date(Y/M/D):"; handleit($data);
+  $data = "date";
+?>
+  <script src="../libs/calendar/datepicker.min.js"></script>
+  <script>
+    const picker = datepicker('.form-popup', {
+      alwaysShow: true
+    })
+  </script>
+<?
+echo '<div class="form-popup" id="myForm">';
+echo '<form method="post" action="meeting_nights.php" class="form-container">';
+
+echo '<label for="input"><b> Select a date:</b></label>';
+echo '<input type="date" name="input" required>';
+
+echo '<button type="submit" value="' . $data . '" name="sent" class="btn">Submit</button>';
+echo '<button type="button" class="btn cancel" onclick="closeForm()">Close</button>';
+echo '</form>';
+echo '</div>';
 }
 
 function handleit($data) {
@@ -102,13 +120,14 @@ function submit() {                 //Input validation
     }
   }
 
-  if($_POST['sent'] == "Date(Y/M/D):") {  //Validation for date
-    $priv = $_POST['input'];
-    if(preg_match('/[^0-9]/', $firstname)) {
+  if($_POST['sent'] == "date") {  //Validation for date
+    $date = $_POST['input'];
+    $contents = str_replace("-", "/", $date);
+    if(!isset($contents)) {
       echo "<p style='color: red'>Invalid Date<p>";
     }
     else {
-      $data = "date like'" . $_POST['input'] . "'";
+      $data = "date like '" . $contents . "'";
       queryit($data);
     }
   }
@@ -145,12 +164,12 @@ function queryit($data) {           //Query the data and present it
         </tr>";
         $rm_capid = $row["cap_id"];
     }
+    $conn->close();
   }
   else {
     echo "<h4 style='color: darkyellow'>No Reults found</h4>";
     $conn->close();
   }
-  $conn->close();
   echo "</table></div></div>";
 }
 ?>
@@ -172,6 +191,7 @@ function closeForm() {
   <head>
     <title>CapHub MeetingNights</title>
     <link rel="stylesheet" type="text/css", href="style.css">
+    <link rel="stylesheet" href="../libs/calendar/datepicker.min.css">
   </head>
   <body>
     <?php echo "Today is " . date("Y/m/d") . "<br>";?>
