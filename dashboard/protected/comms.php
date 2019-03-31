@@ -14,7 +14,6 @@ if(isset($_POST['sent'])) {
     else {
       if(isset($_POST['radio_name'])){
         $query = "INSERT INTO comms (radio_id, radio_name, radio_type, status) VALUES ('$radio_id','$radio_name', '$radio_type', 'IN')";
-        echo $query;
         $conn->query($query);
         $conn->close();
       }

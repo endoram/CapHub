@@ -2,6 +2,15 @@
 if (session_status() == PHP_SESSION_NONE) {session_start();}
 require "control_access.php";
 
+if (isset($_GET['retired'])) {
+  require 'config_m.php';
+  $data = $_GET['retired'];
+  $_SESSION['table'] = 1;
+  $query = "UPDATE sq_members SET retire=1 where cap_id in ($data)";
+  $result = $conn->query($query);
+  $conn->close();
+}
+
 if (isset($_GET['myData'])) {
   $mydata = $_GET['myData'];
   $logfile = "../squadrons/" . $_SESSION['something'] . "/pt_log.txt";
@@ -44,7 +53,7 @@ if (isset($_GET['recover'])) {
 }
 
 if ($_SESSION['table'] == 0) {
-  $query = "SELECT * FROM sq_members WHERE hide=0";
+  $query = "SELECT * FROM sq_members WHERE hide=0 && retire=0";
   queryit($query);
 }
 

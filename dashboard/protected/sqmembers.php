@@ -7,22 +7,11 @@ $_SESSION['table'] = 0;
 if(isset($_GET['export'])){
 
 }
-if(isset($_GET['rmuser'])) {
-  echo "Enter CAPID of user to remove:";
+if(isset($_GET['retire'])) {
+  echo "Select all users to retire:";
   echo "<br>";
   echo '
-    <div class="deluser">
-      <form action="sqmembers.php">
-        <input type="text" name="capidrm">
-        <input type="submit" value="Remove Users" name="rmuser1">
-      </form>
-    </div>';
-}
-if(isset($_GET['rmuser1'])) {
-  require "../includes/config_m.php";
-  $query = "DELETE FROM `sq_members` WHERE cap_id=" . $_GET['capidrm'];
-  $conn->query($query);
-  $conn->close();
+    <button type="button" id="retire1">Retire Members</button>';
 }
 
 if(isset($_GET['addmember'])) {
@@ -134,16 +123,18 @@ function queryit($data) {
     echo "<h4 style='color: darkyellow'>No Reults found</h4>";
     $conn->close();
   }
+  echo'<script src="../libs/bootstrap/bootstrap.min.js"></script>
+ <link rel="stylesheet" type="text/css" href="../libs/bootstrap/bootstrap.min.css">';
   echo "</table></div></div>";
 }
 
 if(isset($_POST['sent'])) {submit();}
 ?>
 
-<script src="../libs/jquery-3.2.1.js"></script>
-<script src="../libs/jquery-ui.js"></script>
-<link href="../libs/tabulator.min.css" rel="stylesheet"></script>
-<script src="../libs/tabulator.min.js"></script>
+<script src="../libs/tabulator/jquery-3.2.1.js"></script>
+<script src="../libs/tabulator/jquery-ui.js"></script>
+<link href="../libs/tabulator/tabulator.min.css" rel="stylesheet"></script>
+<script src="../libs/tabulator/tabulator.min.js"></script>
 
 <script>
 function openForm() {
@@ -158,6 +149,8 @@ function closeForm() {
 
 <html>
   <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>CapHub Squadron Members</title>
   </head>
   <body>
@@ -180,12 +173,13 @@ function closeForm() {
             <li><a href="?export">Export</a><li>
             <li><a href="../includes/addmember.php">Add Member</a><li>
             <li><a href="../includes/update.php">Update Member</a></li>
-            <li><a href="?rmuser=1">Remove Member</a><li>
+            <li><a href="?retire">Retire Member</a><li>
           </ul>
         </div>
       </div>
       <div class="middle">
         <div id="example-table"></div>
+        <?php $_SESSION['table'] = 0;?>
         <script>
         function reqListener () {
           console.log(this.responseText);
@@ -204,11 +198,32 @@ function closeForm() {
               {title:"CAP ID", field:"cap_id", sorter:"string"},
             ],
             rowSelectionChanged:function(data, rows){
-                //update selected row counter on selection change
               $("#select-stats span").text(data.length);
             },
           });
-        table.setData(tabledata);
+          table.setData(tabledata);
+
+          document.getElementById("retire1").onclick = function retire () {
+            var selectedData = table.getSelectedData();
+            var size = Object.keys(selectedData).length;
+
+            var i, data;
+            for (i = 0; i < size; i ++) {
+              data += selectedData[i].cap_id + ",";
+            }
+
+            data = data.substring(0, data.length - 1);
+            data = data.replace("undefined", "");
+
+            $.ajax({
+              url: '../includes/sqmem_get-data.php',
+              data: 'retired=' + data,
+              success: function(data) {
+                alert(data);
+                window.location.replace("../protected/sqmembers.php");
+              }
+            });
+          }
         };
         oReq.open("get", "../includes/sqmem_get-data.php", true);
         oReq.send();
