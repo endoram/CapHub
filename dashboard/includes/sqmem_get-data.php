@@ -53,7 +53,7 @@ if (isset($_GET['recover'])) {
 }
 
 if ($_SESSION['table'] == 0) {
-  $query = "SELECT * FROM sq_members WHERE hide=0 && retire=0";
+  $query = "SELECT * FROM sq_members WHERE hide=0 and retire=0";
   queryit($query);
 }
 
