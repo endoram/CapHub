@@ -13,13 +13,12 @@ require "../includes/header.php";
       <?php echo "Privlage Level: " . $_SESSION['privlv'];?>
     </div>
     <div class="news">
-      <h3>1.2:</h3>
+      <h3>1.3:</h3>
       <div class="lists">
         <dl>
           <dt><b>Whats New:</b></dt>
             <ul>
-              <li>Date selector for seaching by date</li>
-              <li>A way to retire squadron members</li>
+              <li>Guest sign in and search</li>
             </ul>
           <br>
           <br>

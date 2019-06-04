@@ -1,6 +1,10 @@
 <?php
 require "../includes/header.php";
 
+if(isset($_POST['guestlogin'])) {
+  header("Location: /includes/guestsign.php");
+}
+
 if(isset($_POST['sent'])) {submit();}
 
 if(isset($_GET['rmuser0'])) {     //If user has intered an input
@@ -75,6 +79,7 @@ echo '<form method="post" action="meeting_nights.php" class="form-container">';
 
 echo '<label for="input"><b> Select a date:</b></label>';
 echo '<input type="date" name="input" required>';
+echo '<input type="checkbox" name="vister" value="Bike"> Visiter<br>';
 
 echo '<button type="submit" value="' . $data . '" name="sent" class="btn">Submit</button>';
 echo '<button type="button" class="btn cancel" onclick="closeForm()">Close</button>';
@@ -90,6 +95,7 @@ function handleit($data) {
 
   echo '<label for="input"><b>' . $data . '</b></label>';
   echo '<input type="text" name="input" required>';
+  echo '<input type="checkbox" name="vister" value="Bike"> Visiter<br>';
 
   echo '<button type="submit" value="' . $data . '" name="sent" class="btn">Submit</button>';
   echo '<button type="button" class="btn cancel" onclick="closeForm()">Close</button>';
@@ -104,8 +110,13 @@ function submit() {                 //Input validation
       echo "<p style='color: red'>Names don't have numbers in them - try again<p>";
     }
     else {
-      $data = "name LIKE '" . $_POST['input'] . "%'";   //Query statment
-      queryit($data);     //Take data to be queryed
+      if (isset($_POST["vister"])) {
+        $data = "name LIKE '" . $_POST['input'] . "%' AND member_type='visiter'";   //Query statment
+        queryit($data);
+      } else{
+        $data = "name LIKE '" . $_POST['input'] . "%' AND member_type='senior' or 'cadet'";   //Query statment
+        queryit($data);     //Take data to be queryed
+      }
     }
   }
 
@@ -115,8 +126,14 @@ function submit() {                 //Input validation
       echo "<p style='color: red'>Invalid Cap ID<p>";
     }
     else {
-      $data = "cap_id LIKE '" . $_POST['input'] . "%'";
-      queryit($data);
+      if (isset($_POST["vister"])) {
+        $data = "cap_id LIKE '" . $_POST['input'] . "%' AND member_type='visiter'";
+        queryit($data);
+      }
+      else{
+        $data = "cap_id LIKE '" . $_POST['input'] . "%' AND member_type='senior' or 'cadet'";
+        queryit($data);
+      }
     }
   }
 
@@ -127,8 +144,14 @@ function submit() {                 //Input validation
       echo "<p style='color: red'>Invalid Date<p>";
     }
     else {
-      $data = "date like '" . $contents . "'";
-      queryit($data);
+      if (isset($_POST["vister"])) {
+        $data = "date like '" . $contents . "' AND member_type='visiter'";
+        queryit($data);
+      }
+      else {
+        $data = "date like '" . $contents . "' AND member_type='senior' or 'cadet'";
+        queryit($data);
+      }
     }
   }
 }
@@ -213,12 +236,19 @@ function closeForm() {
       if(isset($message) && $message) {
         echo "<p style=\"color: green;\">*",htmlspecialchars($message),"</p>\n\n";
       }
+      if(isset($_SESSION['message']) && $_SESSION['message']) {
+        echo "<p style=\"color: green;\">*",htmlspecialchars($_SESSION['message']),"</p>\n\n";
+      }
       ?>
       <label>CAP ID:</label>
       <form action="meeting_nights.php">
         <input type="text" name="capidrm" autofocus> <!--Getting user's CAPID-->
         <br>
         <input type="submit" value="Submit" name="rmuser0">
+      </form>
+      <form action="../includes/guestsign.php">
+        <br>
+        <input type="submit" value="GuestSignin" name="guestlogin">
       </form>
     </div>
   </body>

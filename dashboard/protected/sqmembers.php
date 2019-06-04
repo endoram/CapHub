@@ -123,8 +123,6 @@ function queryit($data) {
     echo "<h4 style='color: darkyellow'>No Reults found</h4>";
     $conn->close();
   }
-  echo'<script src="../libs/bootstrap/bootstrap.min.js"></script>
- <link rel="stylesheet" type="text/css" href="../libs/bootstrap/bootstrap.min.css">';
   echo "</table></div></div>";
 }
 
@@ -135,6 +133,8 @@ if(isset($_POST['sent'])) {submit();}
 <script src="../libs/tabulator/jquery-ui.js"></script>
 <link href="../libs/tabulator/tabulator.min.css" rel="stylesheet"></script>
 <script src="../libs/tabulator/tabulator.min.js"></script>
+<script src="../libs/bootstrap/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="../libs/bootstrap/bootstrap.min.css">
 
 <script>
 function openForm() {
@@ -219,7 +219,6 @@ function closeForm() {
               url: '../includes/sqmem_get-data.php',
               data: 'retired=' + data,
               success: function(data) {
-                alert(data);
                 window.location.replace("../protected/sqmembers.php");
               }
             });
