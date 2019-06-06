@@ -173,7 +173,7 @@ function handleit($data) {
     echo '<input type="text" name="whatbroken">';
     echo '
     <select name="change_status">
-      <option value=Fully Operational>Fully Operational</option>
+      <option value="Fully Operational">Fully Operational</option>
       <option value=Operational>Operational</option>
       <option value=Broken>Broken</option>
       <option value=Batteries>Out of Batteries</option>
