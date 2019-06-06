@@ -75,21 +75,73 @@ if(isset($_GET['checkin'])) {$data = "CheckIn Radio ID:"; handleit($data);}
 if(isset($_GET['changestatus'])) {$data = "Radio ID: "; handleit($data);}
 
 function handleit($data) {
+  require "../includes/config_m.php";
   unset($_GET['firstname, lastname, capid']);
-
   echo '<div class="form-popup" id="myForm">';
   echo '<form method="post" action="comms.php" class="form-container">';
 
-  echo '<label for="input"><b>' . $data . '</b></label>';
-  echo '<input type="text" name="input" required>';
-
   if(isset($_GET['checkout'])){
+    echo '<label for="input"><b>' . $data . '</b></label>';
+    $query = "SELECT radio_id FROM comms WHERE in_out='IN'";
+    echo '<select name="input">';
+    $result = $conn->query($query);
+
+    if ($result->num_rows > 0) {
+      while($row = $result->fetch_assoc()) {
+        echo "<option value=" . $row['radio_id'] . ">" . $row['radio_id'] . "</option>";
+      }
+      $conn->close();
+    }
+    else {
+      echo "<script>alert('No Results Found');</script>";
+      $conn->close();
+    }
+    echo '</select>';
     echo '<label for="input"><b>CAP ID:</b></label>';
     echo '<input type="text" name="capid" required>';
   }
+
+  if(isset($_GET['checkin'])) {
+    echo '<label for="input"><b>' . $data . '</b></label>';
+    $query = "SELECT radio_id FROM comms WHERE in_out='OUT'";
+    echo '<select name="input">';
+    $result = $conn->query($query);
+
+    if ($result->num_rows > 0) {
+      while($row = $result->fetch_assoc()) {
+        echo "<option value=" . $row['radio_id'] . ">" . $row['radio_id'] . "</option>";
+      }
+      $conn->close();
+    }
+    else {
+      echo "<script>alert('No Results Found');</script>";
+      $conn->close();
+    }
+    echo '</select>';
+  }
+
+  if(isset($_GET['removeradio'])) {
+    echo '<label for="input"><b>' . $data . '</b></label>';
+    $query = "SELECT radio_id FROM comms";
+    echo '<select name="input">';
+    $result = $conn->query($query);
+
+    if ($result->num_rows > 0) {
+      while($row = $result->fetch_assoc()) {
+        echo "<option value=" . $row['radio_id'] . ">" . $row['radio_id'] . "</option>";
+      }
+      $conn->close();
+    }
+    else {
+      echo "<script>alert('No Results Found');</script>";
+      $conn->close();
+    }
+    echo '</select>';
+  }
+
   if(isset($_GET['addradio'])) {
-  //  echo '<label for="input"><b>Radio Name:</b></label>';
-  //  echo '<input type="text" name="radio_name" required>';
+    echo '<label for="input"><b>' . $data . '</b></label>';
+    echo '<input type="text" name="input" required>';
     echo '
       <select name="radio_type">
         <option value=ISR>ISR</option>
@@ -100,6 +152,23 @@ function handleit($data) {
   }
 
   if(isset($_GET['changestatus'])){
+    echo '<label for="input"><b>' . $data . '</b></label>';
+    $query = "SELECT radio_id FROM comms";
+    echo '<select name="input">';
+    $result = $conn->query($query);
+
+    if ($result->num_rows > 0) {
+      while($row = $result->fetch_assoc()) {
+        echo "<option value=" . $row['radio_id'] . ">" . $row['radio_id'] . "</option>";
+      }
+      $conn->close();
+    }
+    else {
+      echo "<script>alert('No Results Found');</script>";
+      $conn->close();
+    }
+    echo '</select>';
+
     echo '<label for="input"><b>Whats Broken:</b></label>';
     echo '<input type="text" name="whatbroken">';
     echo '
@@ -110,7 +179,6 @@ function handleit($data) {
       <option value=Batteries>Out of Batteries</option>
     </select> ';
   }
-
   echo '<button type="submit" value="' . $data . '" name="sent" class="btn">Submit</button>';
   echo '<button type="button" class="btn cancel" onclick="closeForm()">Close</button>';
   echo '</form>';
