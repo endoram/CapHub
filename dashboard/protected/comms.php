@@ -101,7 +101,7 @@ function handleit($data) {
 
   if(isset($_GET['changestatus'])){
     echo '<label for="input"><b>Whats Broken:</b></label>';
-    echo '<input type="text" name="whatbroken" required>';
+    echo '<input type="text" name="whatbroken">';
     echo '
     <select name="change_status">
       <option value=Fully Operational>Fully Operational</option>
