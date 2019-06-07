@@ -88,12 +88,12 @@ function handleit($data) {
 
     if ($result->num_rows > 0) {
       while($row = $result->fetch_assoc()) {
-        echo "<option value=" . $row['radio_id'] . ">" . $row['radio_id'] . "</option>";
+        echo "<option value='" . $row['radio_id'] . "'>" . $row['radio_id'] . "</option>";
       }
       $conn->close();
     }
     else {
-      echo "<script>alert('No Results Found');</script>";
+      echo "<script>alert('All radios checked out!');</script>";
       $conn->close();
     }
     echo '</select>';
@@ -109,12 +109,12 @@ function handleit($data) {
 
     if ($result->num_rows > 0) {
       while($row = $result->fetch_assoc()) {
-        echo "<option value=" . $row['radio_id'] . ">" . $row['radio_id'] . "</option>";
+        echo "<option value='" . $row['radio_id'] . "'>" . $row['radio_id'] . "</option>";
       }
       $conn->close();
     }
     else {
-      echo "<script>alert('No Results Found');</script>";
+      echo "<script>alert('No Radios checked out!');</script>";
       $conn->close();
     }
     echo '</select>';
@@ -128,7 +128,7 @@ function handleit($data) {
 
     if ($result->num_rows > 0) {
       while($row = $result->fetch_assoc()) {
-        echo "<option value=" . $row['radio_id'] . ">" . $row['radio_id'] . "</option>";
+        echo "<option value='" . $row['radio_id'] . "'>" . $row['radio_id'] . "</option>";
       }
       $conn->close();
     }
@@ -159,7 +159,7 @@ function handleit($data) {
 
     if ($result->num_rows > 0) {
       while($row = $result->fetch_assoc()) {
-        echo "<option value=" . $row['radio_id'] . ">" . $row['radio_id'] . "</option>";
+        echo "<option value='" . $row["radio_id"] . "'>" . $row['radio_id'] . "</option>";
       }
       $conn->close();
     }
@@ -174,9 +174,9 @@ function handleit($data) {
     echo '
     <select name="change_status">
       <option value="Fully Operational">Fully Operational</option>
-      <option value=Operational>Operational</option>
-      <option value=Broken>Broken</option>
-      <option value=Batteries>Out of Batteries</option>
+      <option value="Operational">Operational</option>
+      <option value="Broken">Broken</option>
+      <option value="Batteries">Out of Batteries</option>
     </select> ';
   }
   echo '<button type="submit" value="' . $data . '" name="sent" class="btn">Submit</button>';
