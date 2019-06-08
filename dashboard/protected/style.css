@@ -275,7 +275,8 @@ th {
 
 .userid {
   float: right;
-  background-color: red;
+  color: black;
+  background-color: #d6e3ff;
 }
 
 .meetingform {

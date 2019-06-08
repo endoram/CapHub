@@ -7,11 +7,6 @@ require "../includes/header.php";
     <title>CapHub MainPage</title>
   </head>
   <body>
-    <div class="userid">
-      <?php echo "Logged in as: " . $_SESSION['name'];?>
-      <br>
-      <?php echo "Privlage Level: " . $_SESSION['privlv'];?>
-    </div>
     <div class="news">
       <h3>1.4:</h3>
       <div class="lists">

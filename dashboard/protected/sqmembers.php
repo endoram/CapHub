@@ -133,8 +133,6 @@ if(isset($_POST['sent'])) {submit();}
 <script src="../libs/tabulator/jquery-ui.js"></script>
 <link href="../libs/tabulator/tabulator.min.css" rel="stylesheet"></script>
 <script src="../libs/tabulator/tabulator.min.js"></script>
-<script src="../libs/bootstrap/bootstrap.min.js"></script>
-<link rel="stylesheet" type="text/css" href="../libs/bootstrap/bootstrap.min.css">
 
 <script>
 function openForm() {
