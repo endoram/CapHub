@@ -114,7 +114,7 @@ function submit() {                 //Input validation
         $data = "name LIKE '" . $_POST['input'] . "%' AND member_type='visiter'";   //Query statment
         queryit($data);
       } else{
-        $data = "name LIKE '" . $_POST['input'] . "%' AND member_type='senior' or 'cadet'";   //Query statment
+        $data = "name LIKE '" . $_POST['input'] . "%'";   //Query statment
         queryit($data);     //Take data to be queryed
       }
     }
@@ -127,11 +127,11 @@ function submit() {                 //Input validation
     }
     else {
       if (isset($_POST["vister"])) {
-        $data = "cap_id LIKE '" . $_POST['input'] . "%' AND member_type='visiter'";
+        $data = "cap_id LIKE '" . $_POST['input'] . "' AND member_type='visiter'";
         queryit($data);
       }
       else{
-        $data = "cap_id LIKE '" . $_POST['input'] . "%' AND member_type='senior' or 'cadet'";
+        $data = "cap_id LIKE '" . $_POST['input'];
         queryit($data);
       }
     }
@@ -149,7 +149,7 @@ function submit() {                 //Input validation
         queryit($data);
       }
       else {
-        $data = "date like '" . $contents . "' AND member_type='senior' or 'cadet'";
+        $data = "date like '" . $contents . "'";
         queryit($data);
       }
     }
@@ -169,8 +169,10 @@ function queryit($data) {           //Query the data and present it
         <col span="5" style="background-color:lightgrey">
       </colgroup>
       <tr>
-        <th>Date</th>
-        <th>CAPID</th>
+        <th>Date</th>';
+        if (isset($_POST['vister'])) {echo "<th>Phone Number</th>";}
+        else {echo "<th>CAPID</th>";}
+        echo '
         <th>Name</th>
         <th>Time In</th>
         <th>Time Out</th>
@@ -238,6 +240,7 @@ function closeForm() {
       }
       if(isset($_SESSION['message']) && $_SESSION['message']) {
         echo "<p style=\"color: green;\">*",htmlspecialchars($_SESSION['message']),"</p>\n\n";
+        unset($_SESSION['message']);
       }
       ?>
       <label>CAP ID:</label>
