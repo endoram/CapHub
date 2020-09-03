@@ -203,8 +203,10 @@ function closeForm() {
         document.getElementById("clickMe1").onclick = function Save() {
           var data1 = table.getData();
           data1 = JSON.stringify(data1);
+         // console.log(data1);
 
           $.ajax({
+            type: 'POST',
             url: '../includes/sqmem_get-data.php',
             data: 'myData=' + data1 ,
             success: function(data) {
@@ -216,6 +218,7 @@ function closeForm() {
           data1 = JSON.stringify(data1);
 
           $.ajax({
+            type: 'POST',
             url: '../includes/sqmem_get-data.php',
             data: {myData: data1, stuff: "1" },
             success: function(data) {
@@ -225,6 +228,7 @@ function closeForm() {
         }
         document.getElementById("clickMe3").onclick = function recover() {
           $.ajax({
+            type: 'POST',
             url: '../includes/sqmem_get-data.php',
             data: 'recover=1',
             success: function(data) {
@@ -236,6 +240,7 @@ function closeForm() {
         }
 
       $.ajax({
+        type: 'POST',
         url: '../includes/sqmem_get-data.php',
         data: 'stuffmore=1',
         success: function(data) {
