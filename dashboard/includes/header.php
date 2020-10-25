@@ -16,7 +16,7 @@
       <br>
       <?php echo "Privlage Level: " . $_SESSION['privlv'];?>
     </div>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="../protected/style.css">
   </head>
   <body>
     <div class="menubar">
@@ -24,10 +24,11 @@
         <li><a href="comms.php">Comms</a></li>
         <li><a href="sqmembers.php">Squadron</a></li>
         <li><a href="meeting_nights.php">Meetings</a></li>
+        <li><a href="inventory.php">Inventory</a></li>
         <li><a href="physical_testing.php">PT</a></li>
         <li><a href="events.php">Events</a></li>
-        <li><a href="vehicles.php">Vehicles</a></li>
         <?php if($_SESSION['privlv'] >= 2){ ?>
+          <li><a href="vehicles.php">Vehicles</a></li>
         <?php } ?>
         <li><a href="help.php">Help</a></li>
         <li><a href="?logout=1">Log out</a></li>
@@ -39,9 +40,11 @@
         <a href="comms.php">Comms</a>
         <a href="sqmembers.php">Squadron</a>
         <a href="meeting_nights.php">Meetings</a>
+        <a href="inventory.php">Inventory</a>
         <a href="physical_testing.php">PT</a>
         <a href="events.php">Events</a>
         <?php if($_SESSION['privlv'] >= 2){ ?>
+          <li><a href="vehicles.php">Vehicles</a></li>
         <?php } ?>
         <a href="help.php">Help</a>
         <a href="?logout=1">Log out</a>

@@ -57,6 +57,65 @@ if ($_SESSION['table'] == 0) {
   queryit($query);
 }
 
+
+#####################################################
+#                                                   #
+#               INVENTORY MANAGMENT                 #
+#                                                   #
+#####################################################
+
+
+if(isset($_POST['sent'])) {
+  $query = "INSERT INTO inventory (description, type, size, quantity, location) VALUES ('" . $_POST['description'] . "', '" . $_POST['edittype'] . "', '" . $_POST['size'] . "', '" . $_POST['editqty'] . "', '" .  $_POST['location']."')";
+  echo $query;
+  require 'config_m.php';
+  $conn->query($query);
+  $conn->close();
+  #header('Location: ../protected/inventory.php');
+  exit;
+}
+if(isset($_POST['sentremove'])) {
+  $query = "INSERT INTO inventory (description, type, size, quantity, location) VALUES ('" . $_POST['description'] . "', '" . $_POST['edittype'] . "', '" . $_POST['size'] . "', '" . $_POST['editqty'] . "', '" .  $_POST['location']."')";
+  echo $query;
+  require 'config_m.php';
+  $conn->query($query);
+  $conn->close();
+  #header('Location: ../protected/inventory.php');
+  exit;
+}
+
+
+
+if ($_SESSION['table'] == 10) {
+  $query = "SELECT * FROM inventory";
+  queryit($query);
+}
+if ($_SESSION['table'] == 12) {
+  $query = "SELECT * FROM inventory WHERE type='ribbion'";
+  queryit($query);
+}
+if ($_SESSION['table'] == 13) {
+  $query = "SELECT * FROM inventory WHERE type='insignia'";
+  queryit($query);
+}
+if ($_SESSION['table'] == 14) {
+  $query = "SELECT * FROM inventory WHERE type='blues'";
+  queryit($query);
+}
+if ($_SESSION['table'] == 15) {
+  $query = "SELECT * FROM inventory WHERE type='abu'";
+  queryit($query);
+}
+#if ($_SESSION['table'] == 16) {
+#  $query = "SELECT * FROM inventory WHERE description=$_SESSION['datatable']";
+#  queryit($query);
+#}
+
+
+
+
+
+
 if (isset($_GET['stuffmore']) == 1) {
   require 'config_m.php';
   $_SESSION['table'] == 5;
