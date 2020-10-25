@@ -16,15 +16,32 @@
 
     $membertype = "visiter";
     $message = $name . " signed in";
+    date_default_timezone_set("America/Denver");
     $date = date("Y/m/d");
     $time = date("H:i:s");
 
-    $query = "INSERT INTO meeting_nights (date, name, time_in, member_type, cap_id) VALUES ('$date', '$name', '$time', '$membertype', $phonenumber)";
-    $conn->query($query);
-    $conn->close();
+    if(isset($_POST["eventid"])) {
+      $event_id = $_POST["eventid"];
+      $query = "INSERT INTO events (event_id, date_in, first_name, last_name, time_in, member_type, cap_id) VALUES ($event_id, '$date', '$firstname', '$lastname', '$time', '$membertype', $phonenumber)";
+      $conn->query($query);
+      $conn->close();
 
-    $_SESSION['message'] = "Thanks for signing in!";
-    header("Location: ../protected/meeting_nights.php");
+      //echo $query;
+
+      $_SESSION['message'] = "Thanks for signing in!";
+      header("Location: ../protected/event_handle.php?eventid=$event_id");
+    } else {
+      $query = "INSERT INTO meeting_nights (date, name, time_in, member_type, cap_id) VALUES ('$date', '$name', '$time', '$membertype', $phonenumber)";
+      $conn->query($query);
+      $conn->close();
+
+    //  echo "Not Set";
+
+      $_SESSION['message'] = "Thanks for signing in!";
+      header("Location: ../protected/meeting_nights.php");
+    }
+
+
     die;
   }
 ?>
@@ -59,7 +76,11 @@ input {
           <label for="firstname">First name:</label> <input type="text" name="firstname" align="right" value="<?PHP if(isset($_POST['phonenumber:'])) echo htmlspecialchars($_POST['firstname']); ?>" required><br>
           <label for="lastname">Last name:</label> <input type="text" name="lastname" align="right" value="<?PHP if(isset($_POST['phonenumber:'])) echo htmlspecialchars($_POST['lastname']); ?>" required><br>
           <label for="phonenumber:">Phone Number:(9 Digit)</label> <input type="text" id="phonenumber:" name="phonenumber:" align="right" title="Must be a proper phone number" pattern="[0-9].{8,}" value="<?PHP if(isset($_POST['phonenumber:'])) echo htmlspecialchars($_POST['phonenumber:']); ?>"><br>
-
+          <?php
+          $event_id = $_GET["event_signin"];
+          echo $event_id;
+          echo '<input type="hidden" value="' . $event_id . '" name="eventid">';
+          ?>
           <br>
           <input type="submit" value="Sign In">
         </form>

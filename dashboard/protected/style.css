@@ -369,3 +369,28 @@ th {
     color: white;
   }
 }
+
+
+/* EVENT PAGE CSS */
+
+.eventheader {
+  text-align: center;
+}
+
+.eventform {
+  width: 85%;
+  margin-left:auto;
+  margin-right:auto;
+  align-items: center;
+  border-color: red;
+}
+.eventform th {
+  width: 20%;
+}
+.form {
+  align-self: auto;
+  align-items: center;
+  text-align: center;
+  align-content: center;
+  display: inline-block;
+}
