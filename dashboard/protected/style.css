@@ -98,8 +98,12 @@
   border: 1px solid black;
 }
 .radiotable th {
-  width: 20%;
+  width: auto;
 }
+.radiotable td {
+  width: auto;
+}
+
 
 /*TABLE FOR sqmembers*/
 .sqtable table {
