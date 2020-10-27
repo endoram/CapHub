@@ -85,6 +85,11 @@
   color: white;
 }
 
+.radiotable h4 {
+  text-align: center;
+  align-items: center;
+}
+
 .radiotable table {
   width: 85%;
   margin-left:auto;

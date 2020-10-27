@@ -228,16 +228,20 @@ function closeForm() {
         <div class="radiotable">
           <br>
           <?php
-          $table = array("SELECT * FROM comms WHERE in_out='OUT'","SELECT * FROM comms WHERE radio_type='ISR'", "SELECT * FROM comms WHERE radio_type='VHF'", "SELECT * FROM comms WHERE radio_type='HF'");
-
-          foreach ($table as $key => $value) {
+          $table = array(
+            array("SELECT * FROM comms WHERE in_out='OUT'", "Equipment Out"),
+            array("SELECT * FROM comms WHERE radio_type='ISR'", "ISR Radios"),
+            array("SELECT * FROM comms WHERE radio_type='VHF'", "VHF Radios"),
+            array("SELECT * FROM comms WHERE radio_type='HF'", "HFs Radios")
+            //array("SELECT * FROM comms WHERE radio_type='HF'", "Other Equipment")
+          );
+          for ($x = 0; $x <= 3; $x++) {
+            $value = $table[$x][0];
             require "../includes/config_m.php";
             $result = $conn->query($value);
-              //<th>Radio Name</th>
-              //<td>" . $row["radio_name"] . "</td>
             if ($result->num_rows > 0) {
+              echo "<h4>" . $table[$x] [1] . "</h4>";
               echo '
-              <br>
                 <table>
                   <colgroup>
                     <col span="6" style="background-color:lightgrey">
