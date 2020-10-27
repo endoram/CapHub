@@ -9,13 +9,11 @@ if(isset($_POST['sent'])) {
 
     require "../includes/config_m.php";
     $query = "SELECT * FROM comms WHERE radio_id='$radio_id'";
-    echo $query;
     $result = $conn->query($query);
 
     if ($result->num_rows > 0) {$errorMsg = "A radio with that ID has already been added"; $conn->close();}
     else {
       $query = "INSERT INTO comms (radio_id, radio_type, in_out, status, description) VALUES ('$radio_id', '$radio_type', 'IN', 'Fully Operational', '$description')";
-      echo $query;
       $conn->query($query);
       $conn->close();
     }
