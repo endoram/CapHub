@@ -85,6 +85,11 @@
   color: white;
 }
 
+.radiotable h4 {
+  text-align: center;
+  align-items: center;
+}
+
 .radiotable table {
   width: 85%;
   margin-left:auto;
@@ -93,8 +98,12 @@
   border: 1px solid black;
 }
 .radiotable th {
-  width: 20%;
+  width: auto;
 }
+.radiotable td {
+  width: auto;
+}
+
 
 /*TABLE FOR sqmembers*/
 .sqtable table {
