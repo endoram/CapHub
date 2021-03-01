@@ -1,11 +1,11 @@
 <?php
 session_start();
-if(empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] == "off"){
-    $redirect = 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-    header('HTTP/1.1 301 Moved Permanently');
-    header('Location: ' . $redirect);
-    exit();
-}
+#if(empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] == "off"){
+#    $redirect = 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+#    header('HTTP/1.1 301 Moved Permanently');
+#    header('Location: ' . $redirect);
+#    exit();
+#}
 
 unset($_SESSION["capid"]);
 unset($_SESSION["password"]);
@@ -61,6 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   }
 }
 ?>
+<script src="https://apis.google.com/js/platform.js" async defer></script>
 <style>
   h1, h2 {
     align-self: center;
@@ -80,11 +81,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <html>
   <head>
+    <meta name="google-signin-client_id" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <img src="images/banner.png">
   </head>
   <body>
     <div class="loginform">
+      <div class="g-signin2" data-onsuccess="onSignIn"></div>
       <form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" accept-charset="UTF-8">
         <?php
         if(isset($errorMsg) && $errorMsg) {
