@@ -1,6 +1,6 @@
 # CAPHub
 
-[CAPHub Image] (screenshots/CAPHubMain.png)
+![CAPHub Image] (/screenshots/CAPHubMain.png)
 
 CAPHub is a US based, hosted website that is designed to track squadron level activities that are outside the scope of eServices. There are no direct or indirect connections to eServices. It uses the LAMP stack of open source tools.
 
