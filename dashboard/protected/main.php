@@ -29,6 +29,7 @@ require "../includes/header.php";
           <dt><b>PT page:</b></dt>
             <dd>Members can now enter PT data without transfer of paper.</dd>
             <dd>Logs are searchable by name, CAP ID and date.</dd>
+            <br>
           <dt><b>Comms page:</b></dt>
             <dd>keep track of radios that are checked out or in.</dd>
             <dd>Lets you know who has check them out.</dd>
