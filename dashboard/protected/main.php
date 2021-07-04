@@ -31,12 +31,12 @@ require "../includes/header.php";
             <dd>keep track of radios that are checked out or in.</dd>
             <dd>Lets you know who has check them out.</dd>
             <br>
-          <? /*
+          <!--
           <dt><b>PT page:</b></dt>
             <dd>Members can now enter PT data without transfer of paper.</dd>
             <dd>Logs are searchable by name, CAP ID and date.</dd>
             <br>
-          */?>
+          -->
         <dt><b>Top Navigation Bar:</b></dt>
         <ul>
           <li>Help Page - Report A Bug</li>
