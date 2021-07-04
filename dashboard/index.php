@@ -12,6 +12,7 @@ unset($_SESSION["password"]);
 unset($_SESSION["privlv"]);
 unset($_SESSION["name"]);
 unset($_SESSION["something"]);
+unset($_SESSION["squad"]);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $squadrons = $_POST['squadron'];
@@ -46,6 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           $_SESSION['password'] = $password;
           $_SESSION['privlv'] = $db_priv;
           $_SESSION['name'] = $db_fname . " " . $db_lname;
+          $_SESSION['squad'] = $squadrons;
           header("Location: protected/main.php");
           exit();
         }

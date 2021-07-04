@@ -1,12 +1,15 @@
 <?php
+
+if(isset($_GET['export'])){
+  $query = "SELECT first_name, last_name, cap_id FROM sq_members";
+  include "../includes/export.php";
+}
+
 require "../includes/header.php";
 require "../includes/config_m.php";
 
 $_SESSION['table'] = 0;
 
-if(isset($_GET['export'])){
-
-}
 if(isset($_GET['retire'])) {
   echo "Select all users to retire:";
   echo "<br>";

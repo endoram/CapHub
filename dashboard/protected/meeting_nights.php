@@ -1,4 +1,10 @@
 <?php
+if(isset($_GET['export'])){
+  $query = "SELECT first_name, last_name, cap_id FROM sq_members";
+
+  include "../includes/export.php";
+}
+
 require "../includes/header.php";
 
 if(isset($_POST['guestlogin'])) {
@@ -131,7 +137,7 @@ function submit() {                 //Input validation
         queryit($data);
       }
       else{
-        $data = "cap_id LIKE '" . $_POST['input'];
+        $data = "cap_id LIKE '" . $_POST['input'] . "'";
         queryit($data);
       }
     }
@@ -160,6 +166,14 @@ function queryit($data) {           //Query the data and present it
   require "../includes/config_m.php";
   $query = "SELECT * FROM meeting_nights WHERE " . $data;
   $result = $conn->query($query);
+  $_SESSION['query_idea'] = $query;
+
+echo '
+  <form action="../includes/export.php" method="post">
+      <input type="submit" name="export" value="Export" />
+  </form>
+  ';
+
 
   //Creating table to display information from query
   echo '<div class="sqsearch">
