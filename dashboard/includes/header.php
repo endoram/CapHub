@@ -24,8 +24,8 @@
         <li><a href="comms.php">Comms</a></li>
         <li><a href="sqmembers.php">Squadron</a></li>
         <li><a href="meeting_nights.php">Meetings</a></li>
-        <li><a href="physical_testing.php">PT</a></li>
-  <!--      <li><a href="events.php">Events</a></li>  !-->
+  <!--  <li><a href="physical_testing.php">PT</a></li>!-->
+  <!--  <li><a href="events.php">Events</a></li>      !-->
   <!--  <li><a href="vehicles.php">Vehicles</a></li>  !-->
         <?php if($_SESSION['privlv'] >= 2){ ?>
         <?php } ?>
@@ -39,7 +39,7 @@
         <a href="comms.php">Comms</a>
         <a href="sqmembers.php">Squadron</a>
         <a href="meeting_nights.php">Meetings</a>
-        <a href="physical_testing.php">PT</a>
+  <!--      <a href="physical_testing.php">PT</a> !-->
   <!--      <a href="events.php">Events</a> !-->
         <?php if($_SESSION['privlv'] >= 2){ ?>
         <?php } ?>
