@@ -6,3 +6,7 @@ dashboard/includes/mysql_config.php
 dashboard/squadrons/RMR-ID/pt_log.txt
 
 testSuites/
+
+OLD/
+
+testSuits/
