@@ -157,9 +157,9 @@ function handleit($data) {
     echo '
       <select name="radio_type">
         <option value=ISR>ISR</option>
-        <option value=VHF>VHF</option>
-        <option value=HF>HF</option>
-        <option value=Equipment>Equipment</option>
+        <!--<option value=VHF>VHF</option>-->
+        <!--<option value=HF>HF</option>-->
+        <!--<option value=Equipment>Equipment</option>-->
       </select>
     ';
   }
