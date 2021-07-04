@@ -238,14 +238,20 @@ function closeForm() {
         <div class="radiotable">
           <br>
           <?php
+          /* Old But Working... Just you know... IDK
           $table = array(
             array("SELECT * FROM comms WHERE in_out='OUT'", "Equipment Out"),
             array("SELECT * FROM comms WHERE radio_type='ISR'", "ISR Radios"),
             array("SELECT * FROM comms WHERE radio_type='VHF'", "VHF Radios"),
             array("SELECT * FROM comms WHERE radio_type='HF'", "HF Radios"),
             array("SELECT * FROM comms WHERE radio_type='Equipment'", "Misc Equipment")
+          );  */
+          $table = array(
+            array("SELECT * FROM comms WHERE in_out='OUT'", "Equipment Out"),
+            array("SELECT * FROM comms WHERE radio_type='ISR'", "ISR Radios"),
           );
-          for ($x = 0; $x <= 4; $x++) {
+          #for ($x = 0; $x <= 4; $x++) {
+          for ($x = 0; $x <= 1; $x++) {
             $value = $table[$x][0];
             require "../includes/config_m.php";
             $result = $conn->query($value);
