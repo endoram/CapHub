@@ -168,12 +168,6 @@ function queryit($data) {           //Query the data and present it
   $result = $conn->query($query);
   $_SESSION['query_idea'] = $query;
 
-echo '
-  <form action="../includes/export.php" method="post">
-      <input type="submit" name="export" value="Export" />
-  </form>
-  ';
-
 
   //Creating table to display information from query
   echo '<div class="sqsearch">
@@ -242,6 +236,16 @@ function closeForm() {
         <a href="?capid=1">CAP ID</a>
         <a href="?date=1">Date</a>
       </div>
+      <?php
+        if(isset($_SESSION['query_idea'])) {
+          unset($_SESSION['query_idea']);
+          echo '
+            <form action="../includes/export.php" method="post">
+                <input type="submit" name="export" value="Export" />
+            </form>
+            ';
+        }
+      ?>
     </div>
     <br>
     <div class="meetingform">
