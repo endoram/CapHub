@@ -8,7 +8,7 @@ require "../includes/header.php";
   </head>
   <body>
     <div class="news">
-      <h3>CAPhub v1.5</h3>
+      <h3 name="version">CAPhub v1.5</h3>
       <div class="lists">
         <dl>
           <dt><b>Whats New:</b></dt>
