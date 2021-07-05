@@ -20,5 +20,6 @@ $result = $conn->query($query);
 while($row = $result->fetch_assoc()) {
   fputcsv($output, $row);
 }
+unset($_SESSION['query_idea']);
 exit()
 ?>

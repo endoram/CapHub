@@ -227,6 +227,15 @@ function closeForm() {
     <link rel="stylesheet" href="../libs/calendar/datepicker.min.css">
   </head>
   <body>
+    <?php
+      if(isset($_SESSION['query_idea'])) {
+        echo '
+          <form action="../includes/export.php" method="post">
+              <input type="submit" name="export" value="Export" />
+          </form>
+          ';
+      }
+    ?>
     <?php echo "Today is " . date("Y/m/d") . "<br>";?>
     <div class="dropdown">
       <button class="dropbtn">Search for</button>
@@ -236,16 +245,6 @@ function closeForm() {
         <a href="?capid=1">CAP ID</a>
         <a href="?date=1">Date</a>
       </div>
-      <?php
-        if(isset($_SESSION['query_idea'])) {
-          unset($_SESSION['query_idea']);
-          echo '
-            <form action="../includes/export.php" method="post">
-                <input type="submit" name="export" value="Export" />
-            </form>
-            ';
-        }
-      ?>
     </div>
     <br>
     <div class="meetingform">
