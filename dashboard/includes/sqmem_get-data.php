@@ -6,7 +6,7 @@ if (isset($_GET['retired'])) {
   require 'config_m.php';
   $data = $_GET['retired'];
   $_SESSION['table'] = 1;
-  $query = "UPDATE sq_members SET retire=1 where cap_id in ($data)";
+  $query = "UPDATE sq_members SET retire=1 where cap_id in ($data) && FQSN='" . $_SESSION["FQSN"] . "'";
   $result = $conn->query($query);
   $conn->close();
 }
@@ -61,7 +61,7 @@ if (isset($_GET['stuffmore']) == 1) {
   require 'config_m.php';
   $_SESSION['table'] == 5;
 
-  date_default_timezone_set("America/Denver");
+  #date_default_timezone_set("America/Denver");
   $date = date("Y/m/d");
 
   $query = "SELECT name, cap_id FROM meeting_nights WHERE member_type='cadet' AND date='$date'";
@@ -80,6 +80,7 @@ if (isset($_GET['stuffmore']) == 1) {
 
 function queryit($query) {
   require 'config_m.php';
+  $query = $query . " && FQSN='" . $_SESSION["FQSN"] . "'";
   $result = $conn->query($query);
   $conn->close();
 
@@ -90,5 +91,7 @@ function queryit($query) {
     }
   }
   echo json_encode($rows);
+#  echo($query); //Check console for SQL query statment -> click on link view SQL statement in URL
 }
+
 ?>

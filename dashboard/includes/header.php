@@ -7,14 +7,8 @@
   }
 
 
-
-  require "../includes/mysql_config.php";
-  $conn = new mysqli($mysql_host2, $mysql_user2, $mysql_password2, $mysql_database2) or die("Database Connection Failed : " . mysql_error());
-
-  if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-  }
-  $query = "SELECT * FROM squads WHERE sq_name='" . $_SESSION['something'] . "'";
+  require "../includes/config_m.php";
+  $query = "SELECT time_zone FROM squads WHERE FQSN='" . $_SESSION['FQSN'] . "'";
 
   $result = $conn->query($query);
   if ($result->num_rows > 0) {

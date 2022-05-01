@@ -1,4 +1,5 @@
 <?php
+#ALTER TABLE `meeting_nights` ADD `FQDN` VARCHAR(100) NOT NULL DEFAULT 'RMR-ID-073' AFTER `ID`;
 if(isset($_GET['export'])){
   $query = "SELECT first_name, last_name, cap_id FROM sq_members";
 

@@ -37,15 +37,21 @@
     }
 
     if ($y == 0) {
-      $query = "INSERT INTO sq_members (cap_id, first_name, last_name, member_type, privlage_level, user_pass) VALUES (" . $capid . ",'" . $firstname . "', '" . $lastname . "', '" . $cadetornot . "', '" . $priv . "', '" . $hash_pass. "')";
+      $FQSN = $_SESSION['FQSN'];
+      $query = "INSERT INTO sq_members (cap_id, first_name, last_name, member_type, privlage_level, user_pass, FQSN)
+      VALUES (" . $capid . ",'" . $firstname . "', '" . $lastname . "', '" . $cadetornot . "', '" . $priv . "', '" . $hash_pass . "', '" . $FQSN . "')";
+#      echo($query);
       $conn->query($query);
+      $query = "UPDATE sq_members SET user_pass = '$hash_pass' WHERE cap_id=$capid && FQSN='$FQSN'";
+#      echo($query);
+#      $conn->query($query);
       $conn->close();
 
-      $today = date("D M j G:i:s T Y");
-      $log = $today . ": Added user " . $firstname . " " . $lastname . " By " . $_SESSION['name'];
-      $logfile = "../squadrons/" . $_SESSION['something'] . "/log.txt";
-      file_put_contents($logfile, $log, FILE_APPEND);
-      header("Location: ../protected/sqmembers.php");
+  #    $today = date("D M j G:i:s T Y");
+#      $log = $today . ": Added user " . $firstname . " " . $lastname . " By " . $_SESSION['name'];
+#      $logfile = "../squadrons/" . $_SESSION['something'] . "/log.txt";
+#      file_put_contents($logfile, $log, FILE_APPEND);
+      #header("Location: ../protected/sqmembers.php");
     }
     else {$conn->close();}
   }

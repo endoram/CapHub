@@ -289,8 +289,8 @@ th {
 
 .meetingform {
   text-align: center;
-  -webkit-transform: translateY(100%);
-  transform: translateY(100%);
+/*  -webkit-transform: translateY(100%);
+  transform: translateY(100%); */
   margin-top: 100px;
 }
 .meetingform input[type=button], input[type=submit], input[type=reset] {

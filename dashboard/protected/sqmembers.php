@@ -1,7 +1,7 @@
 <?php
 
 if(isset($_GET['export'])){
-  $query = "SELECT first_name, last_name, cap_id FROM sq_members";
+  $query = "SELECT first_name, last_name, cap_id FROM sq_members WHERE FQSN=" . $_SESSION['FQSN'];
   include "../includes/export.php";
 }
 
@@ -94,7 +94,7 @@ function submit() {
 
 function queryit($data) {
   require "../includes/config_m.php";
-  $query = "SELECT * FROM sq_members WHERE " . $data;
+  $query = "SELECT * FROM sq_members WHERE " . $data . " && FQSN='" . $_SESSION['FQSN']. "'";
   $result = $conn->query($query);
 
   echo '<div class="sqsearch">

@@ -7,27 +7,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   #echo($timezone);
 
 
-  require "../includes/mysql_config.php";
-  $conn = new mysqli($mysql_host2, $mysql_user2, $mysql_password2, $mysql_database2) or die("Database Connection Failed : " . mysql_error());
-
-  if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-  }
-  $query = "UPDATE squads SET time_zone='" . $timezone . "' WHERE sq_name='" . $_SESSION['something'] . "'";   //Validate number is a CAPID in the database
+  require "../includes/config_m.php";
+  $query = "UPDATE squads SET time_zone='" . $timezone . "' WHERE FQSN='" . $_SESSION['FQSN'] . "'";   //Validate number is a CAPID in the database
   #echo($query);
   $conn->query($query);
   $conn->close();
 }
-
-
-require "../includes/mysql_config.php";
-$conn = new mysqli($mysql_host2, $mysql_user2, $mysql_password2, $mysql_database2) or die("Database Connection Failed : " . mysql_error());
-
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
-}
-$query = "SELECT * FROM squads WHERE sq_name='" . $_SESSION['something'] . "'";
-
 ?>
 
 
@@ -38,7 +23,11 @@ $query = "SELECT * FROM squads WHERE sq_name='" . $_SESSION['something'] . "'";
   </head>
   <body>
     <h2>Squadron Settings</h2>
-    <h4>Current Timezone:</h4> <?php
+    <h4>Current Timezone:</h4>
+    <?php
+    require "../includes/config_m.php";
+    $query = "SELECT * FROM squads WHERE FQSN='" . $_SESSION['FQSN'] . "'";
+
     $result = $conn->query($query);
     if ($result->num_rows > 0) {
       while($row = $result->fetch_assoc()) {
