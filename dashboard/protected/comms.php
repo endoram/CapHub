@@ -48,7 +48,7 @@ if(isset($_POST['sent'])) {
       $name = $firstname . " " . $lastname;
     }
 
-    date_default_timezone_set("America/Denver");
+  #  date_default_timezone_set("America/Denver");
     $date = date("Y/m/d");
 
     $query = "UPDATE comms SET in_out='OUT', name='$name', out_date='$date' WHERE radio_id='$radio_id'";

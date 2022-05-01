@@ -14,8 +14,9 @@ if(isset($_POST['guestlogin'])) {
 if(isset($_POST['sent'])) {submit();}
 
 if(isset($_GET['rmuser0'])) {     //If user has intered an input
-  date_default_timezone_set("America/Denver");
+#  date_default_timezone_set("America/Denver");
   $time = date("H:i:s");
+#  echo($time);
   $capid = $_GET['capidrm'];
 
   if ($capid == "" or !is_numeric($capid)) {$errorMsg = "Invalid Cap ID";}    //Validate all numbers

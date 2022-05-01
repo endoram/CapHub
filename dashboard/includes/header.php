@@ -5,7 +5,30 @@
   if(isset($_GET['logout'])) {
     header("Location: ../index.php");
   }
+
+
+
+  require "../includes/mysql_config.php";
+  $conn = new mysqli($mysql_host2, $mysql_user2, $mysql_password2, $mysql_database2) or die("Database Connection Failed : " . mysql_error());
+
+  if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+  }
+  $query = "SELECT * FROM squads WHERE sq_name='" . $_SESSION['something'] . "'";
+
+  $result = $conn->query($query);
+  if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+      date_default_timezone_set($row['time_zone']);
+    }
+    $conn->close();
+  }
+  else {
+    echo "<script>alert('No Results Found');</script>";
+    $conn->close();
+  }
 ?>
+
 
 <html>
   <head>
@@ -28,6 +51,7 @@
   <!--  <li><a href="events.php">Events</a></li>      !-->
   <!--  <li><a href="vehicles.php">Vehicles</a></li>  !-->
         <?php if($_SESSION['privlv'] >= 2){ ?>
+          <li><a href="admin_conf.php">Settings</a></li>
         <?php } ?>
         <li><a href="help.php">Help</a></li>
         <li><a href="?logout=1">Log out</a></li>
@@ -42,6 +66,7 @@
   <!--      <a href="physical_testing.php">PT</a> !-->
   <!--      <a href="events.php">Events</a> !-->
         <?php if($_SESSION['privlv'] >= 2){ ?>
+          <li><a href="admin_conf.php">Settings</a></li>
         <?php } ?>
         <a href="help.php">Help</a>
         <a href="?logout=1">Log out</a>
