@@ -1,5 +1,4 @@
 <?php
-phpinfo();
 session_start();
 if(empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] == "off"){
     $redirect = 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
@@ -12,16 +11,19 @@ unset($_SESSION["capid"]);
 unset($_SESSION["password"]);
 unset($_SESSION["privlv"]);
 unset($_SESSION["name"]);
-unset($_SESSION["something"]);
+unset($_SESSION["FQSN"]);
+unset($_SESSION["squad"]);
+
+##var_dump($_SESSION);
+unset($_SESSION["cap_id"]);
+unset($_SESSION["query_idea"]);
+unset($_SESSION["table"]);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  $squadrons = $_POST['squadron'];
   $capid = $_POST['capid'];
   $password = $_POST['password'];
 
-  $something = "squadrons/" .  $squadrons . "/config_m.php";
-  $_SESSION['something'] = $squadrons;
-  require $something;
+  require "includes/config_m.php";
 
   if(!is_numeric($capid)) {
     $errorMsg = "Invalid Cap ID or password";
@@ -39,6 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           $db_priv = $row['privlage_level'];
           $db_fname = $row['first_name'];
           $db_lname = $row['last_name'];
+          $db_FQSN = $row['FQSN'];
       }
       if ($db_priv >= 1){
         if (password_verify($password, $db_pass)) {
@@ -47,6 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           $_SESSION['password'] = $password;
           $_SESSION['privlv'] = $db_priv;
           $_SESSION['name'] = $db_fname . " " . $db_lname;
+          $_SESSION['FQSN'] = $db_FQSN;
           header("Location: protected/main.php");
           exit();
         }
@@ -62,6 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   }
 }
 ?>
+<script src="https://apis.google.com/js/platform.js" async defer></script>
 <style>
   h1, h2 {
     align-self: center;
@@ -81,44 +86,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <html>
   <head>
+    <meta name="google-signin-client_id" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <img src="images/banner.png">
   </head>
   <body>
     <div class="loginform">
+      <div class="g-signin2" data-onsuccess="onSignIn"></div>
       <form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" accept-charset="UTF-8">
         <?php
         if(isset($errorMsg) && $errorMsg) {
           echo "<p style=\"color: red;\">*",htmlspecialchars($errorMsg),"</p>\n\n";
         }?>
         <label for="EMIAL">CAP ID:</label> <input type="text" name="capid" align="right" value="<?PHP if(isset($_POST['capid'])) echo htmlspecialchars($_POST['capid']); ?>"><br>
-        <label for="PASSWORD">Password:</label> <input type="password" name="password" align="right" value="<?PHP if(isset($_POST['password'])) echo htmlspecialchars($_POST['password']); ?>"><br>
-        <label for="LOCATIONID">Location:</label>
-        <select name="squadron">
-          <?php
-            require "includes/mysql_config.php";
-            $conn = new mysqli($mysql_host2, $mysql_user2, $mysql_password2, $mysql_database2) or die("Database Connection Failed : " . mysql_error());
-
-            if ($conn->connect_error) {
-              die("Connection failed: " . $conn->connect_error);
-            }
-
-            $query = "SELECT sq_name FROM squads";
-            $result = $conn->query($query);
-
-            if ($result->num_rows > 0) {
-              while($row = $result->fetch_assoc()) {
-                echo "<option value=" . $row['sq_name'] . ">" . $row['sq_name'] . "</option>";
-              }
-              $conn->close();
-            }
-            else {
-              echo "<script>alert('No Results Found');</script>";
-              $conn->close();
-            }
-          ?>
-        </select>
-        <br><b></b><br>
+        <label for="PASSWORD">Password:</label> <input type="password" name="password" align="right" value="<?PHP if(isset($_POST['password'])) echo htmlspecialchars($_POST['password']); ?>"><br><br>
         <input type="submit" value="Login">
       </form>
   </div>
