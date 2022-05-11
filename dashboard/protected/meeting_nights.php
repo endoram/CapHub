@@ -169,6 +169,7 @@ function queryit($data) {           //Query the data and present it
   $query = "SELECT * FROM meeting_nights WHERE " . $data;
   $result = $conn->query($query);
   $_SESSION['query_idea'] = $query;
+  $count = 1;
 
 
   //Creating table to display information from query
@@ -176,9 +177,10 @@ function queryit($data) {           //Query the data and present it
     <br>
     <table>
       <colgroup>
-        <col span="5" style="background-color:lightgrey">
+        <col span="6" style="background-color:lightgrey">
       </colgroup>
       <tr>
+        <th>ID</th>
         <th>Date</th>';
         if (isset($_POST['vister'])) {echo "<th>Phone Number</th>";}
         else {echo "<th>CAPID</th>";}
@@ -191,6 +193,7 @@ function queryit($data) {           //Query the data and present it
   if ($result->num_rows > 0) {    //If the query is not empty
     while($row = $result->fetch_assoc()) {
         echo "<tr>
+        <td>" . $count . "</td>
         <td>" . $row["date"] . "</td>
         <td>" . $row["cap_id"] . "</td>
         <td>" . $row["name"] . "</td>
@@ -198,6 +201,7 @@ function queryit($data) {           //Query the data and present it
         <td>" . $row["time_out"] . "</td>
         </tr>";
         $rm_capid = $row["cap_id"];
+        $count = $count + 1;
     }
     $conn->close();
   }
