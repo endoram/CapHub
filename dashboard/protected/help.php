@@ -32,13 +32,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <h3>Be sure to send the creators an email at:</h3>
     <br>
     <p>caphub.org@gmail.com</p><br>
-    <h2>Report A Bug:</h2>
+    <h2>Report A Bug by Emailing:</h2><br>
+    <p>caphub.org@gmail.com</p><br>
   </center>
   </body>
 </html>
 
 
-
+<!--
 
 <html>
   <head>
@@ -49,24 +50,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <body>
     <div class="column">
       <div class="addmemberform">
-        <form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" accept-charset="UTF-8">
+        <form method="post" action="<?php# echo htmlspecialchars($_SERVER['PHP_SELF']);?>" accept-charset="UTF-8">
           <?php
-          if(isset($errorMsg) && $errorMsg) {
-            echo "<p style=\"color: red;\">*",htmlspecialchars($errorMsg),"</p>\n\n";
-          }?>
-          <label for="firstname">First name:</label> <input type="text" name="firstname" align="right" value="<?PHP if(isset($_POST['capid'])) echo htmlspecialchars($_POST['firstname']); ?>" required><br>
-          <label for="lastname">Last name:</label> <input type="text" name="lastname" align="right" value="<?PHP if(isset($_POST['capid'])) echo htmlspecialchars($_POST['lastname']); ?>" required><br>
+        #  if(isset($errorMsg) && $errorMsg) {
+        #    echo "<p style=\"color: red;\">*",htmlspecialchars($errorMsg),"</p>\n\n";
+        #  }?>
+          <label for="firstname">First name:</label> <input type="text" name="firstname" align="right" value="<?PHP #if(isset($_POST['capid'])) echo htmlspecialchars($_POST['firstname']); ?>" required><br>
+          <label for="lastname">Last name:</label> <input type="text" name="lastname" align="right" value="<?PHP #if(isset($_POST['capid'])) echo htmlspecialchars($_POST['lastname']); ?>" required><br>
           <label for="capid">CAP ID:</label> <input type="text" id="capid" name="capid" align="right" title="Must be a proper CAPID" pattern="[0-9].{5,}" value="<?PHP if(isset($_POST['capid'])) echo htmlspecialchars($_POST['capid']); ?>" required><br>
           <label for="issue">Issue:</label><br><textarea type="text" id="issue" name="issue" align="right" required></textarea><br>
           <input type="submit" value="Submit">
-    <!--    </form>
+        </form>
+    I really should only need a CAPID for this. I can query for more infomration when I send email...or put into database
         <div class="cancelbutton">
           <form action="../protected/sqmembers.php">
             <input type="submit" value="Cancel">
           </form>
-    -->
         </div>
       </div>
     </div>
   </body>
 </html>
+
+-->
