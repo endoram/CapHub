@@ -8,24 +8,24 @@ if(isset($_POST['sent'])) {
     $description = $_POST['description'];
 
     require "../includes/config_m.php";
-    $query = "SELECT * FROM comms WHERE radio_id='$radio_id'";
+    $query = "SELECT * FROM comms WHERE radio_id='$radio_id' && FQSN='" . $_SESSION['FQSN'] . "'";
     $result = $conn->query($query);
 
     if ($result->num_rows > 0) {$errorMsg = "A radio with that ID has already been added"; $conn->close();}
     else {
-      $query = "INSERT INTO comms (radio_id, radio_type, in_out, status, description) VALUES ('$radio_id', '$radio_type', 'IN', 'Fully Operational', '$description')";
+      $query = "INSERT INTO comms (radio_id, radio_type, in_out, status, description, FQSN) VALUES ('$radio_id', '$radio_type', 'IN', 'Fully Operational', '$description', '" .  $_SESSION['FQSN'] . "')";
       $conn->query($query);
       $conn->close();
     }
   }
   if($_POST['sent'] == "Remove Equipment ID:") {
     $radio_id = $_POST['input'];
-    $query = "SELECT * FROM comms WHERE radio_id='$radio_id'";
+    $query = "SELECT * FROM comms WHERE radio_id='$radio_id' && FQSN='" . $_SESSION['FQSN'] . "'";
 
     require "../includes/config_m.php";
     $result = $conn->query($query);
     if ($result->num_rows > 0) {
-      $query = "DELETE FROM comms WHERE radio_id='$radio_id'";
+      $query = "DELETE FROM comms WHERE radio_id='$radio_id' && FQSN='" . $_SESSION['FQSN'] . "'";
       $conn->query($query);
       $conn->close();
       echo "Removed radio: $radio_id";
@@ -51,13 +51,13 @@ if(isset($_POST['sent'])) {
   #  date_default_timezone_set("America/Denver");
     $date = date("Y/m/d");
 
-    $query = "UPDATE comms SET in_out='OUT', name='$name', out_date='$date' WHERE radio_id='$radio_id'";
+    $query = "UPDATE comms SET in_out='OUT', name='$name', out_date='$date' WHERE radio_id='$radio_id' && FQSN='" . $_SESSION['FQSN'] . "'";
     $conn->query($query);$conn->close();
   }
   if($_POST['sent'] == "Check In Equipment ID:") {
     require "../includes/config_m.php";
     $radio_id = $_POST['input'];
-    $query = "UPDATE comms SET in_out='IN', name='' WHERE radio_id='$radio_id'";
+    $query = "UPDATE comms SET in_out='IN', name='' WHERE radio_id='$radio_id' && FQSN='" . $_SESSION['FQSN'] . "'";
 
     $conn->query($query);$conn->close();
   }
@@ -67,7 +67,7 @@ if(isset($_POST['sent'])) {
     $whatsbroken = $_POST["whatbroken"];
     $status = $_POST['change_status'];
 
-    $query = "UPDATE comms SET status='$status' WHERE radio_id='$radio_id'";
+    $query = "UPDATE comms SET status='$status' WHERE radio_id='$radio_id' && FQSN='" . $_SESSION['FQSN'] . "'";
     $conn->query($query);$conn->close();
   }
 }
@@ -86,7 +86,7 @@ function handleit($data) {
 
   if(isset($_GET['checkout'])){
     echo '<label for="input"><b>' . $data . '</b></label>';
-    $query = "SELECT radio_id FROM comms WHERE in_out='IN'";
+    $query = "SELECT radio_id FROM comms WHERE in_out='IN' && FQSN='" . $_SESSION['FQSN'] . "'";
     echo '<input list="input" name="input">';
     echo '<datalist id="input">';
     $result = $conn->query($query);
@@ -108,7 +108,7 @@ function handleit($data) {
 
   if(isset($_GET['checkin'])) {
     echo '<label for="input"><b>' . $data . '</b></label>';
-    $query = "SELECT radio_id FROM comms WHERE in_out='OUT'";
+    $query = "SELECT radio_id FROM comms WHERE in_out='OUT' && FQSN='" . $_SESSION['FQSN'] . "'";
     echo '<input list="input" name="input">';
     echo '<datalist id="input">';
     $result = $conn->query($query);
@@ -128,7 +128,7 @@ function handleit($data) {
 
   if(isset($_GET['removeradio'])) {
     echo '<label for="input"><b>' . $data . '</b></label>';
-    $query = "SELECT radio_id FROM comms";
+    $query = "SELECT radio_id FROM comms FQSN='" . $_SESSION['FQSN'] . "'";
     echo '<input list="input" name="input">';
     echo '<datalist id="input">';
     $result = $conn->query($query);
@@ -166,7 +166,7 @@ function handleit($data) {
 
   if(isset($_GET['changestatus'])){
     echo '<label for="input"><b>' . $data . '</b></label>';
-    $query = "SELECT radio_id FROM comms";
+    $query = "SELECT radio_id FROM comms WHERE FQSN='" . $_SESSION['FQSN'] . "'";
     echo '<input list="input" name="input">';
     echo '<datalist id="input">';
     $result = $conn->query($query);
@@ -247,8 +247,8 @@ function closeForm() {
             array("SELECT * FROM comms WHERE radio_type='Equipment'", "Misc Equipment")
           );  */
           $table = array(
-            array("SELECT * FROM comms WHERE in_out='OUT'", "Equipment Out"),
-            array("SELECT * FROM comms WHERE radio_type='ISR'", "ISR Radios"),
+            array("SELECT * FROM comms WHERE in_out='OUT' && FQSN='" . $_SESSION['FQSN'] . "'", "Equipment Out"),
+            array("SELECT * FROM comms WHERE radio_type='ISR' && FQSN='" . $_SESSION['FQSN'] . "'", "ISR Radios"),
           );
           #for ($x = 0; $x <= 4; $x++) {
           for ($x = 0; $x <= 1; $x++) {

@@ -1,6 +1,9 @@
 <?php
   session_start();
-  require "control_access.php";
+  if(!isset($_SESSION['password'])){
+    header("Location: ../index.php");
+    exit();
+  }
 
   if(isset($_GET['logout'])) {
     header("Location: ../index.php");

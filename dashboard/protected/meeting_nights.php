@@ -1,7 +1,7 @@
 <?php
 #ALTER TABLE `meeting_nights` ADD `FQDN` VARCHAR(100) NOT NULL DEFAULT 'RMR-ID-073' AFTER `ID`;
 if(isset($_GET['export'])){
-  $query = "SELECT first_name, last_name, cap_id FROM sq_members";
+  $query = "SELECT first_name, last_name, cap_id FROM sq_members WHERE ";
 
   include "../includes/export.php";
 }
@@ -35,6 +35,7 @@ if(isset($_GET['rmuser0'])) {     //If user has intered an input
         $name0 = $row['last_name'];
         $name = $name . ' ' . $name0;
         $membertype = $row['member_type'];
+        $FQSN = $row['FQSN'];
       }
       if($db_capid == $capid) {
         $date = date("Y/m/d");
@@ -50,12 +51,16 @@ if(isset($_GET['rmuser0'])) {     //If user has intered an input
           $conn->query($query);
         }
         else {      //If not sign you in
-          $message = $name . " signed in";
+          $message = "Thank you " . $name . " for signing into " . $_SESSION['FQSN'] . "'s meeting!";
           $date = date("Y/m/d");
           $time = date("H:i:s");
           $capid = $_GET['capidrm'];
 
-          $query = "INSERT INTO meeting_nights (date, cap_id, name, time_in, member_type) VALUES ('" . $date . "', " .  $capid . ", '" . $name . "', '" . $time . "','" . $membertype . "')";
+        //  if($FQSN == $_SESSION['FQSN']) {
+        //    echo'<script>alert("Hey $name are you visisting $_SESSION["FQSN"]?");</script>';
+        //  }
+
+          $query = "INSERT INTO meeting_nights (date, cap_id, name, time_in, member_type, FQSN, visited) VALUES ('" . $date . "', " .  $capid . ", '" . $name . "', '" . $time . "','" . $membertype . "','" . $FQSN . "','" . $_SESSION['FQSN'] . "')";
         $conn->query($query);
         }
       }
@@ -111,6 +116,8 @@ function handleit($data) {
   echo '</div>';
 }
 
+
+//THIS HANDLES CREATING THE SERACH QUERY'S
 function submit() {                 //Input validation
   if($_POST['sent'] == "Name:") {   //Validation for names
     $firstname = $_POST['input'];
@@ -119,10 +126,10 @@ function submit() {                 //Input validation
     }
     else {
       if (isset($_POST["vister"])) {
-        $data = "name LIKE '" . $_POST['input'] . "%' AND member_type='visiter'";   //Query statment
+        $data = "name LIKE '" . $_POST['input'] . "%' AND member_type='visiter' && visited='" . $_SESSION['FQSN'] . "'";   //Query statment
         queryit($data);
       } else{
-        $data = "name LIKE '" . $_POST['input'] . "%'";   //Query statment
+        $data = "name LIKE '" . $_POST['input'] . "%' && visited='" . $_SESSION['FQSN'] . "'";   //Query statment
         queryit($data);     //Take data to be queryed
       }
     }
@@ -135,11 +142,11 @@ function submit() {                 //Input validation
     }
     else {
       if (isset($_POST["vister"])) {
-        $data = "cap_id LIKE '" . $_POST['input'] . "' AND member_type='visiter'";
+        $data = "cap_id LIKE '" . $_POST['input'] . "' AND member_type='visiter' && visited='" . $_SESSION['FQSN'] . "'";
         queryit($data);
       }
       else{
-        $data = "cap_id LIKE '" . $_POST['input'] . "'";
+        $data = "cap_id LIKE '" . $_POST['input'] . "' && visited='" . $_SESSION['FQSN'] . "'";
         queryit($data);
       }
     }
@@ -153,17 +160,18 @@ function submit() {                 //Input validation
     }
     else {
       if (isset($_POST["vister"])) {
-        $data = "date like '" . $contents . "' AND member_type='visiter'";
+        $data = "date like '" . $contents . "' AND member_type='visiter' && visited='" . $_SESSION['FQSN'] . "'";
         queryit($data);
       }
       else {
-        $data = "date like '" . $contents . "'";
+        $data = "date like '" . $contents . "' && visited='" . $_SESSION['FQSN'] . "'";
         queryit($data);
       }
     }
   }
 }
 
+//THIS HANDLES QUERY AND DISPLAYING RESULTS
 function queryit($data) {           //Query the data and present it
   require "../includes/config_m.php";
   $query = "SELECT * FROM meeting_nights WHERE " . $data;
@@ -177,7 +185,7 @@ function queryit($data) {           //Query the data and present it
     <br>
     <table>
       <colgroup>
-        <col span="6" style="background-color:lightgrey">
+        <col span="7" style="background-color:lightgrey">
       </colgroup>
       <tr>
         <th>ID</th>
@@ -188,6 +196,7 @@ function queryit($data) {           //Query the data and present it
         <th>Name</th>
         <th>Time In</th>
         <th>Time Out</th>
+        <th>Squadron</th>
       </tr>';
 
   if ($result->num_rows > 0) {    //If the query is not empty
@@ -199,6 +208,7 @@ function queryit($data) {           //Query the data and present it
         <td>" . $row["name"] . "</td>
         <td>" . $row["time_in"] . "</td>
         <td>" . $row["time_out"] . "</td>
+        <td>" . $row["FQSN"] . "</td>
         </tr>";
         $rm_capid = $row["cap_id"];
         $count = $count + 1;
