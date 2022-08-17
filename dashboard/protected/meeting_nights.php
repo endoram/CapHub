@@ -33,7 +33,7 @@ if(isset($_GET['rmuser0'])) {     //If user has intered an input
         $db_capid = $row['cap_id'];
         $name = $row['first_name'];
         $name0 = $row['last_name'];
-        $name = $name . ' ' . $name0;
+        $name = $name0 . ' ' . $name;
         $membertype = $row['member_type'];
         $FQSN = $row['FQSN'];
       }
@@ -193,7 +193,7 @@ function queryit($data) {           //Query the data and present it
         if (isset($_POST['vister'])) {echo "<th>Phone Number</th>";}
         else {echo "<th>CAPID</th>";}
         echo '
-        <th>Name</th>
+        <th>Name  (First, Last)</th>
         <th>Time In</th>
         <th>Time Out</th>
         <th>Squadron</th>
