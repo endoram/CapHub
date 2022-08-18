@@ -8,14 +8,16 @@ require "../includes/header.php";
   </head>
   <body>
     <div class="news">
-      <h3 name="version">CAPhub v1.5</h3>
+      <h3 name="version">CAPhub v1.5.5</h3>
       <div class="lists">
         <dl>
-          <dt><b>Whats New:</b></dt>
+          <dt><b>Change Log:</b></dt>
             <ul>
-              <li>Export to CSV Meeting Searches</li>
-              <li>Export to CSV A List of Squadron Memebrs</li>
-              <li>Redefined Basic Functionality Testing</li>
+              <li>Raised Meeting signin box</li>
+              <li>Switched searh results to Last, Frist</li>
+              <li>Added Settings page w/timezone Selector</li>
+              <li>Reconfigured data handeling with databaes</li>
+              <li>CAP members from one squadron can now log into another squadrons meeting</li>
             </ul>
           <br>
           <br>
@@ -40,7 +42,7 @@ require "../includes/header.php";
         <dt><b>Top Navigation Bar:</b></dt>
         <ul>
           <li>Help Page - Report A Bug</li>
-          <li>Log Out - Logs you out of website.</li>
+          <li>Log Out - Logs you out of website</li>
         </ul>
         </dl>
       </div>
