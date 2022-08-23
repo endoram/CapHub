@@ -197,6 +197,7 @@ function closeForm() {
               {title:"First Name", field:"first_name", sorter:"string"},
               {title:"Last Name", field:"last_name", sorter:"string"},
               {title:"CAP ID", field:"cap_id", sorter:"string"},
+              {title:"Member Type", field:"member_type", sorter:"string"},
             ],
             rowSelectionChanged:function(data, rows){
               $("#select-stats span").text(data.length);
