@@ -13,7 +13,7 @@
     }
     else {
       $priv = $_POST['privlage_level'];
-      $password_password = $_POST['password'];
+      $password_password = $_POST['psw'];
     }
     adduser($firstname, $lastname, $capid, $cadetornot, $priv, $password_password);
   }
@@ -21,8 +21,23 @@
   function adduser($firstname, $lastname, $capid, $cadetornot, $priv, $password_password) {
     require "config_m.php";
 
+    $bytes = random_bytes(20);
+    $hash = bin2hex($bytes);
+    $pass = $hash . $password_password;
+    $hashedPassSHA = hash('sha256', $pass);
+
     $hash_pass = password_hash($password_password, PASSWORD_DEFAULT);
     $y = 0;
+
+    if($_SESSION['privlv'] <= 1){
+      $priv = "0";
+      $password_password = NULL;
+    }
+    else {
+      $priv = $_POST['privlage_level'];
+      $password_password = $_POST['psw'];
+    }
+
 
     $query = "SELECT cap_id FROM sq_members WHERE cap_id=" . $capid;
     $result = $conn->query($query);
@@ -38,20 +53,11 @@
 
     if ($y == 0) {
       $FQSN = $_SESSION['FQSN'];
-      $query = "INSERT INTO sq_members (cap_id, first_name, last_name, member_type, privlage_level, user_pass, FQSN)
-      VALUES (" . $capid . ",'" . $firstname . "', '" . $lastname . "', '" . $cadetornot . "', '" . $priv . "', '" . $hash_pass . "', '" . $FQSN . "')";
-#      echo($query);
+      $query = "INSERT INTO sq_members (cap_id, first_name, last_name, member_type, privlage_level, user_passSHA, FQSN, hash)
+      VALUES (" . $capid . ",'" . $firstname . "', '" . $lastname . "', '" . $cadetornot . "', '" . $priv . "', '" . $hashedPassSHA . "', '" . $FQSN . "', '" . $hash . "')";
       $conn->query($query);
-      $query = "UPDATE sq_members SET user_pass = '$hash_pass' WHERE cap_id=$capid && FQSN='$FQSN'";
-#      echo($query);
-#      $conn->query($query);
       $conn->close();
-
-  #    $today = date("D M j G:i:s T Y");
-#      $log = $today . ": Added user " . $firstname . " " . $lastname . " By " . $_SESSION['name'];
-#      $logfile = "../squadrons/" . $_SESSION['something'] . "/log.txt";
-#      file_put_contents($logfile, $log, FILE_APPEND);
-      #header("Location: ../protected/sqmembers.php");
+      header("Location: ../protected/sqmembers.php");
     }
     else {$conn->close();}
   }
@@ -89,7 +95,7 @@ input {
           <label for="capid">CAP ID:</label> <input type="text" id="capid" name="capid" align="right" title="Must be a proper CAPID" pattern="[0-9].{5,}" value="<?PHP if(isset($_POST['capid'])) echo htmlspecialchars($_POST['capid']); ?>" required><br>
           <?php if($_SESSION['privlv'] >= 2){ ?>
             <label for="privlage_level">Privlage Level:</label> <input type="text" id="privlevel" name="privlage_level" align="right" pattern="([0-2])" title="Must be a proper Privlage Level" value="<?PHP if(isset($_POST['privlage_level'])) echo htmlspecialchars($_POST['privlage_level']); ?>" required><br>
-            <label for="psw">Password</label><input type="password" id="psw" name="psw" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" value="<?PHP if(isset($_POST['password'])) echo htmlspecialchars($_POST['password']); ?>" required><br>
+            <label for="psw">Password</label><input type="password" id="psw" name="psw" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" value="<?PHP if(isset($_POST['psw'])) echo htmlspecialchars($_POST['psw']); ?>" required><br>
           <?php } ?>
           <select name="cadetornot">
             <option value="cadet">Cadet</option>

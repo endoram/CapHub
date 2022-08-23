@@ -38,29 +38,53 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($result->num_rows > 0) {
       while($row = $result->fetch_assoc()) {
           $db_pass = $row['user_pass'];
+          $db_passSHA = $row['user_passSHA'];
           $db_priv = $row['privlage_level'];
           $db_fname = $row['first_name'];
           $db_lname = $row['last_name'];
           $db_FQSN = $row['FQSN'];
+          $hash = $row['hash'];
       }
       if ($db_priv >= 1){
         if (password_verify($password, $db_pass)) {
+          if($db_passSHA == null) {
+            $bytes = random_bytes(20);
+            $hash = bin2hex($bytes);
+            $pass = $hash . $password;
+            $hashedPassSHA = hash('sha256', $pass);
+
+            $query = "UPDATE sq_members SET user_passSHA='$hashedPassSHA', hash='$hash', user_pass='' WHERE cap_id='$capid'";
+            $conn->query($query);
+          }
           $conn->close();
           $_SESSION['capid'] = $capid;
-          $_SESSION['password'] = $password;
+          $_SESSION['password'] = $password; #Needed For some reason, SESSION reasons.
           $_SESSION['privlv'] = $db_priv;
           $_SESSION['name'] = $db_fname . " " . $db_lname;
           $_SESSION['FQSN'] = $db_FQSN;
           header("Location: protected/main.php");
           exit();
         }
-        else {$errorMsg = "Invalid Cap ID or password";}
+        else {
+          $pass = $hash . $password;
+          if (hash('sha256', $pass) == $db_passSHA) {
+            $conn->close();
+            $_SESSION['capid'] = $capid;
+            $_SESSION['password'] = $password;
+            $_SESSION['privlv'] = $db_priv;
+            $_SESSION['name'] = $db_fname . " " . $db_lname;
+            $_SESSION['FQSN'] = $db_FQSN;
+            header("Location: protected/main.php");
+            exit();
+          } 
+          else {$errorMsg = "Invalid Cap ID or password";}
+          $errorMsg = "Invalid Cap ID or password";
+        }
         $conn->close();
       }
       else {$errorMsg = "Invalid Cap ID or password";}
     }
-    else {
-      $errorMsg = "Invalid Cap ID or password";
+    else {$errorMsg = "Invalid Cap ID or password";
       $conn->close();
     }
   }

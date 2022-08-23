@@ -71,8 +71,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $errorMsg = "Invalid password";
       }
       else {
-        $hash_pass = password_hash($password_password, PASSWORD_DEFAULT);
-        $querys[] = $query5 = "UPDATE sq_members SET user_pass = '$hash_pass' WHERE cap_id = " . $_SESSION['cap_id'] ;
+        $bytes = random_bytes(20);
+        $hash = bin2hex($bytes);
+        $pass = $hash . $password;
+        $hashedPassSHA = hash('sha256', $password_password);
+        $querys[] = $query5 = "UPDATE sq_members SET user_passSHA='$hashedPassSHA', hash='$hash' WHERE cap_id='". $_SESSION['cap_id'] . "'";
       }
     }
   }
@@ -86,7 +89,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
   }
   if ($y == 1){
-    if ($cap_ID != '') {$data = "WHERE cap_id LIKE '" . $cap_ID . "%'";}
+    if ($cap_ID != '') {$data = "WHERE cap_id LIKE '" . $cap_ID . "%' && FQSN=$_SESSION["FQSN"]";}
     else {$data = "WHERE cap_id LIKE " . $_SESSION['cap_id'];}
     queryit($data);
   }
