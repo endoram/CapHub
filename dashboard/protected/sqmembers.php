@@ -1,7 +1,10 @@
 <?php
 
 if(isset($_GET['export'])){
-  $query = "SELECT first_name, last_name, cap_id FROM sq_members WHERE FQSN=" . $_SESSION['FQSN'];
+  session_start();
+  $_SESSION['query_idea'] = "SELECT first_name, last_name, cap_id FROM sq_members WHERE FQSN='" . $_SESSION['FQSN'] . "'";
+  $sendit = array("First Name", "Last Name", "CAPID");
+  $_SESSION['query_values'] = $sendit;
   include "../includes/export.php";
 }
 
