@@ -13,25 +13,28 @@ require "../includes/header.php";
         <dl>
           <dt><b>Change Log:</b></dt>
             <ul>
-              <li>Raised Meeting signin box</li>
-              <li>Switched searh results to Last, Frist</li>
-              <li>Added Settings page w/timezone Selector</li>
-              <li>Reconfigured data handeling with databaes</li>
-              <li>CAP members from one squadron can now log into another squadrons meeting</li>
+              <li>Added Date Range search for Meetings</li>
+              <li>Fixed export to .csv bug (DF-1.5.1)</li>
+              <li>Updated password handling on back end</li>
+              <li>Moved search dropdown to left menu bar for Squadron page</li>
+              <li>Raised Meeting sign-in box</li>
+              <li>Switched search results to Last, First for Meetings page</li>
+              <li>Added Settings page with timezone selector in Main menu</li>
+              <li>Reconfigured data handling with database</li>
+              <li>CAP members from one squadron can now log into another squadron's meeting</li>
             </ul>
           <br>
           <br>
           <dt><b>Squadron:</b></dt>
-            <dd>Allows you to add members, remove members, search members</dd>
-            <dd>and retire members.</dd>
+            <dd>Allows you to add, remove, search, and retire members.</dd>
             <br>
           <dt><b>Meetings:</b></dt>
             <dd>Allows cadets to sign themselves in and out of meetings.</dd>
-            <dd>Logs are searchable by date, CAP ID and name.</dd>
+            <dd>Logs are searchable by date, CAP ID, and name.</dd>
             <br>
           <dt><b>Comms:</b></dt>
-            <dd>keep track of radios that are checked out or in.</dd>
-            <dd>Lets you know who has check them out.</dd>
+            <dd>Keeps track of radios that are checked out or in.</dd>
+            <dd>Lets you know who has checked them out.</dd>
             <br>
           <!--
           <dt><b>PT page:</b></dt>
@@ -41,8 +44,8 @@ require "../includes/header.php";
           -->
         <dt><b>Top Navigation Bar:</b></dt>
         <ul>
-          <li>Help Page - Report A Bug</li>
-          <li>Log Out - Logs you out of website</li>
+          <li>Help Page - Report a Bug</li>
+          <li>Log Out - Logs you out of website.</li>
         </ul>
         </dl>
       </div>
