@@ -2,9 +2,9 @@
 
 <img src="/screenshots/CapHubMain.png">
 
-CAPhub is a US based, hosted website that is designed to track squadron level activities that are outside the scope of eServices. There are no direct or indirect connections to eServices. It uses the LAMP stack of open source tools.
+CAPhub is a US-based, hosted website designed to track squadron-level activities outside the scope of eServices. There are no direct or indirect connections to eServices. It uses the LAMP stack of open-source tools.
 
-CAPhub is used for tracking attendence at squadron meetings and events, for tracking checkouts of ISR radios, and for helping cadets track fitness scores in the field so they can later be entered into eServices. Users can request reports on who attended what activities and meetings and what PT scores were for a given PT night. CAPhub is web based and phone friendly for in the field use as well as on a computer.
+CAPhub is used to track attendance at squadron meetings and events, for checking out ISR radios, and for helping cadets track fitness scores in the field so they can later be entered into eServices. Users can request reports on who attended specific activities and meetings and what PT scores were for a given PT night. CAPhub is web-based and phone-friendly for use in the field and on a computer.
 
 If your squadron would like to use CAPhub, please have your IT Officer email the <a href="mailto:spencer.mcconnell@capboise.org">administrator</a> with Squadron Commander approval. CAPhub does not require any technical knowledge to administer or use.
 
