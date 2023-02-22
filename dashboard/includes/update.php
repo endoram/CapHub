@@ -73,8 +73,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       else {
         $bytes = random_bytes(20);
         $hash = bin2hex($bytes);
-        $pass = $hash . $password;
-        $hashedPassSHA = hash('sha256', $password_password);
+        $pass = $hash . $password_password;
+        $hashedPassSHA = hash('sha256', $pass);
         $querys[] = $query5 = "UPDATE sq_members SET user_passSHA='$hashedPassSHA', hash='$hash' WHERE cap_id='". $_SESSION['cap_id'] . "'";
       }
     }
@@ -88,9 +88,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       echo $value;
     }
   }
-  if ($y == 1){
-    if ($cap_ID != '') {$data = "WHERE cap_id LIKE '" . $cap_ID . "%' && FQSN=$_SESSION["FQSN"]";}
-    else {$data = "WHERE cap_id LIKE " . $_SESSION['cap_id'];}
+  if ($y == 1) {
+    if ($cap_ID != '') {
+      $data = "WHERE cap_id LIKE '" . $cap_ID . "%' && FQSN=" . $_SESSION['FQSN'];
+    }
+    else {
+      $data = "WHERE cap_id LIKE " . $_SESSION['cap_id'];
+    }
     queryit($data);
   }
 }

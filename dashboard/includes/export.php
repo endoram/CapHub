@@ -7,7 +7,7 @@ header('Content-Disposition: attachment; filename=data.csv');
 $output = fopen('php://output', 'w');
 
 // output the column headings
-fputcsv($output, array('First Name', 'Last Name', 'CAP ID'));
+fputcsv($output, $_SESSION['query_values']);
 
 if(isset($_SESSION['query_idea'])) {
   $query = $_SESSION['query_idea'];
@@ -28,5 +28,6 @@ while($row = $result->fetch_assoc()) {
  # fputcsv($output, $row["member_type"]);
 }
 unset($_SESSION['query_idea']);
-exit()
+unset($_SESSION['query_values']);
+exit();
 ?>
