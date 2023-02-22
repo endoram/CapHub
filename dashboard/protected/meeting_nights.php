@@ -61,6 +61,7 @@ if(isset($_GET['rmuser0'])) {     //If user has intered an input
         //  }
 
           $query = "INSERT INTO meeting_nights (date, cap_id, name, time_in, member_type, FQSN, visited) VALUES ('" . $date . "', " .  $capid . ", '" . $name . "', '" . $time . "','" . $membertype . "','" . $FQSN . "','" . $_SESSION['FQSN'] . "')";
+          #echo $query;
         $conn->query($query);
         }
       }
@@ -99,6 +100,46 @@ echo '<button type="button" class="btn cancel" onclick="closeForm()">Close</butt
 echo '</form>';
 echo '</div>';
 }
+
+if(isset($_GET['date_range'])) {
+  $data = "date_range";
+?>
+  <script src="../libs/calendar/datepicker.min.js"></script>
+  <script>
+    const picker = datepicker('.form-popup', {
+      alwaysShow: true
+    })
+  </script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+<?
+echo '<div class="form-popup" id="myForm">';
+echo '<form method="post" action="meeting_nights.php" class="form-container">';
+echo '<label for="input"><b> Select a start date:</b></label>';
+
+echo '<input type="text" name="daterange"/>';
+?>
+<script>
+$(function() {
+  $('input[name="daterange"]').daterangepicker({
+    opens: 'left',
+    locale: {format: 'YYYY-MM-DD'}
+  }, function(start, end, label) {
+    console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+  });
+});
+</script>
+
+<?
+echo '<button type="submit" value="' . $data . '" name="sent" class="btn">Submit</button>';
+echo '<button type="button" class="btn cancel" onclick="closeForm()">Close</button>';
+echo '</form>';
+echo '</div>';
+}
+
+
 
 function handleit($data) {
   unset($_GET['firstname, lastname, capid']);
@@ -154,7 +195,31 @@ function submit() {                 //Input validation
 
   if($_POST['sent'] == "date") {  //Validation for date
     $date = $_POST['input'];
+    #echo $date;
     $contents = str_replace("-", "/", $date);
+    #echo $contents;
+    if(!isset($contents)) {
+      echo "<p style='color: red'>Invalid Date<p>";
+    }
+    else {
+      if (isset($_POST["vister"])) {
+        $data = "date='" . $contents . "' AND member_type='visiter' && visited='" . $_SESSION['FQSN'] . "'";
+        queryit($data);
+      }
+      else {
+        $data = "date='" . $contents . "' && visited='" . $_SESSION['FQSN'] . "' ORDER BY name";
+        queryit($data);
+      }
+    }
+  }
+
+  if($_POST['sent'] == "date_range") {  //Validation for date range
+    $date = $_POST['daterange'];
+    #echo $date;
+    $contents = str_replace("-", "", $date);
+    #echo $contents;
+    $dates = explode(" ", $contents);
+    #var_dump($dates);
     if(!isset($contents)) {
       echo "<p style='color: red'>Invalid Date<p>";
     }
@@ -164,7 +229,7 @@ function submit() {                 //Input validation
         queryit($data);
       }
       else {
-        $data = "date like '" . $contents . "' && visited='" . $_SESSION['FQSN'] . "'";
+        $data = "date BETWEEN '" . $dates[0] . "' AND '" . $dates[2] . "' && visited='" . $_SESSION['FQSN'] . "' ORDER BY date, name";
         queryit($data);
       }
     }
@@ -174,9 +239,12 @@ function submit() {                 //Input validation
 //THIS HANDLES QUERY AND DISPLAYING RESULTS
 function queryit($data) {           //Query the data and present it
   require "../includes/config_m.php";
-  $query = "SELECT * FROM meeting_nights WHERE " . $data;
+  $query = "SELECT date, cap_id, name, time_in, time_out, member_type, FQSN FROM meeting_nights WHERE " . $data;
+  #echo $query;
   $result = $conn->query($query);
   $_SESSION['query_idea'] = $query;
+  $sendit = array('Date', 'CAP ID', 'Name', 'Time In', 'Time Out', 'Member Type', 'Squadron');
+  $_SESSION['query_values'] = $sendit;
   $count = 1;
 
 
@@ -260,6 +328,7 @@ function closeForm() {
         <a href="?name=1">Name</a>
         <a href="?capid=1">CAP ID</a>
         <a href="?date=1">Date</a>
+        <a href="?date_range=1">Date Range</a>
       </div>
     </div>
     <br>
