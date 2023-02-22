@@ -61,6 +61,23 @@
   }
 }
 
+.sqmenubutton {
+  background-color: #d6e3ff;
+  border: none;
+  padding: 8px 69px;
+  color: black;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.sqmenubutton button:hover {
+  background-color: #555;
+  color: white;
+}
+
 
 /*MENU FOR SQ members*/
 .sqmenubar ul {

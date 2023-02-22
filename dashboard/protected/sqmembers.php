@@ -158,18 +158,7 @@ function closeForm() {
     <title>CapHub Squadron Members</title>
   </head>
   <body>
-    <div class="dropdown">
-      <p>Search by:</p>
-      <button class="dropbtn">Options</button>
-      <div class="dropdown-content">
-        <p>Search by:</p>
-        <a href="?firstname=1">First Name</a>
-        <a href="?lastname=1">Last Name</a>
-        <a href="?capid">CAP ID</a>
-        <a href="?priv">Privlage</a>
-      </div>
-    </div>
-    <br>
+    <br><br>
     <div class="row">
       <div class="leftside">
         <div class="sqmenubar">
@@ -179,6 +168,16 @@ function closeForm() {
             <li><a href="../includes/update.php">Update Member</a></li>
             <li><a href="?retire">Retire Member</a><li>
           </ul>
+          <div class="dropdown">
+            <ul><li><button class="sqmenubutton">Search</button></li></ul>
+            <div class="dropdown-content">
+              <p>Search by:</p>
+              <a href="?firstname=1">First Name</a>
+              <a href="?lastname=1">Last Name</a>
+              <a href="?capid">CAP ID</a>
+              <a href="?priv">Privlage</a>
+            </div>
+          </div>
         </div>
       </div>
       <div class="middle">
