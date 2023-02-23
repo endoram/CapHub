@@ -2,14 +2,22 @@
 if (session_status() == PHP_SESSION_NONE) {session_start();}
 require "control_access.php";
 
-if (isset($_GET['retired'])) {
+if (isset($_GET['retired1'])) {
   require 'config_m.php';
-  $data = $_GET['retired'];
+  $data = $_GET['retired1'];
+  if ($_SESSION['table'] == 0) {
+    $query = "UPDATE sq_members SET retire=1 where cap_id in ($data) && FQSN='" . $_SESSION["FQSN"] . "'";
+    $result = $conn->query($query);
+    $conn->close();
+  }
+  if ($_SESSION['table'] == 11) {
+    $query = "UPDATE sq_members SET retire=0 where cap_id in ($data) && FQSN='" . $_SESSION["FQSN"] . "'";
+    $result = $conn->query($query);
+    $conn->close();
+  }
   $_SESSION['table'] = 1;
-  $query = "UPDATE sq_members SET retire=1 where cap_id in ($data) && FQSN='" . $_SESSION["FQSN"] . "'";
-  $result = $conn->query($query);
-  $conn->close();
 }
+
 
 if (isset($_GET['myData'])) {
   $mydata = $_GET['myData'];
@@ -57,6 +65,11 @@ if ($_SESSION['table'] == 0) {
   queryit($query);
 }
 
+if ($_SESSION['table'] == 11) {
+  $query = "SELECT * FROM sq_members WHERE hide=0 and retire=1";
+  queryit($query);
+}
+
 if (isset($_GET['stuffmore']) == 1) {
   require 'config_m.php';
   $_SESSION['table'] == 5;
@@ -91,7 +104,7 @@ function queryit($query) {
     }
   }
   echo json_encode($rows);
-#  echo($query); //Check console for SQL query statment -> click on link view SQL statement in URL
+ # echo($query); //Check console for SQL query statment -> click on link view SQL statement in URL
 }
 
 ?>

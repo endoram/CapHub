@@ -14,12 +14,19 @@ require "../includes/config_m.php";
 $_SESSION['table'] = 0;
 
 if(isset($_GET['retire'])) {
+  $_SESSION['table'] = 0;
   echo "Select all users to retire:";
   echo "<br>";
   echo '
     <button type="button" id="retire1">Retire Members</button>';
 }
-
+if(isset($_GET['retired'])) {
+  $_SESSION['table'] = 11;
+  echo "Select all users to bring back to active status:";
+  echo "<br>";
+  echo '
+    <button type="button" id="retire1">Revive Members</button>';
+}
 if(isset($_GET['addmember'])) {
   header("Location: ../includes/addmember.php");
 }
@@ -176,13 +183,13 @@ function closeForm() {
               <a href="?lastname=1">Last Name</a>
               <a href="?capid">CAP ID</a>
               <a href="?priv">Privlage</a>
+              <a href="?retired">Retired</a>
             </div>
           </div>
         </div>
       </div>
       <div class="middle">
         <div id="example-table"></div>
-        <?php $_SESSION['table'] = 0;?>
         <script>
         function reqListener () {
           console.log(this.responseText);
@@ -221,7 +228,7 @@ function closeForm() {
 
             $.ajax({
               url: '../includes/sqmem_get-data.php',
-              data: 'retired=' + data,
+              data: 'retired1=' + data,
               success: function(data) {
                 window.location.replace("../protected/sqmembers.php");
               }

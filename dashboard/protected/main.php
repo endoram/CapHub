@@ -13,6 +13,7 @@ require "../includes/header.php";
         <dl>
           <dt><b>Change Log:</b></dt>
             <ul>
+              <li>Added ability to un-retire members</li>
               <li>Added Date Range search for Meetings</li>
               <li>Fixed export to .csv bug (DF-1.5.1)</li>
               <li>Updated password handling on back end</li>
@@ -23,7 +24,6 @@ require "../includes/header.php";
               <li>Reconfigured data handling with database</li>
               <li>CAP members from one squadron can now log into another squadron's meeting</li>
             </ul>
-          <br>
           <br>
           <dt><b>Squadron:</b></dt>
             <dd>Allows you to add, remove, search, and retire members.</dd>
