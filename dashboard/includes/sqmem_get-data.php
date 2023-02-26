@@ -70,23 +70,40 @@ if ($_SESSION['table'] == 11) {
   queryit($query);
 }
 
-if (isset($_GET['stuffmore']) == 1) {
+if (isset($_POST['stuffmore']) == 1) {
   require 'config_m.php';
   $_SESSION['table'] == 5;
 
-  #date_default_timezone_set("America/Denver");
-  $date = date("Y/m/d");
+  $query = "SELECT time_zone FROM squads WHERE FQSN='" . $_SESSION['FQSN'] . "'";
+  $result = $conn->query($query);
+  if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+      date_default_timezone_set($row['time_zone']);
+    }
+  }
+  else {
+    echo "<script>alert('There has been an issue with the timezone. Please contact the dev team.');</script>";
+    $conn->close();
+  }
 
-  $query = "SELECT name, cap_id FROM meeting_nights WHERE member_type='cadet' AND date='$date'";
+  $date=date('20y-m-d');
+
+  $query = "SELECT name, cap_id FROM meeting_nights WHERE member_type='cadet' && date='$date' && FQSN='" . $_SESSION["FQSN"] . "'";
   $result = $conn->query($query);
   $conn->close();$row1 = "";
 
   if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
+      $query1 = "INSERT INTO pt (name, cap_id, date, FQSN) VALUES (" . $row['name'] . "," . $row['cap_id'] . "," . "date='$date' && FQSN='" . $_SESSION["FQSN"] . "')";
+      require 'config_m.php';
+      $result1 = $conn->query($query1);
+      
+
       $row1 = '{"name":"' . $row['name'] . '", "cap_id":"' . $row['cap_id'] . '", "age":" ", "push_ups":" ", "sit_ups":" ", "mile_run":" ", "pacer_test":" ", "sit_reach":" "}' . $row1;
     }
     $row1 = str_replace("}{", '},{', $row1);
     $row1 = "[" . $row1 . "]";
+    #echo json_encode($row1);
     echo $row1;
   }
 }

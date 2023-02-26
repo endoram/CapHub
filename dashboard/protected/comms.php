@@ -128,7 +128,7 @@ function handleit($data) {
 
   if(isset($_GET['removeradio'])) {
     echo '<label for="input"><b>' . $data . '</b></label>';
-    $query = "SELECT radio_id FROM comms FQSN='" . $_SESSION['FQSN'] . "'";
+    $query = "SELECT radio_id FROM comms WHERE FQSN='" . $_SESSION['FQSN'] . "'";
     echo '<input list="input" name="input">';
     echo '<datalist id="input">';
     $result = $conn->query($query);
@@ -156,10 +156,10 @@ function handleit($data) {
     echo '<label><b>Type: </b></label>';
     echo '
       <select name="radio_type">
-        <option value=ISR>ISR</option>
-        <!--<option value=VHF>VHF</option>-->
-        <!--<option value=HF>HF</option>-->
-        <!--<option value=Equipment>Equipment</option>-->
+       <!-- <option value=ISR>ISR</option> -->
+        <option value=VHF>VHF</option>
+        <option value=HF>HF</option>
+        <option value=Equipment>Equipment</option>
       </select>
     ';
   }
@@ -238,20 +238,20 @@ function closeForm() {
         <div class="radiotable">
           <br>
           <?php
-          /* Old But Working... Just you know... IDK
+          # Old But Working... Just you know... IDK
           $table = array(
             array("SELECT * FROM comms WHERE in_out='OUT'", "Equipment Out"),
-            array("SELECT * FROM comms WHERE radio_type='ISR'", "ISR Radios"),
+           # array("SELECT * FROM comms WHERE radio_type='ISR'", "ISR Radios"),
             array("SELECT * FROM comms WHERE radio_type='VHF'", "VHF Radios"),
             array("SELECT * FROM comms WHERE radio_type='HF'", "HF Radios"),
             array("SELECT * FROM comms WHERE radio_type='Equipment'", "Misc Equipment")
-          );  */
-          $table = array(
+          );  
+       /*   $table = array(
             array("SELECT * FROM comms WHERE in_out='OUT' && FQSN='" . $_SESSION['FQSN'] . "'", "Equipment Out"),
             array("SELECT * FROM comms WHERE radio_type='ISR' && FQSN='" . $_SESSION['FQSN'] . "'", "ISR Radios"),
-          );
+          ); */
           #for ($x = 0; $x <= 4; $x++) {
-          for ($x = 0; $x <= 1; $x++) {
+          for ($x = 0; $x <= 3; $x++) {
             $value = $table[$x][0];
             require "../includes/config_m.php";
             $result = $conn->query($value);
