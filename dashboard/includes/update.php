@@ -167,6 +167,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </style>
     <img src="../images/banner.png">
     <div class="addmemberform">
+      <p>Select the checkbox next to the item you wish to update.</p>
+      <p>Type in the information you want to set to it.</p>
+      <p>Finish by clicking "Update Member"</p>
       <form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" accept-charset="UTF-8">
         <?php
         if(isset($errorMsg) && $errorMsg) {
