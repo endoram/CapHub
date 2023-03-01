@@ -240,11 +240,11 @@ function closeForm() {
           <?php
           # Old But Working... Just you know... IDK
           $table = array(
-            array("SELECT * FROM comms WHERE in_out='OUT'", "Equipment Out"),
+            array("SELECT * FROM comms WHERE in_out='OUT' && FQSN='" . $_SESSION['FQSN'] . "'", "Equipment Out"),
            # array("SELECT * FROM comms WHERE radio_type='ISR'", "ISR Radios"),
-            array("SELECT * FROM comms WHERE radio_type='VHF'", "VHF Radios"),
-            array("SELECT * FROM comms WHERE radio_type='HF'", "HF Radios"),
-            array("SELECT * FROM comms WHERE radio_type='Equipment'", "Misc Equipment")
+            array("SELECT * FROM comms WHERE radio_type='VHF' && FQSN='" . $_SESSION['FQSN'] . "'", "VHF Radios"),
+            array("SELECT * FROM comms WHERE radio_type='HF' && FQSN='" . $_SESSION['FQSN'] . "'", "HF Radios"),
+            array("SELECT * FROM comms WHERE radio_type='Equipment' && FQSN='" . $_SESSION['FQSN'] . "'", "Misc Equipment")
           );  
        /*   $table = array(
             array("SELECT * FROM comms WHERE in_out='OUT' && FQSN='" . $_SESSION['FQSN'] . "'", "Equipment Out"),
