@@ -182,7 +182,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <label for="capid">CAP ID:</label> <input type="text" name="capid" align="right" value="<?PHP if(isset($_POST['capid'])) echo htmlspecialchars($_POST['capid']); ?>">
         <input type=checkbox value="cap-id" name="cap-id"><br>
         <?php if($_SESSION['privlv'] >= 2){ ?>
-          <label for="privlage_level">Privlage Level:</label> <input type="text" name="privlage_level" align="right" value="<?PHP if(isset($_POST['privlage_level'])) echo htmlspecialchars($_POST['privlage_level']); ?>">
+          <label for="privlage_level">Privilege Level:</label> <input type="text" name="privlage_level" align="right" value="<?PHP if(isset($_POST['privlage_level'])) echo htmlspecialchars($_POST['privlage_level']); ?>">
           <input type=checkbox value="priv" name="priv"><br>
           <label for="passsword">Password:</label> <input type="password" name="password" align="right" value="<?PHP if(isset($_POST['password'])) echo htmlspecialchars($_POST['password']); ?>">
           <input type=checkbox value="pass" name="pass"><br>

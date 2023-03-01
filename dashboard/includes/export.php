@@ -2,7 +2,22 @@
 session_start();
 header('Content-Type: text/csv; charset=utf-8');
 #Make title of csv date that was queryed
-header('Content-Disposition: attachment; filename=data.csv');
+require 'config_m.php';
+  $_SESSION['table'] == 5;
+
+  $query = "SELECT time_zone FROM squads WHERE FQSN='" . $_SESSION['FQSN'] . "'";
+  $result = $conn->query($query);
+  if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+      date_default_timezone_set($row['time_zone']);
+    }
+  }
+  else {
+    echo "<script>alert('There has been an issue with the timezone. Please contact the dev team.');</script>";
+    $conn->close();
+  }
+  $currDate = date("y/m/d");
+header('Content-Disposition: attachment; filename=' . $currDate . '.csv');
 
 $output = fopen('php://output', 'w');
 
