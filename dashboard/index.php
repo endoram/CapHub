@@ -90,6 +90,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   }
 }
 ?>
+
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5ZHX8TXJRD"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-5ZHX8TXJRD');
+</script>
+
+
 <script src="https://apis.google.com/js/platform.js" async defer></script>
 <style>
   h1, h2 {
