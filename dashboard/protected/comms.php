@@ -87,7 +87,7 @@ function handleit($data) {
   if(isset($_GET['checkout'])){
     echo '<label for="input"><b>' . $data . '</b></label>';
     $query = "SELECT radio_id FROM comms WHERE in_out='IN' && FQSN='" . $_SESSION['FQSN'] . "'";
-    echo '<input list="input" name="input">';
+    echo '<input list="input" name="input" autofocus>';
     echo '<datalist id="input">';
     $result = $conn->query($query);
 

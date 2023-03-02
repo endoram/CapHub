@@ -123,6 +123,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <html>
   <head>
+    <title>CAPhub Login</title>
     <meta name="google-signin-client_id" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <img src="images/banner.png">

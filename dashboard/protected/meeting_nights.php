@@ -93,7 +93,7 @@ echo '<form method="post" action="meeting_nights.php" class="form-container">';
 
 echo '<label for="input"><b> Select a date:</b></label>';
 echo '<input type="date" name="input" required>';
-echo '<input type="checkbox" name="vister" value="Bike"> Visiter<br>';
+echo '<input type="checkbox" name="vister" value="Bike"> Visitor<br>';
 
 echo '<button type="submit" value="' . $data . '" name="sent" class="btn">Submit</button>';
 echo '<button type="button" class="btn cancel" onclick="closeForm()">Close</button>';
@@ -149,7 +149,7 @@ function handleit($data) {
 
   echo '<label for="input"><b>' . $data . '</b></label>';
   echo '<input type="text" name="input" required>';
-  echo '<input type="checkbox" name="vister" value="Bike"> Visiter<br>';
+  echo '<input type="checkbox" name="vister" value="Bike"> Visitor<br>';
 
   echo '<button type="submit" value="' . $data . '" name="sent" class="btn">Submit</button>';
   echo '<button type="button" class="btn cancel" onclick="closeForm()">Close</button>';
@@ -167,7 +167,7 @@ function submit() {                 //Input validation
     }
     else {
       if (isset($_POST["vister"])) {
-        $data = "name LIKE '" . $_POST['input'] . "%' AND member_type='visiter' && visited='" . $_SESSION['FQSN'] . "'";   //Query statment
+        $data = "name LIKE '" . $_POST['input'] . "%' AND member_type='visitor' && visited='" . $_SESSION['FQSN'] . "'";   //Query statment
         queryit($data);
       } else{
         $data = "name LIKE '" . $_POST['input'] . "%' && visited='" . $_SESSION['FQSN'] . "'";   //Query statment
@@ -183,7 +183,7 @@ function submit() {                 //Input validation
     }
     else {
       if (isset($_POST["vister"])) {
-        $data = "cap_id LIKE '" . $_POST['input'] . "' AND member_type='visiter' && visited='" . $_SESSION['FQSN'] . "'";
+        $data = "cap_id LIKE '" . $_POST['input'] . "' AND member_type='visitor' && visited='" . $_SESSION['FQSN'] . "'";
         queryit($data);
       }
       else{
@@ -203,7 +203,7 @@ function submit() {                 //Input validation
     }
     else {
       if (isset($_POST["vister"])) {
-        $data = "date='" . $contents . "' AND member_type='visiter' && visited='" . $_SESSION['FQSN'] . "'";
+        $data = "date='" . $contents . "' AND member_type='visitor' && visited='" . $_SESSION['FQSN'] . "'";
         queryit($data);
       }
       else {
@@ -225,7 +225,7 @@ function submit() {                 //Input validation
     }
     else {
       if (isset($_POST["vister"])) {
-        $data = "date like '" . $contents . "' AND member_type='visiter' && visited='" . $_SESSION['FQSN'] . "'";
+        $data = "date like '" . $contents . "' AND member_type='visitor' && visited='" . $_SESSION['FQSN'] . "'";
         queryit($data);
       }
       else {

@@ -34,7 +34,7 @@
     <div class="userid">
       <?php echo "Logged in as: " . $_SESSION['name'];?>
       <br>
-      <?php echo "Privlage Level: " . $_SESSION['privlv'];?>
+      <?php echo "Privilege Level: " . $_SESSION['privlv'];?>
     </div>
     <link rel="stylesheet" type="text/css" href="style.css">
   </head>
