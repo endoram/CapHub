@@ -109,7 +109,7 @@ function handleit($data) {
   if(isset($_GET['checkin'])) {
     echo '<label for="input"><b>' . $data . '</b></label>';
     $query = "SELECT radio_id FROM comms WHERE in_out='OUT' && FQSN='" . $_SESSION['FQSN'] . "'";
-    echo '<input list="input" name="input">';
+    echo '<input list="input" name="input" autofocus>';
     echo '<datalist id="input">';
     $result = $conn->query($query);
 
@@ -129,7 +129,7 @@ function handleit($data) {
   if(isset($_GET['removeradio'])) {
     echo '<label for="input"><b>' . $data . '</b></label>';
     $query = "SELECT radio_id FROM comms WHERE FQSN='" . $_SESSION['FQSN'] . "'";
-    echo '<input list="input" name="input">';
+    echo '<input list="input" name="input" autofocus>';
     echo '<datalist id="input">';
     $result = $conn->query($query);
 
@@ -148,7 +148,7 @@ function handleit($data) {
 
   if(isset($_GET['addradio'])) {
     echo '<label for="input"><b>' . $data . ' </b></label>';
-    echo '<input type="text" name="input" required>';
+    echo '<input type="text" name="input" required autofocus>';
     echo ' ';
     echo '<label for="input"><b>Description: </b></label>';
     echo '<input type="text" name="description" required>';
