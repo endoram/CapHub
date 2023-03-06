@@ -1,6 +1,51 @@
 <?php
 require "../includes/header.php";
 
+if (isset($_POST['export'])) {
+  $rowHeaders = array('Name', 'CAP ID', 'Age', 'Pushups', 'Situps', 'Mile Run', 'Pacer', 'Sit & Reach', 'Date', 'Gender', 'Passed');
+  require "../includes/helpers.php";
+  queryMe($_POST['exportData'], $rowHeaders);
+}
+
+
+if(isset($_GET['date_range'])) {
+  $data = "date_range";
+?>
+  <script src="../libs/calendar/datepicker.min.js"></script>
+  <script>
+    const picker = datepicker('.form-popup', {
+      alwaysShow: true
+    })
+  </script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js" defer></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+<?
+echo '<div class="form-popup" id="myForm">';
+echo '<form method="post" action="physical_testing.php" class="form-container">';
+echo '<label for="input"><b> Select a start date:</b></label>';
+
+echo '<input type="text" name="daterange"/>';
+?>
+<script>
+$(function() {
+  $('input[name="daterange"]').daterangepicker({
+    opens: 'left',
+    locale: {format: 'YYYY/MM/DD'}
+  }, function(start, end, label) {
+    console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+  });
+});
+</script>
+
+<?
+echo '<button type="submit" value="' . $data . '" name="sent" class="btn">Submit</button>';
+echo '<button type="button" class="btn cancel" onclick="closeForm()">Close</button>';
+echo '</form>';
+echo '</div>';
+}
+
 if(isset($_POST['sent'])) {submit();}
 
 //Detects whitch one to display when searching
@@ -83,11 +128,28 @@ function submit() {                 //Input validation
       queryit($data);
     }
   }
+
+  if($_POST['sent'] == "date_range") {  //Validation for date range
+    $date = $_POST['daterange'];
+    #echo $date;
+    $contents = str_replace("-", "", $date);
+    #echo $contents;
+    $dates = explode(" ", $contents);
+    #var_dump($dates);
+    if(!isset($contents)) {
+      echo "<p style='color: red'>Invalid Date<p>";
+    }
+    else {
+      $data = "date BETWEEN '" . $dates[0] . "' AND '" . $dates[2] . "' && FQSN='" . $_SESSION['FQSN'] . "' ORDER BY date, name";
+      queryit($data);
+    }
+  }
 }
+
 
 function queryit($data) {           //Query the data and present it
   require "../includes/config_m.php";
-  $query = "SELECT * FROM physical_testing WHERE " . $data;
+  $query = "SELECT name, cap_id, age, push_ups, sit_ups, mile_run, pacer, sit_reach, date, gender, passed FROM pt WHERE " . $data;
   $result = $conn->query($query);
 
   //Creating table to display information from query
@@ -95,7 +157,7 @@ function queryit($data) {           //Query the data and present it
     <br>
     <table>
       <colgroup>
-        <col span="9" style="background-color:lightgrey">
+        <col span="11" style="background-color:lightgrey">
       </colgroup>
       <tr>
         <th>Name</th>
@@ -107,6 +169,8 @@ function queryit($data) {           //Query the data and present it
         <th>Pacer Test</th>
         <th>Sit & Reach</th>
         <th>Date Time</th>
+        <th>Passed</th>
+        <th>Gender</th>
       </tr>';
 
   if ($result->num_rows > 0) {    //If the query is not empty
@@ -118,9 +182,11 @@ function queryit($data) {           //Query the data and present it
         <td>" . $row["push_ups"] . "</td>
         <td>" . $row["sit_ups"] . "</td>
         <td>" . $row["mile_run"] . "</td>
-        <td>" . $row["pacer_test"] . "</td>
+        <td>" . $row["pacer"] . "</td>
         <td>" . $row["sit_reach"] . "</td>
         <td>" . $row["date"] . "</td>
+        <td>" . $row["passed"] . "</td>
+        <td>" . $row['gender'] . "</td>
         </tr>";
         $rm_capid = $row["cap_id"];
     }
@@ -131,42 +197,64 @@ function queryit($data) {           //Query the data and present it
     $conn->close();
   }
   echo "</table></div></div>";
+  echo '
+          <form action="physical_testing.php" method="post">
+              <input type="submit" name="export" value="Export"/>
+              <input type="hidden" name="exportData" value="' . $query . '"/>
+          </form>
+          ';
 }
 ?>
 
-<!--Script to handle opeing and closing of search box-->
-<script>
-function openForm() {
-    document.getElementById("myForm").style.display = "block";
-}
-
-function closeForm() {
-    document.getElementById("myForm").style.display = "none";
-}
-</script>
 
 <script src="../libs/tabulator/jquery-3.2.1.js"></script>
 <script src="../libs/tabulator/jquery-ui.js"></script>
-<link href="../libs/tabulator/tabulator.min.css" rel="stylesheet"></script>
-<script src="../libs/tabulator/tabulator.min.js"></script>
+
+<link href="../libs/tabulator-5.4.4/tabulator.min.css" rel="stylesheet">
+<script type="text/javascript" src="../libs/tabulator-5.4.4/tabulator.min.js"></script>
 
 <?php
   if(isset($_POST['newrec'])) {
-    echo  '<div class="life">
+    $hide = 0;
+    echo '<div class="life">
       <br>
-        <div class=container-life>
-          <input id="clickMe" type="button" value="New Row" onclick="myFunction();" />
-          <input id="clickMe1" type="button" value="save" onclick="myFunction();" />
-          <input id="clickMe2" type="button" name="finish" value="Finish" onclick="myFunction2();"/>
-          <input id="clickMe3" type="button" name="recover" value="Recover Last Save" onclick="myFunction3();"/>
-        </div>
-      </div>';
+        <div class=container-life>';
+     //   echo '<button onClick="window.location.reload();">Refresh Page</button>';
+          echo '<form method="post" action="../includes/sqmem_get-data.php" class="form-container">';
+            echo '<button id="clickMe" type="submit" value="new_row" name="new_row" class="btn">Add Person</button>';
+            echo '<p style="color:red"><b>Inputs must contain numbers only. A red box indicates an issue with your input.</b></p>';
+          echo '</form>';
+echo '</div></div>';
+    echo '<div id="example-table"></div>';
+    
+    $_SESSION["table"] = 1;
+  } else { $hide = 1; }
+  if(isset($_POST['editrec']) || isset($_GET['editrec'])) {
+    echo '<div class="life">
+      <br>
+        <div class=container-life>';
+      //  echo '<button onClick="window.location.reload();">Refresh Page</button>';
+          echo '<form method="post" action="../includes/sqmem_get-data.php" class="form-container">';
+            echo '<button id="clickMe" type="submit" value="new_row" name="new_row" class="btn">Add Person</button>';
+            echo '<p style="color:red"><b>Inputs must contain numbers only. A red box indicates an issue with your input.</b></p>';
+          echo '</form>';
+echo '</div></div>';
     echo '<div id="example-table"></div>';
     $hide = 0;
-    $_SESSION["table"] = 1;
-  }
-  else { $hide = 1; }
+    $_SESSION["table"] = 2;
+  } else { $hide = 1; }
 ?>
+
+
+<script>
+function openForm(id) {
+  document.getElementById(id).style.display = "block";
+}
+
+function closeForm(id) {
+  document.getElementById(id).style.display = "none";
+}
+</script>
 
 <html>
   <head>
@@ -175,6 +263,7 @@ function closeForm() {
     <link rel="stylesheet" href="../libs/calendar/datepicker.min.css">
   </head>
   </body>
+    <script src="../libs/luxon/luxon.min.js"></script>
     <script>
         var table = new Tabulator("#example-table", {
           height:"500px",
@@ -184,60 +273,34 @@ function closeForm() {
           addRowPos:"top",
           columns:[
       	    {title:"Name", field:"name", editor:"input", minWidth:"150px", frozen:true},
-            {title:"CAP ID", field:"cap_id", editor:"input", minWidth:"100px"},
-            {title:"Age", field:"age", editor:"input", minWidth:"75"},
-      	    {title:"Push Ups", field:"push_ups", editor:"input", minWidth:"100"},
-      	    {title:"Sit Ups", field:"sit_ups", editor:"input", minWidth:"100"},
-      	    {title:"Mile Run", field:"mile_run", editor:"input", minWidth:"100"},
-      	    {title:"Pacer Test", field:"pacer_test", editor:"input", minWidth:"100"},
-      	    {title:"Sit & Reach", field:"sit_reach", editor:"input", minWidth:"100"},
+            {title:"Gender", field:"gender", editor:"list", editorParams:{values:{"Female":"Female", "Male":"Male"}}},
+            {title:"Age", field:"age", editor:"list", editorParams:{values:{"12":"12", "13":"13", "14":"14", "15":"15", "16":"16", "17":"17", "18":"18+"}}},
+      	    {title:"Push Ups", field:"push_ups", editor:"input", editParams:{mask:"999"}, minWidth:"100", validator:"numeric", validator:"integer"},
+      	    {title:"Sit Ups", field:"sit_ups", editor:"input", editParams:{mask:"999"}, minWidth:"100", validator:"numeric", validator:"integer"},
+      	    {title:"Mile Run", field:"mile_run", editor:"input", editorParams:{mask:"9999"}, minWidth:"100"},
+      	    {title:"Pacer Test", field:"pacer_test", editor:"input", editParams:{mask:"99"}, minWidth:"100", validator:"numeric", validator:"integer"},
+      	    {title:"Sit & Reach", field:"sit_reach", editor:"input", editParams:{mask:"99"}, minWidth:"100", validator:"numeric"},
+            {title:"Passed", field:"passed", minWidth:"100", visible:false},
           ],
           rowSelectionChanged:function(data, rows){
           	$("#select-stats span").text(data.length);
           },
         });
 
-        document.getElementById("clickMe").onclick = function myFunction() {
-            table.addRow({name:"Insert Name", cap_id:" ", age:" ", push_ups:" ", sit_ups:" ", mile_run:" ", pacer_test:" ", sit_reach:" "});
-        }
-        document.getElementById("clickMe1").onclick = function Save() {
-          var data1 = table.getData();
-          data1 = JSON.stringify(data1);
-         // console.log(data1);
+        table.on("cellEdited", function(cell){
+          var row = cell.getRow();
+          var rowData = row.getData();
+          //console.log(rowData);
 
           $.ajax({
             type: 'POST',
             url: '../includes/sqmem_get-data.php',
-            data: 'myData=' + data1 ,
+            data: {row:rowData},
             success: function(data) {
+         //     console.log(data);
             }
           });
-        }
-        document.getElementById("clickMe2").onclick = function finish() {
-          var data1 = table.getData();
-          data1 = JSON.stringify(data1);
-
-          $.ajax({
-            type: 'POST',
-            url: '../includes/sqmem_get-data.php',
-            data: {myData: data1, stuff: "1" },
-            success: function(data) {
-              window.location.replace("../protected/physical_testing.php");
-            }
-          });
-        }
-        document.getElementById("clickMe3").onclick = function recover() {
-          $.ajax({
-            type: 'POST',
-            url: '../includes/sqmem_get-data.php',
-            data: 'recover=1',
-            success: function(data) {
-              var tabledata = data;
-              table.clearData();
-              table.addData(tabledata);
-            }
-          });
-        }
+        });
 
       $.ajax({
         type: 'POST',
@@ -250,27 +313,85 @@ function closeForm() {
       });
     </script>
 
-    <?php if($hide == 1) {
+    <?php
+    if($hide == 1) {
       if(isset($errorMsg) && $errorMsg) {
         echo "<p style=\"color: red;\">*",htmlspecialchars($errorMsg),"</p>\n\n";
       }
       if(isset($message) && $message) {
         echo "<p style=\"color: green;\">*",htmlspecialchars($message),"</p>\n\n";
       }
-      ?>
-      <div class="newptrecord">
+
+      require "../includes/config_m.php";
+      $date=date('20y-m-d');
+      $query = "SELECT date FROM pt WHERE date='$date' && FQSN='" . $_SESSION["FQSN"] . "'";
+      $result = $conn->query($query);
+
+      if ($result->num_rows > 0) {    //If the query is not empty
+        echo '<div class="newptrecord">
         <form method="post" action="../protected/physical_testing.php">
-          <input type="submit" name="newrec" value="New PT Record">
+          <input type="submit" name="editrec" value="Edit PT Record">
         </form>
-      </div>
+      </div>';
+      } else {echo "<div class='newptrecord'>
+        <form method='post' action='../protected/physical_testing.php'>
+          <b>It's recommended to only create a new PT record once everyone has signed in!</b>
+          <input type='submit' name='newrec' value='New PT Record'>
+        </form>
+      </div>";}
+      ?>
       <br>
       <div class="dropdown">
-        <button class="dropbtn">Options</button>
+        <button class="dropbtn">Search By</button>
         <div class="dropdown-content">
           <a href="?name=1">Name</a>
           <a href="?capid=1">CAP ID</a>
           <a href="?date=1">Date</a>
+          <a href="?date_range=1">Date Range</a>
         </div>
-    <?php }?>
+      </div>
+    <?php }
+  require "../includes/config_m.php";
+  $query = "SELECT age, push_ups, curl_ups, mile_run, pacer, sit_reach, gender FROM pt_standards";
+  $result = $conn->query($query);
+
+  //Creating table to display information from query
+  echo '<div class="sqsearch">
+    <h4 style="text-align: center;">PT standards according to CAPP 60-50  February, 2018: </h4>
+    <table>
+      <colgroup>
+        <col span="7" style="background-color:lightgrey">
+      </colgroup>
+      <tr>
+        <th>Age</th>
+        <th>Pacer</th>
+        <th>Mile Run</th>
+        <th>Curl Ups</th>
+        <th>Push Ups</th>
+        <th>Sit & Reach</th>
+        <th>Gender</th>
+      </tr>';
+
+  if ($result->num_rows > 0) {    //If the query is not empty
+    while($row = $result->fetch_assoc()) {
+        echo "<tr>
+        <td>" . $row["age"] . "</td>
+        <td>" . $row["pacer"] . "</td>
+        <td>" . $row["mile_run"] . "</td>
+        <td>" . $row["curl_ups"] . "</td>
+        <td>" . $row["push_ups"] . "</td>
+        <td>" . $row["sit_reach"] . "</td>
+        <td>" . $row['gender'] . "</td>
+        </tr>";
+    }
+    $conn->close();
+  }
+  else {
+    echo "<h4 style='color: darkyellow'>No Reults found</h4>";
+    $conn->close();
+  }
+  echo "</table></div></div>";
+  ?>
+
   </body>
 </html>

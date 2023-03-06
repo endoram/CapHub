@@ -8,20 +8,19 @@ require "../includes/header.php";
   </head>
   <body>
     <div class="news">
-      <h3 name="version">CAPhub v1.5.5</h3>
+      <h3 name="version">CAPhub v1.6</h3>
       <div class="lists">
         <dl>
           <dt><b>Change Log:</b></dt>
             <ul>
+              <li>Added PT testing page</li>
               <li>Added ability to un-retire members</li>
-              <li>Added Date Range search for Meetings</li>
+              <li>Added Date Range search</li>
               <li>Fixed export to .csv bug (DF-1.5.1)</li>
-              <li>Updated password handling on back end</li>
               <li>Moved search dropdown to left menu bar for Squadron page</li>
               <li>Raised Meeting sign-in box</li>
-              <li>Switched search results to Last, First for Meetings page</li>
-              <li>Added Settings page with timezone selector in Main menu</li>
-              <li>Reconfigured data handling with database</li>
+              <li>Switched search results to Last, First</li>
+              <li>Added Settings page with timezone selector in Settings page</li>
               <li>CAP members from one squadron can now log into another squadron's meeting</li>
             </ul>
           <br>
@@ -36,12 +35,10 @@ require "../includes/header.php";
             <dd>Keeps track of radios that are checked out or in.</dd>
             <dd>Lets you know who has checked them out.</dd>
             <br>
-          <!--
           <dt><b>PT page:</b></dt>
-            <dd>Members can now enter PT data without transfer of paper.</dd>
-            <dd>Logs are searchable by name, CAP ID and date.</dd>
+            <dd>Allows members to track PT tests.</dd>
+            <dd>Logs are searchable by name, CAP ID, date and date range.</dd>
             <br>
-          -->
         <dt><b>Top Navigation Bar:</b></dt>
         <ul>
           <li>Help Page - Report a Bug</li>

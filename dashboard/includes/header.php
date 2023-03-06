@@ -34,7 +34,7 @@
     <div class="userid">
       <?php echo "Logged in as: " . $_SESSION['name'];?>
       <br>
-      <?php echo "Privilege Level: " . $_SESSION['privlv'];?>
+      <?php echo $_SESSION['FQSN'] . ", PL: " . $_SESSION['privlv'];?>
     </div>
     <link rel="stylesheet" type="text/css" href="style.css">
   </head>
@@ -44,7 +44,7 @@
         <li><a href="sqmembers.php">Squadron</a></li>
         <li><a href="meeting_nights.php">Meetings</a></li>
         <li><a href="comms.php">Comms</a></li>
-  <!--  <li><a href="physical_testing.php">PT</a></li>!-->
+    <li><a href="physical_testing.php">PT</a></li>
   <!--  <li><a href="events.php">Events</a></li>      !-->
   <!--  <li><a href="vehicles.php">Vehicles</a></li>  !-->
         <?php if($_SESSION['privlv'] >= 2){ ?>
@@ -60,10 +60,10 @@
         <a href="sqmembers.php">Squadron</a>
         <a href="meeting_nights.php">Meetings</a>
         <a href="comms.php">Comms</a>
-  <!--      <a href="physical_testing.php">PT</a> !-->
+        <a href="physical_testing.php">PT</a>
   <!--      <a href="events.php">Events</a> !-->
         <?php if($_SESSION['privlv'] >= 2){ ?>
-          <li><a href="admin_conf.php">Settings</a></li>
+          <a href="admin_conf.php">Settings</a>
         <?php } ?>
         <a href="help.php">Help</a>
         <a href="?logout=1">Log out</a>
