@@ -30,7 +30,7 @@
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <a href="../protected/main.php"><img src="../images/banner.png"></a>
+    <a href="../protected/main.php"><img src="../images/banner.png" alt="CAPhub"></a>
     <div class="userid">
       <?php echo "Logged in as: " . $_SESSION['name'];?>
       <br>
