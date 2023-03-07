@@ -102,7 +102,7 @@ function submit() {                 //Input validation
       echo "<p style='color: red'>Names don't have numbers in them - try again<p>";
     }
     else {
-      $data = "name LIKE '" . $_POST['input'] . "%'";   //Query statment
+      $data = "name LIKE '" . $_POST['input'] . "%' && FQSN='" . $_SESSION['FQSN'] . "' ORDER BY date, name";;   //Query statment
       queryit($data);     //Take data to be queryed
     }
   }
@@ -113,7 +113,7 @@ function submit() {                 //Input validation
       echo "<p style='color: red'>Invalid Cap ID<p>";
     }
     else {
-      $data = "cap_id LIKE '" . $_POST['input'] . "%'";
+      $data = "cap_id LIKE '" . $_POST['input'] . "%' && FQSN='" . $_SESSION['FQSN'] . "' ORDER BY date, name";
       queryit($data);
     }
   }
@@ -124,7 +124,7 @@ function submit() {                 //Input validation
       echo "<p style='color: red'>Invalid Date<p>";
     }
     else {
-      $data = "DATE(date)= '" . $date . "'";
+      $data = "DATE(date)= '" . $date . "' && FQSN='" . $_SESSION['FQSN'] . "' ORDER BY date, name";
       queryit($data);
     }
   }
@@ -197,12 +197,12 @@ function queryit($data) {           //Query the data and present it
     $conn->close();
   }
   echo "</table></div></div>";
-  echo '
+  /*echo '
           <form action="physical_testing.php" method="post">
               <input type="submit" name="export" value="Export"/>
               <input type="hidden" name="exportData" value="' . $query . '"/>
           </form>
-          ';
+          ';*/
 }
 ?>
 
@@ -277,7 +277,7 @@ function closeForm(id) {
             {title:"Age", field:"age", editor:"list", editorParams:{values:{"12":"12", "13":"13", "14":"14", "15":"15", "16":"16", "17":"17", "18":"18+"}}},
       	    {title:"Push Ups", field:"push_ups", editor:"input", editParams:{mask:"999"}, minWidth:"100", validator:"numeric", validator:"integer"},
       	    {title:"Sit Ups", field:"sit_ups", editor:"input", editParams:{mask:"999"}, minWidth:"100", validator:"numeric", validator:"integer"},
-      	    {title:"Mile Run", field:"mile_run", editor:"input", editorParams:{mask:"9999"}, minWidth:"100"},
+      	    {title:"Mile Run", field:"mile_run", editor:"input", editorParams:{mask:"99999"}, minWidth:"100"},
       	    {title:"Pacer Test", field:"pacer_test", editor:"input", editParams:{mask:"99"}, minWidth:"100", validator:"numeric", validator:"integer"},
       	    {title:"Sit & Reach", field:"sit_reach", editor:"input", editParams:{mask:"99"}, minWidth:"100", validator:"numeric"},
             {title:"Passed", field:"passed", minWidth:"100", visible:false},
@@ -334,8 +334,8 @@ function closeForm(id) {
         </form>
       </div>';
       } else {echo "<div class='newptrecord'>
+      <h4 style='text-align: center;'>It's recommended to only create a new PT record once everyone has signed in!</h4>
         <form method='post' action='../protected/physical_testing.php'>
-          <b>It's recommended to only create a new PT record once everyone has signed in!</b>
           <input type='submit' name='newrec' value='New PT Record'>
         </form>
       </div>";}
