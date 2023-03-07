@@ -2,7 +2,6 @@
   session_start();
   if (!isset($_GET['kiosk'])) {
     if (isset($_POST['kiosk']) && $_POST['kiosk'] == 2) {
-      echo $_POST['kiosk'];
     } else {
       require "control_access.php";
     }
