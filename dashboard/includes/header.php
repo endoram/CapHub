@@ -29,12 +29,15 @@
 
 <html>
   <head>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-5X833TX');</script>
+    <!-- End Google Tag Manager -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<<<<<<< HEAD
-    <a href="../protected/main.php"><img src="../images/bannerThree.png"></a>
-=======
-    <a href="../protected/main.php"><img src="../images/banner.png" alt="CAPhub"></a>
->>>>>>> e873fc747fded72565ed9bb8a39e79660cf45c48
+    <a href="../protected/main.php"><img src="../images/bannerThree.png" alt="CAPhub" title="CAPhub"></a>
     <div class="userid">
       <?php echo "Logged in as: " . $_SESSION['name'];?>
       <br>
@@ -43,6 +46,10 @@
     <link rel="stylesheet" type="text/css" href="style.css">
   </head>
   <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5X833TX"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
     <div class="menubar">
       <ul>
         <li><a href="sqmembers.php">Squadron</a></li>
