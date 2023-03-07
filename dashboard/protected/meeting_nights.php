@@ -6,7 +6,14 @@ if(isset($_GET['export'])){
   include "../includes/export.php";
 }
 
-require "../includes/header.php";
+if (isset($_GET['kiosk'])) {
+  session_start();
+  unset($_SESSION["capid"]);
+  unset($_SESSION["password"]);
+  unset($_SESSION["privlv"]);
+  unset($_SESSION["name"]);
+} else {require "../includes/header.php";}
+if (isset($_GET['logout'])) {header("Location: ../index.php");}
 
 if(isset($_POST['guestlogin'])) {
   header("Location: /includes/guestsign.php");
@@ -316,21 +323,37 @@ function closeForm() {
         echo '
           <form action="../includes/export.php" method="post">
               <input type="submit" name="export" value="Export" />
-          </form>
-          ';
+          </form>';
+      }
+      if (isset($_GET['kiosk'])) {
+        echo '<a href="../protected/main.php"><img src="../images/bannerThree.png"></a><br>';
       }
     ?>
     <?php echo "Today is " . date("Y/m/d") . "<br>";?>
-    <div class="dropdown">
-      <button class="dropbtn">Search for</button>
-      <div class="dropdown-content">    <!--Class creating the list of options to search-->
-        <p>Search For:</p>
-        <a href="?name=1">Name</a>
-        <a href="?capid=1">CAP ID</a>
-        <a href="?date=1">Date</a>
-        <a href="?date_range=1">Date Range</a>
+    <div class="row">
+      <div class="leftside">
+        <div class="sqmenubar">
+          <ul>
+            <?php 
+            if (isset($_GET['kiosk'])) {
+              echo '<li><a href="?kiosk">Kiosk Mode enabled</a></li>';
+              echo '<li><a href="?logout">Logout</a></li>';
+            } else { echo '
+            <li><a href="?kiosk">Kiosk Mode</a></li>
+          </ul>
+          <div class="dropdown">
+            <ul><li><button class="sqmenubutton">Search</button></li></ul>
+            <div class="dropdown-content">
+              <p>Search by:</p>
+              <a href="?name=1">Name</a>
+              <a href="?capid=1">CAP ID</a>
+              <a href="?date=1">Date</a>
+              <a href="?date_range=1">Date Range</a>
+            </div>
+          </div>
+          ';} ?>
+        </div>
       </div>
-    </div>
     <br>
     <div class="meetingform">
       <?php       //Handles promting any error messages
@@ -348,13 +371,20 @@ function closeForm() {
       <label>CAP ID:</label>
       <form action="meeting_nights.php">
         <input type="text" name="capidrm" autofocus> <!--Getting user's CAPID-->
+        <?php if (isset($_GET['kiosk'])) {
+          echo '<input type="hidden" name="kiosk">';
+        }?>
         <br>
         <input type="submit" value="Submit" name="rmuser0">
       </form>
       <form action="../includes/guestsign.php">
         <br>
         <input type="submit" value="GuestSignin" name="guestlogin">
+        <?php if (isset($_GET['kiosk'])) {
+          echo '<input type="hidden" name="kiosk" value=1>';
+        }?>
       </form>
     </div>
+  </div>
   </body>
 </html>

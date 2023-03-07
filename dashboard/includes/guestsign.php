@@ -1,6 +1,15 @@
 <?php
   session_start();
-  require "control_access.php";
+  if (!isset($_GET['kiosk'])) {
+    if (isset($_POST['kiosk']) && $_POST['kiosk'] == 2) {
+      echo $_POST['kiosk'];
+    } else {
+      require "control_access.php";
+    }
+  }
+  if (!isset($_SESSION['FQSN'])) {
+    require "control_access.php";
+  }
 
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
     require "../includes/config_m.php";
@@ -24,8 +33,15 @@
     $conn->close();
 
     $_SESSION['message'] = "Thanks for signing in!";
-    header("Location: ../protected/meeting_nights.php");
-    die;
+    if (isset($_POST['kiosk']) && $_POST['kiosk'] == 2) {
+      //echo "JEERER";
+      header("Location: ../protected/meeting_nights.php?kiosk");
+      die;
+    } else {
+      //echo "Here";
+      header("Location: ../protected/meeting_nights.php");
+      die;
+    }
   }
 ?>
 
@@ -45,13 +61,13 @@ input {
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../protected/style.css">
-    <a href="../protected/main.php"><img src="../images/banner.png"></a>
+    <a href="../protected/main.php"><img src="../images/bannerThree.png"></a>
     <title>CapHub Add Member</title>
   </head>
   <body>
     <div class="column">
       <div class="addmemberform">
-        <form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" accept-charset="UTF-8">
+        <form method="post" action="guestsign.php" accept-charset="UTF-8">
           <?php
           if(isset($errorMsg) && $errorMsg) {
             echo "<p style=\"color: red;\">*",htmlspecialchars($errorMsg),"</p>\n\n";
@@ -62,10 +78,16 @@ input {
 
           <br>
           <input type="submit" value="Sign In">
+          <?php if (isset($_GET['kiosk']) or isset($_POST['kiosk'])) {
+          echo '<input type="hidden" name="kiosk" value=2>';
+        }?>
         </form>
         <div class="cancelbutton">
           <form action="../protected/meeting_nights.php">
             <input type="submit" value="Cancel">
+            <?php if (isset($_GET['kiosk']) or isset($_POST['kiosk'])) {
+          echo '<input type="hidden" name="kiosk" value=2>';
+        }?>
           </form>
         </div>
       </div>
