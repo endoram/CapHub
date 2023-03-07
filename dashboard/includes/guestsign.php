@@ -16,10 +16,13 @@
     $lastname = $_POST['lastname'];
     $name = $firstname . ' ' . $lastname;
 
-    if(empty($_POST['phonenumber:'])) {
-      $phonenumber = 0;
-    } else {
-      $phonenumber = $_POST['phonenumber:'];
+    $phonenumber = 0;
+
+    if (isset($_POST['phonenumber']) && strlen($_POST['phonenumber'] >= 3)) {
+      $phonenumber = $_POST['phonenumber'];
+    }
+    if (strlen($_POST['email']) >= 2) {
+      $phonenumber = $_POST['email'];
     }
 
     $membertype = "visiter";
@@ -27,17 +30,15 @@
     $date = date("Y/m/d");
     $time = date("H:i:s");
 
-    $query = "INSERT INTO meeting_nights (date, name, time_in, member_type, cap_id) VALUES ('$date', '$name', '$time', '$membertype', $phonenumber)";
+    $query = "INSERT INTO meeting_nights (date, name, time_in, member_type, cap_id, visited) VALUES ('$date', '$name', '$time', '$membertype', '$phonenumber', '" . $_SESSION['FQSN'] . "')";
     $conn->query($query);
     $conn->close();
 
     $_SESSION['message'] = "Thanks for signing in!";
     if (isset($_POST['kiosk']) && $_POST['kiosk'] == 2) {
-      //echo "JEERER";
       header("Location: ../protected/meeting_nights.php?kiosk");
       die;
     } else {
-      //echo "Here";
       header("Location: ../protected/meeting_nights.php");
       die;
     }
@@ -73,7 +74,8 @@ input {
           }?>
           <label for="firstname">First name:</label> <input type="text" name="firstname" align="right" value="<?PHP if(isset($_POST['phonenumber:'])) echo htmlspecialchars($_POST['firstname']); ?>" required><br>
           <label for="lastname">Last name:</label> <input type="text" name="lastname" align="right" value="<?PHP if(isset($_POST['phonenumber:'])) echo htmlspecialchars($_POST['lastname']); ?>" required><br>
-          <label for="phonenumber:">Phone Number:(9 Digit)</label> <input type="text" id="phonenumber:" name="phonenumber:" align="right" title="Must be a proper phone number" pattern="[0-9].{8,}" value="<?PHP if(isset($_POST['phonenumber:'])) echo htmlspecialchars($_POST['phonenumber:']); ?>"><br>
+          <label for="phonenumber">Phone Number:(9 Digit)</label> <input type="text" id="phonenumber" name="phonenumber" align="right" title="Must be a proper phone number" pattern="[0-9].{8,}" value="<?PHP if(isset($_POST['phonenumber:'])) echo htmlspecialchars($_POST['phonenumber:']); ?>"><br>
+          <label for="email">Email:</label> <input type="text" id="email" name="email" align="right"><br>
 
           <br>
           <input type="submit" value="Sign In">

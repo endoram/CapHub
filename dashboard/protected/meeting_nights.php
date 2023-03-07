@@ -100,7 +100,6 @@ echo '<form method="post" action="meeting_nights.php" class="form-container">';
 
 echo '<label for="input"><b> Select a date:</b></label>';
 echo '<input type="date" name="input" required>';
-echo '<input type="checkbox" name="vister" value="Bike"> Visitor<br>';
 
 echo '<button type="submit" value="' . $data . '" name="sent" class="btn">Submit</button>';
 echo '<button type="button" class="btn cancel" onclick="closeForm()">Close</button>';
@@ -156,7 +155,6 @@ function handleit($data) {
 
   echo '<label for="input"><b>' . $data . '</b></label>';
   echo '<input type="text" name="input" required>';
-  echo '<input type="checkbox" name="vister" value="Bike"> Visitor<br>';
 
   echo '<button type="submit" value="' . $data . '" name="sent" class="btn">Submit</button>';
   echo '<button type="button" class="btn cancel" onclick="closeForm()">Close</button>';
@@ -173,13 +171,8 @@ function submit() {                 //Input validation
       echo "<p style='color: red'>Names don't have numbers in them - try again<p>";
     }
     else {
-      if (isset($_POST["vister"])) {
-        $data = "name LIKE '" . $_POST['input'] . "%' AND member_type='visitor' && visited='" . $_SESSION['FQSN'] . "'";   //Query statment
-        queryit($data);
-      } else{
-        $data = "name LIKE '" . $_POST['input'] . "%' && visited='" . $_SESSION['FQSN'] . "'";   //Query statment
-        queryit($data);     //Take data to be queryed
-      }
+      $data = "name LIKE '" . $_POST['input'] . "%' && visited='" . $_SESSION['FQSN'] . "'";   //Query statment
+      queryit($data);     //Take data to be queryed
     }
   }
 
@@ -189,14 +182,8 @@ function submit() {                 //Input validation
       echo "<p style='color: red'>Invalid Cap ID<p>";
     }
     else {
-      if (isset($_POST["vister"])) {
-        $data = "cap_id LIKE '" . $_POST['input'] . "' AND member_type='visitor' && visited='" . $_SESSION['FQSN'] . "'";
-        queryit($data);
-      }
-      else{
-        $data = "cap_id LIKE '" . $_POST['input'] . "' && visited='" . $_SESSION['FQSN'] . "'";
-        queryit($data);
-      }
+      $data = "cap_id LIKE '" . $_POST['input'] . "' && visited='" . $_SESSION['FQSN'] . "'";
+      queryit($data);
     }
   }
 
@@ -209,14 +196,8 @@ function submit() {                 //Input validation
       echo "<p style='color: red'>Invalid Date<p>";
     }
     else {
-      if (isset($_POST["vister"])) {
-        $data = "date='" . $contents . "' AND member_type='visitor' && visited='" . $_SESSION['FQSN'] . "'";
-        queryit($data);
-      }
-      else {
-        $data = "date='" . $contents . "' && visited='" . $_SESSION['FQSN'] . "' ORDER BY name";
-        queryit($data);
-      }
+      $data = "date='" . $contents . "' && visited='" . $_SESSION['FQSN'] . "' ORDER BY name";
+      queryit($data);
     }
   }
 
@@ -231,14 +212,8 @@ function submit() {                 //Input validation
       echo "<p style='color: red'>Invalid Date<p>";
     }
     else {
-      if (isset($_POST["vister"])) {
-        $data = "date like '" . $contents . "' AND member_type='visitor' && visited='" . $_SESSION['FQSN'] . "'";
-        queryit($data);
-      }
-      else {
-        $data = "date BETWEEN '" . $dates[0] . "' AND '" . $dates[2] . "' && visited='" . $_SESSION['FQSN'] . "' ORDER BY date, name";
-        queryit($data);
-      }
+      $data = "date BETWEEN '" . $dates[0] . "' AND '" . $dates[2] . "' && visited='" . $_SESSION['FQSN'] . "' ORDER BY date, name";
+      queryit($data);
     }
   }
 }

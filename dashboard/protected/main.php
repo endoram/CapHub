@@ -13,7 +13,12 @@ require "../includes/header.php";
         <dl>
           <dt><b>Change Log:</b></dt>
             <ul>
+              <li>Added new kiosk mode</li>
+              <li>Added new visitor signin options (DF-1.6.3)</li>
+              <li>Updated logo and settings page</li>
+              <li>Fixed PT SQ cross talk (DF-1.6.2)</li>
               <li>Added PT testing page</li>
+              <li>Added Alt text</li>
               <li>Added ability to un-retire members</li>
               <li>Added Date Range search</li>
               <li>Fixed export to .csv bug (DF-1.5.1)</li>
@@ -23,6 +28,12 @@ require "../includes/header.php";
               <li>Added Settings page with timezone selector in Settings page</li>
               <li>CAP members from one squadron can now log into another squadron's meeting</li>
             </ul>
+          <br>
+          <dt><b>In Development:</b></dt>
+          <ul>
+            <li>DF-1.6.1 PT Export button</li>
+            <li>Backend search refactoring</li>
+          </ul>
           <br>
           <dt><b>Squadron:</b></dt>
             <dd>Allows you to add, remove, search, and retire members.</dd>
