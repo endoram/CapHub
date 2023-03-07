@@ -214,7 +214,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   </head>
   <body>
     <div class="hideme">
-      <img src="../images/banner.png">
+      <img src="../images/bannerThree.png">
       <?php
         if(isset($errorMsg) && $errorMsg) {
           echo "<p style=\"color: red;\">*",htmlspecialchars($errorMsg),"</p>\n\n";

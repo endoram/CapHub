@@ -79,7 +79,7 @@ input {
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../protected/style.css">
-    <a href="../protected/main.php"><img src="../images/banner.png"></a>
+    <a href="../protected/main.php"><img src="../images/bannerThree.png"></a>
     <title>CapHub Add Member</title>
   </head>
   <body>
