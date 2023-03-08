@@ -1,17 +1,21 @@
 <?php
 require "../includes/header.php";
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if (isset($_POST['timezone_type'])) {
   require "../includes/config_m.php";
   $timezone = $_POST['timezone_type'];
-  #echo($timezone);
-
 
   require "../includes/config_m.php";
   $query = "UPDATE squads SET time_zone='" . $timezone . "' WHERE FQSN='" . $_SESSION['FQSN'] . "'";   //Validate number is a CAPID in the database
   #echo($query);
   $conn->query($query);
   $conn->close();
+}
+
+if (isset($_POST['FQSN'])) {
+  if ($_SESSION['privlv'] == 3) {
+    $_SESSION['FQSN'] = $_POST['FQSN'];
+  }
 }
 ?>
 
@@ -41,6 +45,11 @@ function closeForm() {
         <div class="sqmenubar">
           <ul>
             <li><a href="?timezone">Timezone</a><li>
+            <?php
+              if ($_SESSION['privlv'] == 3){
+                echo '<li><a href="?changeFQSN"> Change FQSN</a><li>';
+              }
+            ?>
           </ul>
         </div>
       </div>
@@ -77,7 +86,30 @@ function closeForm() {
             </select><br><br>
             <button type="submit" value="Save">Save</button>
           </form>';
-      }
+        }
+        if (isset($_GET['changeFQSN'])) {
+          if ($_SESSION['privlv'] == 3) {
+            require "../includes/config_m.php";
+            $query = "SELECT FQSN FROM squads";
+            echo '<form method="post" action="admin_conf.php" accept-charset="UTF-8">';
+            echo "<select name='FQSN'>";
+
+            $result = $conn->query($query);
+            if ($result->num_rows > 0) {
+              while($row = $result->fetch_assoc()) {
+                echo "<option value=" . $row['FQSN'] . ">" . $row['FQSN'] . "</option>";
+              }
+              $conn->close();
+            }
+            else {
+              echo "<script>alert('No Results Found');</script>";
+              $conn->close();
+            }
+            echo "</select>";
+            echo '<button type="submit" value="Save">Save</button>';
+            echo '</form>';
+          }
+        }
         ?>
       </div>
     </div>
