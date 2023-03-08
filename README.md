@@ -3,7 +3,8 @@
 <img src="/screenshots/CapHubLogin.png">
 
 
-CAPhub v1.6  06 March 2023
+CAPhub v1.6  
+06 March 2023
 
 Change Log:
 
@@ -44,5 +45,10 @@ If your squadron would like to use CAPhub, please have your IT Officer email the
 
 If you are a LAMP (Linux,Apache, MySQL, PHP) developer and would like to help us improve CAPhub, please email the technical lead - <a href="mailto:spencer.mcconnell@capboise.org">Spencer McConell</a>. 
 
+
+<br />
+<strong>Special thanks to our CAP member testors!</strong>
+
+Nathanael Junkin - Coeur d'Alene Composite Squadron, ID Wing
 
 
