@@ -13,6 +13,7 @@ require "../includes/header.php";
         <dl>
           <dt><b>Change Log:</b></dt>
             <ul>
+              <li>Fixed Timezone issue (DF-1.6.5)</li>
               <li>Added new kiosk mode</li>
               <li>Added new visitor signin options (DF-1.6.3)</li>
               <li>Updated logo and settings page</li>

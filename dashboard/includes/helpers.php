@@ -1,11 +1,28 @@
 <?php
-require "control_access.php";
+//require "control_access.php";
 
 
 function searhMe() {
 
 }
 
+function timeZone() {
+	require '../includes/config_m.php';
+
+	$query = "SELECT time_zone FROM squads WHERE FQSN='" . $_SESSION['FQSN'] . "'";
+	$result = $conn->query($query);
+	if ($result->num_rows > 0) {
+	  while($row = $result->fetch_assoc()) {
+	    date_default_timezone_set($row['time_zone']);
+	    $time = $row['time_zone'];
+	 //   return $time;
+	  }
+	}
+	else {
+	  echo "<script>alert('There has been an issue with the timezone. Please contact the dev team.');</script>";
+	  $conn->close();
+	}
+}
 
 function queryMe($query, $rowHeaders) {
 	require "../includes/config_m.php";

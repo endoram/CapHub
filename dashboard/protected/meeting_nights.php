@@ -22,7 +22,8 @@ if(isset($_POST['guestlogin'])) {
 if(isset($_POST['sent'])) {submit();}
 
 if(isset($_GET['rmuser0'])) {     //If user has intered an input
-#  date_default_timezone_set("America/Denver");
+  require "../includes/helpers.php";
+  timeZone();
   $time = date("H:i:s");
 #  echo($time);
   $capid = $_GET['capidrm'];
@@ -68,7 +69,7 @@ if(isset($_GET['rmuser0'])) {     //If user has intered an input
         //  }
 
           $query = "INSERT INTO meeting_nights (date, cap_id, name, time_in, member_type, FQSN, visited) VALUES ('" . $date . "', " .  $capid . ", '" . $name . "', '" . $time . "','" . $membertype . "','" . $FQSN . "','" . $_SESSION['FQSN'] . "')";
-          #echo $query;
+          echo $query;
         $conn->query($query);
         }
       }
@@ -302,6 +303,7 @@ function closeForm() {
       }
       if (isset($_GET['kiosk'])) {
         echo '<a href="../protected/main.php"><img src="../images/bannerThree.png"></a><br>';
+
       }
     ?>
     <?php echo "Today is " . date("Y/m/d") . "<br>";?>
