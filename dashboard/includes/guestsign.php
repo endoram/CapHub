@@ -25,7 +25,7 @@
       $phonenumber = $_POST['email'];
     }
 
-    $membertype = "visiter";
+    $membertype = "visitor";
     $message = $name . " signed in";
     $date = date("Y/m/d");
     $time = date("H:i:s");

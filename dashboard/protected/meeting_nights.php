@@ -1,7 +1,7 @@
 <?php
 #ALTER TABLE `meeting_nights` ADD `FQDN` VARCHAR(100) NOT NULL DEFAULT 'RMR-ID-073' AFTER `ID`;
 if(isset($_GET['export'])){
-  $query = "SELECT first_name, last_name, cap_id FROM sq_members WHERE ";
+  $query = "SELECT first_name, last_name, cap_id, visited FROM sq_members WHERE ";
 
   include "../includes/export.php";
 }
@@ -69,7 +69,6 @@ if(isset($_GET['rmuser0'])) {     //If user has intered an input
         //  }
 
           $query = "INSERT INTO meeting_nights (date, cap_id, name, time_in, member_type, FQSN, visited) VALUES ('" . $date . "', " .  $capid . ", '" . $name . "', '" . $time . "','" . $membertype . "','" . $FQSN . "','" . $_SESSION['FQSN'] . "')";
-          echo $query;
         $conn->query($query);
         }
       }
@@ -222,11 +221,11 @@ function submit() {                 //Input validation
 //THIS HANDLES QUERY AND DISPLAYING RESULTS
 function queryit($data) {           //Query the data and present it
   require "../includes/config_m.php";
-  $query = "SELECT date, cap_id, name, time_in, time_out, member_type, FQSN FROM meeting_nights WHERE " . $data;
+  $query = "SELECT date, cap_id, name, time_in, time_out, member_type, FQSN, visited FROM meeting_nights WHERE " . $data;
   #echo $query;
   $result = $conn->query($query);
   $_SESSION['query_idea'] = $query;
-  $sendit = array('Date', 'CAP ID', 'Name', 'Time In', 'Time Out', 'Member Type', 'Squadron');
+  $sendit = array('Date', 'CAP ID', 'Name', 'Time In', 'Time Out', 'Member Type', 'Squadron', 'visited');
   $_SESSION['query_values'] = $sendit;
   $count = 1;
 

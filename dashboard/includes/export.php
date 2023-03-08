@@ -34,9 +34,9 @@ $result = $conn->query($query);
 
 // loop over the rows, outputting them
 while($row = $result->fetch_assoc()) {
-	fputcsv($output, $row);
+  fputcsv($output, $row);
  # fputcsv($output, $row["date"]);
- # fputcsv($output, $row["cap_id"]);			#fputcsv REQUIRES an ARRAY - Will come back
+ # fputcsv($output, $row["cap_id"]);      #fputcsv REQUIRES an ARRAY - Will come back
  # fputcsv($output, $row["name"]);
  # fputcsv($output, $row["time_in"]);
  # fputcsv($output, $row["time_out"]);
