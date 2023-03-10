@@ -27,13 +27,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   </head>
   <body>
     <center>
-    <h3>If you have any questions or would like to request features</h3>
-    <br>
-    <h3>Be sure to send the creators an email at:</h3>
-    <br>
-    <p>caphub.org@gmail.com</p><br>
-    <h2>Report A Bug by Emailing:</h2><br>
-    <p>caphub.org@gmail.com</p><br>
+    <h3>If you would like to request features, report a bug, or just ask the dev team a question, please send us an email.</h3>
+    <br />
+    <p><a href="mailto:caphub.org@gmail.com">caphub.org@gmail.com</a></p>
+    <br />
   </center>
   </body>
 </html>
