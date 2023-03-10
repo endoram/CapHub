@@ -1,11 +1,17 @@
 <?php
-
+if(isset($_POST['export'])){
+  $query = $_POST['exportData'];
+  //echo $query;
+  $rowHeaders = array("First Name", "Last Name","CAPID", "Privilege Level");
+  include "../includes/helpers.php";
+  exportMe($query, $rowHeaders);
+}
 if(isset($_GET['export'])){
   session_start();
-  $_SESSION['query_idea'] = "SELECT first_name, last_name, cap_id, member_type FROM sq_members WHERE FQSN='" . $_SESSION['FQSN'] . "'";
-  $sendit = array("First Name", "Last Name", "CAPID", "Member Type");
-  $_SESSION['query_values'] = $sendit;
-  include "../includes/export.php";
+  $query = "SELECT first_name, last_name, cap_id, member_type FROM sq_members WHERE FQSN='".$_SESSION['FQSN']."'";
+  $rowHeaders = array("First Name", "Last Name","CAPID", "Member Type");
+  include "../includes/helpers.php";
+  exportMe($query, $rowHeaders);
 }
 
 require "../includes/header.php";
@@ -31,115 +37,38 @@ if(isset($_GET['addmember'])) {
   header("Location: ../includes/addmember.php");
 }
 
+
+if(isset($_POST['sent'])) {
+  $queryHeaders = array("first_name", "last_name", "cap_id", "privlage_level");
+  $displayHeaders = array("ID", "First Name", "Last Name","CAPID", "Privilege Level");
+  require "../includes/helpers.php";
+  queryCreate($_POST['sent'], $_POST['query'], $_POST['page'], $displayHeaders, $queryHeaders);
+}
+
+$page = "../protected/sqmembers.php";
+$queryFirst = "SELECT first_name, last_name, cap_id, privlage_level FROM sq_members WHERE FQSN='".$_SESSION['FQSN']."' && ";
+ // require "../includes/helpers.php";
+//Detects whitch one to display when searching
+if(isset($_GET['capid'])) {
+  $data = "CAP ID:";
+  require "../includes/helpers.php";
+  searchMe($data, $queryFirst, $page);
+}
 if(isset($_GET['firstname'])) {
-  $data = "Firstname:"; handleit($data);
+  $data = "Firstname:";
+  require "../includes/helpers.php";
+  searchMe($data, $queryFirst, $page);
 }
 if(isset($_GET['lastname'])) {
-  $data = "Lastname:"; handleit($data);
-}
-if(isset($_GET['capid'])) {
-  $data = "CAP ID:"; handleit($data);
+  $data = "Lastname:";
+  require "../includes/helpers.php";
+  searchMe($data, $queryFirst, $page);
 }
 if(isset($_GET['priv'])) {
-  $data = "Privlage Level:"; handleit($data);
+  $data = "Privilege Level:";
+  require "../includes/helpers.php";
+  searchMe($data, $queryFirst, $page);
 }
-
-function handleit($data) {
-  unset($_GET['firstname, lastname, capid, priv']);
-
-  echo '<div class="form-popup" id="myForm">';
-  echo '<form method="post" action="sqmembers.php" class="form-container">';
-
-  echo '<label for="input"><b>' . $data . '</b></label>';
-  echo '<input type="text" name="input" required>';
-
-  echo '<button type="submit" value="' . $data . '" name="sent" class="btn">Submit</button>';
-  echo '<button type="button" class="btn cancel" onclick="closeForm()">Close</button>';
-  echo '</form>';
-  echo '</div>';
-}
-
-function submit() {
-  if($_POST['sent'] == "Firstname:") {
-    $firstname = $_POST['input'];
-    if (preg_match('/[^A-Za-z]/', $firstname)) {
-      echo "<p style='color: red'>Names don't have numbers in them - try again<p>";
-    }
-    else {
-      $data = "first_name LIKE '" . $_POST['input'] . "%'";
-      queryit($data);
-    }
-  }
-  if($_POST['sent'] == "Lastname:") {
-    $lastname = $_POST['input'];
-    if (preg_match('/[^A-Za-z]/', $lastname)) {
-      echo "<p style='color: red'>Names don't have numbers in them - try again<p>";
-    }
-    else {
-      $data = "last_name LIKE '" . $_POST['input'] . "%'";
-      queryit($data);
-    }
-  }
-  if($_POST['sent'] == "CAP ID:") {
-    $capid = $_POST['input'];
-    if(!is_numeric($capid)) {
-      echo "<p style='color: red'>Invalid Cap ID<p>";
-    }
-    else {
-      $data = "cap_id LIKE '" . $_POST['input'] . "%'";
-      queryit($data);
-    }
-  }
-  if($_POST['sent'] == "Privlage Level:") {
-    $priv = $_POST['input'];
-    if(!is_numeric($priv)) {
-      echo "<p style='color: red'>Invalid Privlage Level<p>";
-    }
-    else {
-      $data = "privlage_level=" . $_POST['input'];
-      queryit($data);
-    }
-  }
-}
-
-function queryit($data) {
-  require "../includes/config_m.php";
-  $query = "SELECT * FROM sq_members WHERE " . $data . " && FQSN='" . $_SESSION['FQSN']. "'";
-  $result = $conn->query($query);
-
-  echo '<div class="sqsearch">
-    <br>
-    <table>
-      <colgroup>
-        <col span="3" style="background-color:lightgrey">
-        <col style="background-color:red">
-      </colgroup>
-      <tr>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>CAPID</th>
-        <th>Priv</th>
-      </tr>';
-
-  if ($result->num_rows > 0) {
-    while($row = $result->fetch_assoc()) {
-        echo "<tr>
-        <td>" . $row["first_name"] . "</td>
-        <td>" . $row["last_name"] . "</td>
-        <td>" . $row["cap_id"] . "</td>
-        <td>" . $row["privlage_level"] . "</td>
-        </tr>";
-        $rm_capid = $row["cap_id"];
-    }
-  }
-  else {
-    echo "<h4 style='color: darkyellow'>No Reults found</h4>";
-    $conn->close();
-  }
-  echo "</table></div></div>";
-}
-
-if(isset($_POST['sent'])) {submit();}
 ?>
 
 <script src="../libs/tabulator/jquery-3.2.1.js"></script>
