@@ -38,6 +38,7 @@
     <!-- End Google Tag Manager -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <a href="../protected/main.php"><img src="../images/bannerThree.png" alt="CAPhub" title="CAPhub"></a>
+    <h2>For CAP Members, by CAP Members<h2>
     <div class="userid">
       <?php echo "Logged in as: " . $_SESSION['name'];?>
       <br>
