@@ -8,11 +8,13 @@ require "../includes/header.php";
   </head>
   <body>
     <div class="news">
-      <h3 name="version">CAPhub v1.6</h3>
+      <h3 name="version">CAPhub v1.6-</h3>
       <div class="lists">
         <dl>
-          <dt><b>Change Log:</b></dt>
+          <dt><b>Change Log:</b> (March 9th, 2023)</dt>
             <ul>
+              <li>Refactored search functions</li>
+              <li>Fixed DF-1.6.1, 1.6.7 Export functions, session timeout</li>
               <li>Fixed Default squadron FQSN/export bug (DF-1.6.6)</li>
               <li>Fixed Timezone issue (DF-1.6.5)</li>
               <li>Added new kiosk mode</li>

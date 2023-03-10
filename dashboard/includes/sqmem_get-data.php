@@ -221,8 +221,6 @@ if (isset($_POST['row'])) {
     while($row = $result->fetch_assoc()) {
       if ($row['age'] == $data['age']) {
         if ($row['pacer'] <= $data['pacer_test'] || (strlen($data['mile_run']) >= 3 && $row['mile_run'] >= $data['mile_run'])) {
-          echo strlen($data['mile_run']);
-          echo " ";
           $count = $count + 1;
         }
         if ($row['curl_ups'] <= $data['sit_ups']) {
@@ -238,7 +236,6 @@ if (isset($_POST['row'])) {
       if ($count == 1 AND $count1 >= 2) {
         require 'config_m.php';
         $query = "UPDATE pt SET passed='YES' WHERE cap_id=" . $data['cap_id'] . " && FQSN='" . $_SESSION['FQSN'] . "'";
-        echo $query;
         $result = $conn->query($query);
         $conn->close();
       } else {
