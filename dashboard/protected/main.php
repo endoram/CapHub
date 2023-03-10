@@ -8,16 +8,10 @@ require "../includes/header.php";
   </head>
   <body>
     <div class="news">
-<<<<<<< HEAD
-      <h3 name="version">CAPhub v1.6-</h3>
-      <div class="lists">
-        <dl>
-          <dt><b>Change Log:</b> (March 9th, 2023)</dt>
-=======
       <h3 name="version">CAPhub v1.6</h3>
+      <div class="lists">
       <dl>
-          <dt><b>Change Log</b></dt>
->>>>>>> a966e693ef85d42a3694becd62718b9b78c7c242
+          <dt><b>Change Log</b>(March 9th, 2023)</dt>
             <ul>
               <li>Refactored search functions</li>
               <li>Fixed DF-1.6.1, 1.6.7 Export functions, session timeout</li>
