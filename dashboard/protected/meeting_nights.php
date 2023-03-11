@@ -1,7 +1,7 @@
 <?php
 if(isset($_POST['export'])){
   $query = $_POST['exportData'];
-  $rowHeaders = array("DATE", "CAPID", "Name", "Time In", "Time Out", "membertype", "Squadron", "Visited");
+  $rowHeaders = array("DATE", "CAPID", "Name", "Time In", "Time Out", "membertype", "Squadron", "Visited", "Phone Number", "Email");
   include "../includes/helpers.php";
   exportMe($query, $rowHeaders);
 }
@@ -24,10 +24,8 @@ if(isset($_GET['rmuser0'])) {     //If user has intered an input
     header("Location: ../index.php");
   }
   require "../includes/helpers.php";
-#  echo strlen($_SESSION['FQSN']);
   timeZone();
   $time = date("H:i:s");
-#  echo($time);
   $capid = $_GET['capidrm'];
 
   if ($capid == "" or !is_numeric($capid)) {$errorMsg = "Invalid Cap ID";}    //Validate all numbers
@@ -80,15 +78,14 @@ if(isset($_GET['rmuser0'])) {     //If user has intered an input
 }
 
 if(isset($_POST['sent'])) {
-  $queryHeaders = array("date", "cap_id", "name", "time_in", "time_out", "FQSN", "visited");
-  $displayHeaders = array("ID", "Date","CAPID", "Name (Last, First)", "Time In", "Time Out", "Squadron", "Visited");
+  $queryHeaders = array("date", "cap_id", "name", "time_in", "time_out", "FQSN", "visited", "phone_number", "email");
+  $displayHeaders = array("ID", "Date","CAPID", "Name (Last, First)", "Time In", "Time Out", "Squadron", "Visited", "Phone Number", "Email");
   require "../includes/helpers.php";
   queryCreate($_POST['sent'], $_POST['query'], $_POST['page'], $displayHeaders, $queryHeaders);
 }
 
 $page = "../protected/meeting_nights.php";
-$queryFirst = "SELECT date, cap_id, name, time_in, time_out, member_type, FQSN, visited FROM meeting_nights WHERE visited='".$_SESSION['FQSN']."' && ";
- // require "../includes/helpers.php";
+$queryFirst = "SELECT date, cap_id, name, time_in, time_out, member_type, FQSN, visited, phone_number, email FROM meeting_nights WHERE visited='".$_SESSION['FQSN']."' && ";
 //Detects whitch one to display when searching
 if(isset($_GET['name'])) {
   $data = "Name:";
