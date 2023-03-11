@@ -20,7 +20,11 @@ if(isset($_POST['guestlogin'])) {
 }
 
 if(isset($_GET['rmuser0'])) {     //If user has intered an input
+  if (strlen($_SESSION['FQSN']) <= 1) {
+    header("Location: ../index.php");
+  }
   require "../includes/helpers.php";
+#  echo strlen($_SESSION['FQSN']);
   timeZone();
   $time = date("H:i:s");
 #  echo($time);
@@ -65,15 +69,11 @@ if(isset($_GET['rmuser0'])) {     //If user has intered an input
         //  if($FQSN == $_SESSION['FQSN']) {
         //    echo'<script>alert("Hey $name are you visisting $_SESSION["FQSN"]?");</script>';
         //  }
-          if (!isset($_SESSION['FQSN'])) {
-            header("Location: ../index.php");
-          } else {
-            $query = "INSERT INTO meeting_nights (date, cap_id, name, time_in, member_type, FQSN, visited) VALUES ('" . $date . "', " .  $capid . ", '" . $name . "', '" . $time . "','" . $membertype . "','" . $FQSN . "','" . $_SESSION['FQSN'] . "')";
+          $query = "INSERT INTO meeting_nights (date, cap_id, name, time_in, member_type, FQSN, visited) VALUES ('" . $date . "', " .  $capid . ", '" . $name . "', '" . $time . "','" . $membertype . "','" . $FQSN . "','" . $_SESSION['FQSN'] . "')";
            $conn->query($query);
           }
         }
       }
-    }
     else {$errorMsg = "CAP ID not in database Please talk to the cadet admin NCO";}
     $conn->close();
   }
