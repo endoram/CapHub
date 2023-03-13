@@ -137,6 +137,9 @@ input {
       </div>
     <?php } ?>
   </body>
+  <?php
+    require "../includes/footer.php";
+  ?>
 </html>
 
 <?php if($_SESSION['privlv'] >= 2){ ?>

@@ -114,4 +114,7 @@ function closeForm() {
       </div>
     </div>
   </body>
+  <?php
+    require "../incsludes/footer.php";
+  ?>
 </html>

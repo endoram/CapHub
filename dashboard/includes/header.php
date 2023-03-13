@@ -9,6 +9,8 @@
     header("Location: ../index.php");
   }
 
+  require "../includes/legal.php";
+
 
   require "../includes/config_m.php";
   $query = "SELECT time_zone FROM squads WHERE FQSN='" . $_SESSION['FQSN'] . "'";
@@ -56,6 +58,7 @@
         <li><a href="meeting_nights.php">Meetings</a></li>
         <li><a href="comms.php">Comms</a></li>
     <li><a href="physical_testing.php">PT</a></li>
+    <li><a href="meeting_nights.php">QA SERVER</a></li>
   <!--  <li><a href="events.php">Events</a></li>      !-->
   <!--  <li><a href="vehicles.php">Vehicles</a></li>  !-->
         <?php if($_SESSION['privlv'] >= 2){ ?>
