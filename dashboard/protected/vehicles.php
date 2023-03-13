@@ -261,4 +261,7 @@
         </div>
     </div>
   </body>
+  <?php
+    require "../includes/footer.php";
+  ?>
 </html>

@@ -1,7 +1,7 @@
 <?php
 if(isset($_POST['export'])){
   $query = $_POST['exportData'];
-  $rowHeaders = array("DATE", "CAPID", "Name", "Time In", "Time Out", "membertype", "Squadron", "Visited");
+  $rowHeaders = array("DATE", "CAPID", "Name", "Time In", "Time Out", "membertype", "Squadron", "Visited", "Phone Number", "Email");
   include "../includes/helpers.php";
   exportMe($query, $rowHeaders);
 }
@@ -20,10 +20,12 @@ if(isset($_POST['guestlogin'])) {
 }
 
 if(isset($_GET['rmuser0'])) {     //If user has intered an input
+  if (strlen($_SESSION['FQSN']) <= 1) {
+    header("Location: ../index.php");
+  }
   require "../includes/helpers.php";
   timeZone();
   $time = date("H:i:s");
-#  echo($time);
   $capid = $_GET['capidrm'];
 
   if ($capid == "" or !is_numeric($capid)) {$errorMsg = "Invalid Cap ID";}    //Validate all numbers
@@ -65,30 +67,25 @@ if(isset($_GET['rmuser0'])) {     //If user has intered an input
         //  if($FQSN == $_SESSION['FQSN']) {
         //    echo'<script>alert("Hey $name are you visisting $_SESSION["FQSN"]?");</script>';
         //  }
-          if (!isset($_SESSION['FQSN'])) {
-            header("Location: ../index.php");
-          } else {
-            $query = "INSERT INTO meeting_nights (date, cap_id, name, time_in, member_type, FQSN, visited) VALUES ('" . $date . "', " .  $capid . ", '" . $name . "', '" . $time . "','" . $membertype . "','" . $FQSN . "','" . $_SESSION['FQSN'] . "')";
+          $query = "INSERT INTO meeting_nights (date, cap_id, name, time_in, member_type, FQSN, visited) VALUES ('" . $date . "', " .  $capid . ", '" . $name . "', '" . $time . "','" . $membertype . "','" . $FQSN . "','" . $_SESSION['FQSN'] . "')";
            $conn->query($query);
           }
         }
       }
-    }
     else {$errorMsg = "CAP ID not in database Please talk to the cadet admin NCO";}
     $conn->close();
   }
 }
 
 if(isset($_POST['sent'])) {
-  $queryHeaders = array("date", "cap_id", "name", "time_in", "time_out", "FQSN", "visited");
-  $displayHeaders = array("ID", "Date","CAPID", "Name (Last, First)", "Time In", "Time Out", "Squadron", "Visited");
+  $queryHeaders = array("date", "cap_id", "name", "time_in", "time_out", "FQSN", "visited", "phone_number", "email");
+  $displayHeaders = array("ID", "Date","CAPID", "Name (Last, First)", "Time In", "Time Out", "Squadron", "Visited", "Phone Number", "Email");
   require "../includes/helpers.php";
   queryCreate($_POST['sent'], $_POST['query'], $_POST['page'], $displayHeaders, $queryHeaders);
 }
 
 $page = "../protected/meeting_nights.php";
-$queryFirst = "SELECT date, cap_id, name, time_in, time_out, member_type, FQSN, visited FROM meeting_nights WHERE visited='".$_SESSION['FQSN']."' && ";
- // require "../includes/helpers.php";
+$queryFirst = "SELECT date, cap_id, name, time_in, time_out, member_type, FQSN, visited, phone_number, email FROM meeting_nights WHERE visited='".$_SESSION['FQSN']."' && ";
 //Detects whitch one to display when searching
 if(isset($_GET['name'])) {
   $data = "Name:";
@@ -198,4 +195,7 @@ function closeForm() {
     </div>
   </div>
   </body>
+  <?php
+    require "../includes/footer.php";
+  ?>
 </html>

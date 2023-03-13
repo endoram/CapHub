@@ -22,15 +22,18 @@
       $phonenumber = $_POST['phonenumber'];
     }
     if (strlen($_POST['email']) >= 2) {
-      $phonenumber = $_POST['email'];
+      $email = $_POST['email'];
     }
 
     $membertype = "visitor";
     $message = $name . " signed in";
+    require "../includes/helpers.php";
+    timeZone();
     $date = date("Y/m/d");
     $time = date("H:i:s");
 
-    $query = "INSERT INTO meeting_nights (date, name, time_in, member_type, cap_id, visited) VALUES ('$date', '$name', '$time', '$membertype', '$phonenumber', '" . $_SESSION['FQSN'] . "')";
+    $query = "INSERT INTO meeting_nights (date, name, time_in, member_type, phone_number, email, visited) VALUES
+     ('$date', '$name', '$time', '$membertype', '$phonenumber', '$email', '" . $_SESSION['FQSN'] . "')";
     $conn->query($query);
     $conn->close();
 
@@ -94,4 +97,7 @@ input {
       </div>
     </div>
   </body>
+  <?php
+    require "../includes/footer.php";
+  ?>
 </html>
