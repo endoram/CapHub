@@ -1,5 +1,28 @@
 <?php
 //require "../includes/control_access.php";
+if (isset($_GET['legal'])) {
+	showLegal();
+	echo "<html>
+  <head>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-5X833TX');</script>
+    <!-- End Google Tag Manager -->
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <link rel='stylesheet' type='text/css' href='style.css'>
+  </head>
+  <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src='https://www.googletagmanager.com/ns.html?id=GTM-5X833TX'
+    height='0' width='0' style='display:none;visibility:hidden'></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <a href='../protected/main.php'>Continue</a>
+  </body>
+</html>";
+}
 
 if(isset($_POST['capid'])) {
 	require '../includes/config_m.php';
@@ -7,15 +30,8 @@ if(isset($_POST['capid'])) {
 	$result = $conn->query($query);
 }
 
-if (isset($_SESSION['capid'])){
-	require '../includes/config_m.php';
-	$query = "SELECT TOS FROM sq_members WHERE cap_id='" . $_SESSION['capid'] . "'";
-
-	$result = $conn->query($query);
-	if ($result->num_rows > 0) {
-		while($row = $result->fetch_assoc()) {
-			if ($row['TOS'] == 0) {
-				echo '<div id="overlay" onclick="off()">
+function showLegal() {
+	echo '<div id="overlay" onclick="off()">
 				<div id="legalText">
 				<h2>By continuing to use this website, you acknowledge that you have read, understood, and agreed to the following disclaimer.
 				<br>
@@ -45,6 +61,17 @@ if (isset($_SESSION['capid'])){
 				</div>
 				</div> 
 	';
+}
+
+if (isset($_SESSION['capid'])){
+	require '../includes/config_m.php';
+	$query = "SELECT TOS FROM sq_members WHERE cap_id='" . $_SESSION['capid'] . "'";
+
+	$result = $conn->query($query);
+	if ($result->num_rows > 0) {
+		while($row = $result->fetch_assoc()) {
+			if ($row['TOS'] == 0) {
+				showLegal();
 			}
 
 		}

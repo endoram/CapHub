@@ -40,7 +40,7 @@
     <!-- End Google Tag Manager -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <a href="../protected/main.php"><img src="../images/bannerThree.png" alt="CAPhub" title="CAPhub"></a>
-    <h2>For CAP Members, by CAP Members<h2>
+    <h4 style="display: inline;">For CAP Members, by CAP Members</h4>
     <div class="userid">
       <?php echo "Logged in as: " . $_SESSION['name'];?>
       <br>
@@ -59,7 +59,6 @@
         <li><a href="meeting_nights.php">Meetings</a></li>
         <li><a href="comms.php">Comms</a></li>
     <li><a href="physical_testing.php">PT</a></li>
-    <li><a href="meeting_nights.php">QA SERVER</a></li>
   <!--  <li><a href="events.php">Events</a></li>      !-->
   <!--  <li><a href="vehicles.php">Vehicles</a></li>  !-->
         <?php if($_SESSION['privlv'] >= 2){ ?>
