@@ -31,7 +31,11 @@ if(isset($_POST['capid'])) {
 }
 
 function showLegal() {
-	echo '<div id="overlay" onclick="off()">
+	echo '
+	<div id="overlay" onclick="off()">
+	<div class="container-fluid">
+	<div class="overflow-auto vertical-center" 
+  style="max-width: 350; max-height: 500; align-items: center;">
 				<div id="legalText">
 				<h2>By continuing to use this website, you acknowledge that you have read, understood, and agreed to the following disclaimer.
 				<br>
@@ -59,7 +63,9 @@ function showLegal() {
 				<br>
 				CAPhub Copyright &#169;'.date('Y').'
 				</div>
-				</div> 
+			</div>
+			</div>
+		</div> 
 	';
 }
 

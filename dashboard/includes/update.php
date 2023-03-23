@@ -1,6 +1,5 @@
 <?php
-session_start();
-require "control_access.php";
+require "../includes/header.php";
 require "config_m.php";
 $y = 0;
 $x = 0;
@@ -165,7 +164,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         display: none;
       }
     </style>
-    <img src="../images/banner.png">
     <div class="addmemberform">
       <p>Select the checkbox next to the item you wish to update.</p>
       <p>Type in the information you want to set to it.</p>
@@ -214,7 +212,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   </head>
   <body>
     <div class="hideme">
-      <img src="../images/bannerThree.png">
       <?php
         if(isset($errorMsg) && $errorMsg) {
           echo "<p style=\"color: red;\">*",htmlspecialchars($errorMsg),"</p>\n\n";
@@ -237,7 +234,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       </div>
     </div>
   </body>
-  <?php
-    require "../includes/footer.php";
-  ?>
+ <div class="navbar fixed-bottom">
+    <div class="container-fluid p-0">
+    <?php
+      require "../includes/footer.php";
+    ?>
+    </div>
+  </div>
 </html>

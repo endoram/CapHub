@@ -227,7 +227,9 @@ function closeForm(id) {
   ?>
 
   </body>
-  <?php
-    require "../includes/footer.php";
-  ?>
+    <div class="container-fluid p-0">
+    <?php
+      require "../includes/footer.php";
+    ?>
+    </div>
 </html>

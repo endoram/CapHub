@@ -1,6 +1,5 @@
 <?php
-  session_start();
-  require "control_access.php";
+  require "../includes/header.php";
 
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $firstname = $_POST['firstname'];
@@ -79,7 +78,6 @@ input {
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../protected/style.css">
-    <a href="../protected/main.php"><img src="../images/bannerThree.png"></a>
     <title>CapHub Add Member</title>
   </head>
   <body>
@@ -137,9 +135,11 @@ input {
       </div>
     <?php } ?>
   </body>
-  <?php
-    require "../includes/footer.php";
-  ?>
+    <div class="container-fluid p-0">
+    <?php
+      require "../includes/footer.php";
+    ?>
+  </div>
 </html>
 
 <?php if($_SESSION['privlv'] >= 2){ ?>

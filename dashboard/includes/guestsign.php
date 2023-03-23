@@ -77,8 +77,8 @@ input {
           }?>
           <label for="firstname">First name:</label> <input type="text" name="firstname" align="right" value="<?PHP if(isset($_POST['phonenumber:'])) echo htmlspecialchars($_POST['firstname']); ?>" required><br>
           <label for="lastname">Last name:</label> <input type="text" name="lastname" align="right" value="<?PHP if(isset($_POST['phonenumber:'])) echo htmlspecialchars($_POST['lastname']); ?>" required><br>
-          <label for="phonenumber">Phone Number:(9 Digit)</label> <input type="text" id="phonenumber" name="phonenumber" align="right" title="Must be a proper phone number" pattern="[0-9].{8,}" value="<?PHP if(isset($_POST['phonenumber:'])) echo htmlspecialchars($_POST['phonenumber:']); ?>"><br>
-          <label for="email">Email:</label> <input type="text" id="email" name="email" align="right"><br>
+          <label for="phonenumber">Phone Number:(9 Digit)</label> <input type="text" id="phonenumber" name="phonenumber" align="right" title="Must be a proper phone number" pattern="[0-9].{8,}" value="<?PHP if(isset($_POST['phonenumber:'])) echo htmlspecialchars($_POST['phonenumber:']); ?>" required><br>
+          <label for="email">Email:</label> <input type="text" id="email" name="email" align="right" required><br>
 
           <br>
           <input type="submit" value="Sign In">
@@ -98,6 +98,12 @@ input {
     </div>
   </body>
   <?php
+  echo '
+    <script src="../libs/bootstrap/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>
+    <link href="../libs/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="style.css">';
     require "../includes/footer.php";
   ?>
 </html>

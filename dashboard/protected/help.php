@@ -33,7 +33,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <br />
   </center>
   </body>
-  <?php
-    require "../includes/footer.php";
-  ?>
+  <div class="navbar fixed-bottom">
+    <div class="container-fluid p-0">
+    <?php
+      require "../includes/footer.php";
+    ?>
+    </div>
+  </div>
 </html>

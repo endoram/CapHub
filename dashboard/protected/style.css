@@ -31,7 +31,7 @@
   .dropdownheader button {display: block;}
 }
 
-footer {
+/*footer {
   position:fixed;
   bottom:0;
   text-align: center;
@@ -39,7 +39,7 @@ footer {
   background-color: darkblue;
   color: white;
   height: 65px;
-}
+}*/
 
 /*HEADER FOOTER*/
 .foot {
@@ -63,13 +63,8 @@ footer {
   cursor: pointer; /* Add a pointer on hover */
 }
 #legalText{
-  position: absolute;
-  top: 50%;
-  left: 50%;
   font-size: 15px;
   color: white;
-  transform: translate(-50%,-50%);
-  -ms-transform: translate(-50%,-50%);
 }
 
 /*TABLE IN squadron Members*/
@@ -261,11 +256,7 @@ th {
   }
 }
 
-/* Style the container for inputs */
-.container {
-  background-color: #f1f1f1;
-  padding: 10px;
-}
+
 
 /* The message box is shown when the user clicks on the password field */
 #message {
@@ -384,7 +375,6 @@ th {
   margin: 0 auto;
   border-radius: 10px;
   width: 50%;
-  height: 100%;
   background-color: #E8E8E8;
 }
 
