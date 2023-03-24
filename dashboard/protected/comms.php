@@ -6,6 +6,8 @@ if(isset($_POST['sent'])) {
     $radio_id = $_POST['input'];
     $radio_type = $_POST['radio_type'];
     $description = $_POST['description'];
+    $date = date("Y-m-d");
+    $time = date('H:i:s');
 
     require "../includes/config_m.php";
     $query = "SELECT * FROM comms WHERE radio_id='$radio_id' && FQSN='" . $_SESSION['FQSN'] . "'";
@@ -14,8 +16,11 @@ if(isset($_POST['sent'])) {
     if ($result->num_rows > 0) {$errorMsg = "A radio with that ID has already been added"; $conn->close();}
     else {
       $query = "INSERT INTO comms (radio_id, radio_type, in_out, status, description, FQSN) VALUES ('$radio_id', '$radio_type', 'IN', 'Fully Operational', '$description', '" .  $_SESSION['FQSN'] . "')";
+      $query1 = "INSERT INTO comms_log (`FQSN`, `updated_by`, `radio_id`, `status`, `date`, `time`) VALUES ('" . $_SESSION['FQSN'] . "','".$_SESSION["capid"]."', '$radio_id', 'ADDED ITEM', '$date', '$time')";
+
+
       $conn->query($query);
-      $conn->close();
+      $conn->query($query1);$conn->close();
     }
   }
   if($_POST['sent'] == "Remove Equipment ID:") {
@@ -25,9 +30,15 @@ if(isset($_POST['sent'])) {
     require "../includes/config_m.php";
     $result = $conn->query($query);
     if ($result->num_rows > 0) {
+      $date = date("Y-m-d");
+      $time = date('H:i:s');
       $query = "DELETE FROM comms WHERE radio_id='$radio_id' && FQSN='" . $_SESSION['FQSN'] . "'";
+      $query1 = "INSERT INTO comms_log (`FQSN`, `updated_by`, `radio_id`, `status`, `date`, `time`) VALUES ('" . $_SESSION['FQSN'] . "','".$_SESSION["capid"]."', '$radio_id', 'DELETED ITEM', '$date', '$time')";
+
+      echo $query1;
+
       $conn->query($query);
-      $conn->close();
+      $conn->query($query1);$conn->close();
       echo "Removed radio: $radio_id";
     }
     else{$errorMsg = "No radio has that ID"; $conn->close();}
@@ -47,28 +58,39 @@ if(isset($_POST['sent'])) {
       }
       $name = $firstname . " " . $lastname;
     }
-
-  #  date_default_timezone_set("America/Denver");
-    $date = date("Y/m/d");
+    $date = date("Y-m-d");
+    $time = date('H:i:s');
 
     $query = "UPDATE comms SET in_out='OUT', name='$name', out_date='$date' WHERE radio_id='$radio_id' && FQSN='" . $_SESSION['FQSN'] . "'";
-    $conn->query($query);$conn->close();
+    $query1 = "INSERT INTO comms_log (`FQSN`, `updated_by`, `radio_id`, `name`, `in_out`, `date`, `time`) VALUES ('" . $_SESSION['FQSN'] . "','".$_SESSION["capid"]."', '$radio_id', '$name', 'OUT', '$date', '$time')";
+
+    $conn->query($query);
+    $conn->query($query1);$conn->close();
   }
   if($_POST['sent'] == "Check In Equipment ID:") {
     require "../includes/config_m.php";
     $radio_id = $_POST['input'];
+    $date = date('Y-m-d');
+    $time = date('H:i:s');
     $query = "UPDATE comms SET in_out='IN', name='' WHERE radio_id='$radio_id' && FQSN='" . $_SESSION['FQSN'] . "'";
+    $query1 = "INSERT INTO comms_log (`FQSN`, `updated_by`, `radio_id`, `in_out`, `date`, `time`) VALUES ('" . $_SESSION['FQSN'] . "','".$_SESSION["capid"]."', '$radio_id', 'IN', '$date', '$time')";
 
-    $conn->query($query);$conn->close();
+    $conn->query($query);
+    $conn->query($query1);$conn->close();
   }
   if($_POST['sent'] == "Equipment ID: ") {
     require "../includes/config_m.php";
     $radio_id = $_POST['input'];
     $whatsbroken = $_POST["whatbroken"];
     $status = $_POST['change_status'];
+    $date = date('Y-m-d');
+    $time = date('H:i:s');
 
     $query = "UPDATE comms SET status='$status' WHERE radio_id='$radio_id' && FQSN='" . $_SESSION['FQSN'] . "'";
-    $conn->query($query);$conn->close();
+    $query1 = "INSERT INTO comms_log (`FQSN`, `updated_by`, `radio_id`, `status`, `date`, `time`) VALUES ('" . $_SESSION['FQSN'] . "','".$_SESSION["capid"]."', '$radio_id', '$status', '$date', '$time')";
+
+    $conn->query($query);
+    $conn->query($query1);$conn->close();
   }
 }
 
@@ -226,6 +248,7 @@ function closeForm() {
             <li><a href="?checkout">Check Out Equipment</a><li>
             <li><a href="?checkin">Check In Equipment</a><li>
             <li><a href="?changestatus">Change Equipment Status</a><li>
+            <li><a href="../includes/comm_log.php">Comm Log</a><li>
           </ul>
         </div>
       </div>
