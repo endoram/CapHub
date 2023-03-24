@@ -19,7 +19,6 @@ if (isset($_GET['legal'])) {
     <noscript><iframe src='https://www.googletagmanager.com/ns.html?id=GTM-5X833TX'
     height='0' width='0' style='display:none;visibility:hidden'></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
-    <a href='../protected/main.php'>Continue</a>
   </body>
 </html>";
 }
@@ -62,6 +61,7 @@ function showLegal() {
 				Any references made to CAP or eServices on this website are for informational purposes only and do not imply endorsement or sponsorship by CAP or eServices. 
 				<br>
 				CAPhub Copyright &#169;'.date('Y').'
+				<a href="../protected/main.php">Continue</a>
 				</div>
 			</div>
 			</div>
