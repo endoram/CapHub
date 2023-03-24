@@ -15,7 +15,7 @@ unset($_SESSION["FQSN"]);
 unset($_SESSION["squad"]);
 
 ##var_dump($_SESSION);
-unset($_SESSION["cap_id"]);
+unset($_SESSION["capid"]);
 unset($_SESSION["query_idea"]);
 unset($_SESSION["table"]);
 
