@@ -30,7 +30,7 @@
         <div class="radiotable">
           <?php
             require "../includes/config_m.php";
-            $query = "SELECT * FROM comms_log ORDER BY id DESC LIMIT 100";
+            $query = "SELECT * FROM comms_log WHERE FQSN='".$_SESSION['FQSN']."' ORDER BY id DESC LIMIT 100";
             $result = $conn->query($query);
             if ($result->num_rows > 0) {
               echo '
