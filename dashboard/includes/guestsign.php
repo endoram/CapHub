@@ -14,7 +14,7 @@
     require "../includes/config_m.php";
     $firstname = $_POST['firstname'];
     $lastname = $_POST['lastname'];
-    $name = $firstname . ' ' . $lastname;
+    $name = $lastname . ' ' . $firstname;
 
     $phonenumber = 0;
 
