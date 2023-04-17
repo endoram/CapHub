@@ -237,4 +237,17 @@ function exportMe($query, $rowHeaders) {
 	$exporter->finalize();
 	exit();
 }
+
+function ARP($cap_id) {
+  require '../includes/config_m.php';
+  $query = "SELECT first_name, last_name FROM sq_members WHERE FQSN='".$_SESSION['FQSN']."' && cap_id=$cap_id";
+  $result = $conn->query($query);
+
+  if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+      $name = $row['first_name'] ." ". $row['last_name'];
+    }
+  }
+  return $name;
+}
 ?>
