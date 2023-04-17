@@ -151,79 +151,85 @@ function closeForm() {
   </head>
   <body>
     <br><br>
-    <div class="row">
-      <div class="leftside">
-        <div class="sqmenubar">
-          <ul>
-            <li><a href="?export">Export</a><li>
-            <li><a href="../includes/addmember.php">Add Member</a><li>
-            <li><a href="../includes/update.php">Update Member</a></li>
-            <li><a href="?retire">Retire Member</a><li>
-            <li><a href="?statistics">Statistics</li>
-          </ul>
-          <div class="dropdown">
-            <ul><li><button class="sqmenubutton">Search</button></li></ul>
-            <div class="dropdown-content">
-              <p>Search by:</p>
-              <a href="?firstname=1">First Name</a>
-              <a href="?lastname=1">Last Name</a>
-              <a href="?capid">CAP ID</a>
-              <a href="?priv">Privlage</a>
-              <a href="?retired">Retired</a>
+    <div class="row p-3">
+      <div class="container-fluid p-1">
+        <div class="leftside">
+          <div class="sqmenubar">
+            <ul>
+              <li><a href="?export">Export</a><li>
+              <li><a href="../includes/addmember.php">Add Member</a><li>
+              <li><a href="../includes/update.php">Update Member</a></li>
+              <li><a href="?retire">Retire Member</a><li>
+              <li><a href="?cadet_coc">Cadet COC</a><li>
+              <li><a href="?statistics">Statistics</li>
+            </ul>
+            <div class="dropdown">
+              <ul><li><button class="sqmenubutton">Search</button></li></ul>
+              <div class="dropdown-content">
+                <p>Search by:</p>
+                <a href="?firstname=1">First Name</a>
+                <a href="?lastname=1">Last Name</a>
+                <a href="?capid">CAP ID</a>
+                <a href="?priv">Privlage</a>
+                <a href="?retired">Retired</a>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="middle">
-        <div id="example-table"></div>
-        <script>
-        function reqListener () {
-          console.log(this.responseText);
-        }
-        var oReq = new XMLHttpRequest();
-        oReq.onload = function() {
-          var tabledata = this.responseText;
-
-          var table = new Tabulator("#example-table", {
-            layout:"fitColumns",
-            fitColumns:true,
-            selectable:true,
-            columns:[
-              {title:"First Name", field:"first_name", sorter:"string"},
-              {title:"Last Name", field:"last_name", sorter:"string"},
-              {title:"CAP ID", field:"cap_id", sorter:"string"},
-              {title:"Member Type", field:"member_type", sorter:"string"},
-            ],
-            rowSelectionChanged:function(data, rows){
-              $("#select-stats span").text(data.length);
-            },
-          });
-          table.setData(tabledata);
-
-          document.getElementById("retire1").onclick = function retire () {
-            var selectedData = table.getSelectedData();
-            var size = Object.keys(selectedData).length;
-
-            var i, data;
-            for (i = 0; i < size; i ++) {
-              data += selectedData[i].cap_id + ",";
-            }
-
-            data = data.substring(0, data.length - 1);
-            data = data.replace("undefined", "");
-
-            $.ajax({
-              url: '../includes/sqmem_get-data.php',
-              data: 'retired1=' + data,
-              success: function(data) {
-                window.location.replace("../protected/sqmembers.php");
-              }
-            });
+        <div class="middle">
+          <?if(isset($_GET['cadet_coc'])){
+            require '../includes/orgChart.php';
+          }?>
+          <div id="example-table"></div>
+          <script>
+          function reqListener () {
+            console.log(this.responseText);
           }
-        };
-        oReq.open("get", "../includes/sqmem_get-data.php", true);
-        oReq.send();
-        </script>
+          var oReq = new XMLHttpRequest();
+          oReq.onload = function() {
+            var tabledata = this.responseText;
+
+            var table = new Tabulator("#example-table", {
+              layout:"fitColumns",
+              fitColumns:true,
+              selectable:true,
+              columns:[
+                {title:"First Name", field:"first_name", sorter:"string"},
+                {title:"Last Name", field:"last_name", sorter:"string"},
+                {title:"CAP ID", field:"cap_id", sorter:"string"},
+                {title:"Member Type", field:"member_type", sorter:"string"},
+              ],
+              rowSelectionChanged:function(data, rows){
+                $("#select-stats span").text(data.length);
+              },
+            });
+            table.setData(tabledata);
+
+            document.getElementById("retire1").onclick = function retire () {
+              var selectedData = table.getSelectedData();
+              var size = Object.keys(selectedData).length;
+
+              var i, data;
+              for (i = 0; i < size; i ++) {
+                data += selectedData[i].cap_id + ",";
+              }
+
+              data = data.substring(0, data.length - 1);
+              data = data.replace("undefined", "");
+
+              $.ajax({
+                url: '../includes/sqmem_get-data.php',
+                data: 'retired1=' + data,
+                success: function(data) {
+                  window.location.replace("../protected/sqmembers.php");
+                }
+              });
+            }
+          };
+          oReq.open("get", "../includes/sqmem_get-data.php", true);
+          oReq.send();
+          </script>
+        </div>
       </div>
     </div>
   </body>

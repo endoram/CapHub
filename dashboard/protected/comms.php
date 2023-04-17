@@ -239,89 +239,91 @@ function closeForm() {
     <link rel="stylesheet" type="text/css" href="style.css">
   </head>
   </body>
-    <div class="row">
-      <div class="leftside">
-        <div class="sqmenubar">
-          <ul>
-            <li><a href="?addradio">Add Equipment</a><li>
-            <li><a href="?removeradio">Remove Equipment</a><li>
-            <li><a href="?checkout">Check Out Equipment</a><li>
-            <li><a href="?checkin">Check In Equipment</a><li>
-            <li><a href="?changestatus">Change Equipment Status</a><li>
-            <li><a href="../includes/comm_log.php">Comm Log</a><li>
-          </ul>
+    <div class="row p-3">
+      <div class="container-fluid p-1">
+        <div class="leftside">
+          <div class="sqmenubar">
+            <ul>
+              <li><a href="?addradio">Add Equipment</a><li>
+              <li><a href="?removeradio">Remove Equipment</a><li>
+              <li><a href="?checkout">Check Out Equipment</a><li>
+              <li><a href="?checkin">Check In Equipment</a><li>
+              <li><a href="?changestatus">Change Equipment Status</a><li>
+              <li><a href="../includes/comm_log.php">Comm Log</a><li>
+            </ul>
+          </div>
         </div>
-      </div>
-      <?php
-        if(isset($errorMsg) && $errorMsg) {
-          echo "<p style=\"color: red;\">*",htmlspecialchars($errorMsg),"</p>\n\n";
-        }
-      ?>
-      <div class="middle">
-        <div class="radiotable">
-          <br>
-          <?php
-          # Old But Working... Just you know... IDK
-          $table = array(
-            array("SELECT * FROM comms WHERE in_out='OUT' && FQSN='" . $_SESSION['FQSN'] . "'", "Equipment Out"),
-           # array("SELECT * FROM comms WHERE radio_type='ISR'", "ISR Radios"),
-            array("SELECT * FROM comms WHERE radio_type='VHF' && FQSN='" . $_SESSION['FQSN'] . "'", "VHF Radios"),
-            array("SELECT * FROM comms WHERE radio_type='HF' && FQSN='" . $_SESSION['FQSN'] . "'", "HF Radios"),
-            array("SELECT * FROM comms WHERE radio_type='Equipment' && FQSN='" . $_SESSION['FQSN'] . "'", "Misc Equipment")
-          );  
-       /*   $table = array(
-            array("SELECT * FROM comms WHERE in_out='OUT' && FQSN='" . $_SESSION['FQSN'] . "'", "Equipment Out"),
-            array("SELECT * FROM comms WHERE radio_type='ISR' && FQSN='" . $_SESSION['FQSN'] . "'", "ISR Radios"),
-          ); */
-          #for ($x = 0; $x <= 4; $x++) {
-          for ($x = 0; $x <= 3; $x++) {
-            $value = $table[$x][0];
-            require "../includes/config_m.php";
-            $result = $conn->query($value);
-            if ($result->num_rows > 0) {
-              echo "<h4>" . $table[$x] [1] . "</h4>";
-              echo '
-                <table>
-                  <colgroup>
-                    <col span="7" style="background-color:lightgrey">
-                  </colgroup>
-                  <tr>
-                    <th>Equipment ID</th>
-                    <th>Type</th>
-                    <th>Status</th>
-                    <th>In/Out</th>
-                    <th>Date Out</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                  </tr>
-              ';
-              while($row = $result->fetch_assoc()) {
-                echo "<tr>
-                <td>" . $row["radio_id"] . "</td>
-                <td>" . $row["radio_type"] . "</td>";
-              if($row["status"] == "Fully Operational") {echo '<td bgcolor="#00FF00">' . $row["status"] . "</td>";}
-              else {
-                if($row["status"] == "Operational") {echo "<td bgcolor='#FFFF00'>" . $row["status"] . "</td>";}
-                else{
-                  if($row["status"] == "Broken") {echo "<td bgcolor='#FF0000'>" . $row["status"] . "</td>";}
-                  else {
-                    if($row["status"] == "Batteries") {echo "<td bgcolor='#000000'>" . $row["status"] . "</td>";}
+        <?php
+          if(isset($errorMsg) && $errorMsg) {
+            echo "<p style=\"color: red;\">*",htmlspecialchars($errorMsg),"</p>\n\n";
+          }
+        ?>
+        <div class="middle">
+          <div class="radiotable">
+            <br>
+            <?php
+            # Old But Working... Just you know... IDK
+            $table = array(
+              array("SELECT * FROM comms WHERE in_out='OUT' && FQSN='" . $_SESSION['FQSN'] . "'", "Equipment Out"),
+             # array("SELECT * FROM comms WHERE radio_type='ISR'", "ISR Radios"),
+              array("SELECT * FROM comms WHERE radio_type='VHF' && FQSN='" . $_SESSION['FQSN'] . "'", "VHF Radios"),
+              array("SELECT * FROM comms WHERE radio_type='HF' && FQSN='" . $_SESSION['FQSN'] . "'", "HF Radios"),
+              array("SELECT * FROM comms WHERE radio_type='Equipment' && FQSN='" . $_SESSION['FQSN'] . "'", "Misc Equipment")
+            );  
+         /*   $table = array(
+              array("SELECT * FROM comms WHERE in_out='OUT' && FQSN='" . $_SESSION['FQSN'] . "'", "Equipment Out"),
+              array("SELECT * FROM comms WHERE radio_type='ISR' && FQSN='" . $_SESSION['FQSN'] . "'", "ISR Radios"),
+            ); */
+            #for ($x = 0; $x <= 4; $x++) {
+            for ($x = 0; $x <= 3; $x++) {
+              $value = $table[$x][0];
+              require "../includes/config_m.php";
+              $result = $conn->query($value);
+              if ($result->num_rows > 0) {
+                echo "<h4>" . $table[$x] [1] . "</h4>";
+                echo '
+                  <table>
+                    <colgroup>
+                      <col span="7" style="background-color:lightgrey">
+                    </colgroup>
+                    <tr>
+                      <th>Equipment ID</th>
+                      <th>Type</th>
+                      <th>Status</th>
+                      <th>In/Out</th>
+                      <th>Date Out</th>
+                      <th>Name</th>
+                      <th>Description</th>
+                    </tr>
+                ';
+                while($row = $result->fetch_assoc()) {
+                  echo "<tr>
+                  <td>" . $row["radio_id"] . "</td>
+                  <td>" . $row["radio_type"] . "</td>";
+                if($row["status"] == "Fully Operational") {echo '<td bgcolor="#00FF00">' . $row["status"] . "</td>";}
+                else {
+                  if($row["status"] == "Operational") {echo "<td bgcolor='#FFFF00'>" . $row["status"] . "</td>";}
+                  else{
+                    if($row["status"] == "Broken") {echo "<td bgcolor='#FF0000'>" . $row["status"] . "</td>";}
+                    else {
+                      if($row["status"] == "Batteries") {echo "<td bgcolor='#000000'>" . $row["status"] . "</td>";}
+                    }
                   }
                 }
+                echo "
+                  <td>" . $row["in_out"] . "</td>
+                  <td>" . $row["out_date"] . "</td>
+                  <td>" . $row["name"] . "</td>
+                  <td>" . $row["description"] . "</td>
+                  </tr>";
+                }
               }
-              echo "
-                <td>" . $row["in_out"] . "</td>
-                <td>" . $row["out_date"] . "</td>
-                <td>" . $row["name"] . "</td>
-                <td>" . $row["description"] . "</td>
-                </tr>";
+              else {
+              $conn->close();
               }
-            }
-            else {
-            $conn->close();
-            }
-            echo "</table>";
-          }?>
+              echo "</table>";
+            }?>
+          </div>
         </div>
       </div>
     </div>
