@@ -7,38 +7,28 @@ require "../includes/header.php";
     <title>CapHub MainPage</title>
   </head>
   <body>
-    <div class="container-fluid">
+    <div class="container-fluid p-4">
       <div class="row">
         <div class="col">
-          <h3 name="version">CAPhub v1.6</h3>
           <div class="news">
-          <dl>
-              <dt><b>Change Log</b>(March 9th, 2023)</dt>
+            <h3 name="version">CAPhub v1.7B</h3>
+            <dl>
+              <dt><b>Change Log-</b>March 23rd, 2023</dt>
                 <ul>
-                  <li>Refactored search functions</li>
-                  <li>Fixed DF-1.6.1, 1.6.7 Export functions, session timeout</li>
-                  <li>Fixed Default squadron FQSN/export bug (DF-1.6.6)</li>
-                  <li>Fixed Timezone issue (DF-1.6.5)</li>
-                  <li>Added new kiosk mode</li>
-                  <li>Added new visitor signin options (DF-1.6.3)</li>
-                  <li>Updated logo and settings page</li>
-                  <li>Fixed PT SQ cross talk (DF-1.6.2)</li>
-                  <li>Added PT testing page</li>
-                  <li>Added Alt text</li>
-                  <li>Added ability to un-retire members</li>
-                  <li>Added Date Range search</li>
-                  <li>Fixed export to .csv bug (DF-1.5.1)</li>
-                  <li>Moved search dropdown to left menu bar for Squadron page</li>
-                  <li>Raised Meeting sign-in box</li>
-                  <li>Switched search results to Last, First</li>
-                  <li>Added Settings page with timezone selector in Settings page</li>
-                  <li>CAP members from one squadron can now log into another squadron's meeting</li>
+                  <li>Fixed DF-1.6.1 PT Export button</li>
+                  <li>Fixed Guest Sign-in search results</li>
+                  <li>Leagal Disclaimer and acceptance</li>
+                  <li>More mobile user friendly</li>
+                  <li>Switched to Bootstrap UI</li>
+                  <li>Comms page now logs every transaction</li>
+                  <li>Guest sign-in requires both phone and email</li>
+                  <li>Completed backend search refactoring</li>
                 </ul>
               <br />
               <dt><b>In Development:</b></dt>
               <ul>
-                <li>DF-1.6.1 PT Export button</li>
-                <li>Backend search refactoring</li>
+                <li>Flight Management Tools</li>
+                <li>Custom search and export feature</li>
               </ul>
               <br />
               <dt><b>Squadron</b></dt>
