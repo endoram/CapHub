@@ -43,7 +43,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>
     <link href="../libs/bootstrap/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="../protected/style.css">
   </head>
   <body>
     <!-- Google Tag Manager (noscript) -->
@@ -72,7 +72,8 @@
           <li><a href="../protected/sqmembers.php">Squadron</a></li>
           <li><a href="../protected/meeting_nights.php">Meetings</a></li>
           <li><a href="../protected/comms.php">Comms</a></li>
-      <li><a href="../protected/physical_testing.php">PT</a></li>
+          <li><a href="../protected/physical_testing.php">PT</a></li>
+      <!--    <li><a href="../protected/flights.php">Flights</a></li>  !-->
     <!--  <li><a href="events.php">Events</a></li>      !-->
     <!--  <li><a href="vehicles.php">Vehicles</a></li>  !-->
           <?php if($_SESSION['privlv'] >= 2){ ?>
@@ -89,6 +90,7 @@
           <a href="../protected/meeting_nights.php">Meetings</a>
           <a href="../protected/comms.php">Comms</a>
           <a href="../protected/physical_testing.php">PT</a>
+        <!--  <a href="../protected/flights.php">Flights</a> !-->
     <!--      <a href="events.php">Events</a> !-->
           <?php if($_SESSION['privlv'] >= 2){ ?>
             <a href="../protected/admin_conf.php">Settings</a>
