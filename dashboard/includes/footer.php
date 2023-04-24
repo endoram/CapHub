@@ -4,7 +4,7 @@
 
 <!-- Footer -->
 <div class="container-fluid p-3">
-<footer class="p-3 mb-2 text-white" style="background-color: darkblue;">
+<footer class="p-3 mb-2" style="background-color: darkblue; color:white;">
   <!-- Grid container -->
   <div class="container-fulid p-0 small center">
     <!-- Section: Text -->

@@ -13,7 +13,7 @@ require "../includes/header.php";
           <div class="news">
             <h3 name="version">CAPhub v1.7B</h3>
             <dl>
-              <dt><b>Change Log-</b>March 23rd, 2023</dt>
+              <dt><b>Change Log-</b>April 24th, 2023</dt>
                 <ul>
                   <li>Fixed DF-1.6.1 PT Export button</li>
                   <li>Fixed Guest Sign-in search results</li>

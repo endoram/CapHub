@@ -25,7 +25,8 @@ if (isset($_POST['capid0'])) {
     $result = $conn->query($query);
     while ($x <= ($result->num_rows - 1)) {
       $explo = explode(",", $_POST['capid'.$x]);
-      $query = "UPDATE cadet_coc SET cap_id='".$explo[1]."' WHERE FQSN='".$_SESSION['FQSN']."' AND position='".$explo[0]."' AND flight_name='".$explo[2]."'";
+    //  $query = "UPDATE cadet_coc SET cap_id='".$explo[1]."' WHERE FQSN='".$_SESSION['FQSN']."' AND position='".$explo[0]."' AND flight_name='".$explo[2]."'";
+      $query = "UPDATE cadet_coc SET cap_id='".$explo[1]."' WHERE FQSN='".$_SESSION['FQSN']."' AND position='".$explo[0]."'";
       $conn->query($query);
       $x = $x + 1;
     }

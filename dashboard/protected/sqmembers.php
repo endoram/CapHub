@@ -7,7 +7,7 @@ if(isset($_POST['export'])){
 }
 if(isset($_GET['export'])){
   session_start();
-  $query = "SELECT first_name, last_name, cap_id, member_type FROM sq_members WHERE FQSN='".$_SESSION['FQSN']."'";
+  $query = "SELECT first_name, last_name, cap_id, member_type FROM sq_members WHERE retire=0 AND FQSN='".$_SESSION['FQSN']."'";
   $rowHeaders = array("First Name", "Last Name","CAPID", "Member Type");
   include "../includes/helpers.php";
   exportMe($query, $rowHeaders);
