@@ -1,6 +1,54 @@
 <?php
 //require "control_access.php";
 
+function adduser($firstname, $lastname, $capid, $cadetornot, $priv, $password_password) {
+  require "config_m.php";
+
+  $bytes = random_bytes(20);
+  $hash = bin2hex($bytes);
+  $pass = $hash . $password_password;
+  $hashedPassSHA = hash('sha256', $pass);
+
+  $hash_pass = password_hash($password_password, PASSWORD_DEFAULT);
+  $y = 0;
+
+  if($_SESSION['privlv'] <= 1){
+    $priv = "0";
+    $password_password = NULL;
+  }
+  else {
+    $priv = $priv;
+#$_POST['privlage_level'];
+    $password_password = $password_password;
+#$_POST['psw'];
+  }
+
+
+  $query = "SELECT cap_id FROM sq_members WHERE cap_id=" . $capid;
+  $result = $conn->query($query);
+
+  if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+      if ($row['cap_id'] == $capid) {
+        $GLOBALS['errorMsg'] = "A member already is asigned that CAP ID";
+        $y = 1;
+	      return "CAPID already asigned";
+      }
+    }
+  }
+
+  if ($y == 0) {
+    $FQSN = $_SESSION['FQSN'];
+    $query = "INSERT INTO sq_members (cap_id, first_name, last_name, member_type, privlage_level, user_passSHA, FQSN, hash)
+    VALUES (" . $capid . ",'" . $firstname . "', '" . $lastname . "', '" . $cadetornot . "', '" . $priv . "', '" . $hashedPassSHA . "', '" . $FQSN . "', '" . $hash . "')";
+    $conn->query($query);
+    $conn->close();
+    return "Done";
+  #  header("Location: ../protected/sqmembers.php");
+  }
+  else {$conn->close();}
+}
+
 function dateSearch($data, $query, $page) {
 	echo "<script src='../libs/calendar/datepicker.min.js'></script>
 	<script>

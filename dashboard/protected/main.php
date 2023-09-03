@@ -11,22 +11,17 @@ require "../includes/header.php";
       <div class="row">
         <div class="col">
           <div class="news">
-            <h3 name="version">CAPhub v1.7B</h3>
+            <h3 name="version">CAPhub v1.8B</h3>
             <dl>
-              <dt><b>Change Log-</b>April 24th, 2023</dt>
+              <dt><b>Change Log-</b>August 31st, 2023</dt>
                 <ul>
-                  <li>Fixed DF-1.6.1 PT Export button</li>
-                  <li>Fixed Guest Sign-in search results</li>
-                  <li>Leagal Disclaimer and acceptance</li>
-                  <li>More mobile user friendly</li>
-                  <li>Switched to Bootstrap UI</li>
-                  <li>Comms page now logs every transaction</li>
-                  <li>Guest sign-in requires both phone and email</li>
-                  <li>Completed backend search refactoring</li>
+                  <li>Added new statistics under squadron.</li>
+                  <li>Removed Kiosk Mode... For now.</li>
                 </ul>
               <br />
               <dt><b>In Development:</b></dt>
               <ul>
+                <li>Fixing Kiosk Mode</li>
                 <li>Flight Management Tools</li>
                 <li>Custom search and export feature</li>
               </ul>
@@ -47,7 +42,7 @@ require "../includes/header.php";
                 <dd>Logs are searchable by name, CAP ID, date and date range.</dd>
                 <br />
               <dt><b>Help</b></dt>
-                <dd>Let us know how we can make CAPhub better.</dd>           
+                <dd>Let us know how we can make CAPhub better.</dd>
                 <br />
               <dt><b>Log Out</b></dt>
                 <dd>Logs you out of website.</dd>

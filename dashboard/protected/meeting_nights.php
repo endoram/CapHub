@@ -17,7 +17,8 @@ if (isset($_GET['kiosk'])) {
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>
     <link href="../libs/bootstrap/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="style.css">';
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <meta http-equiv="refresh" content="900;url=../index.php"/>';
 } else {require "../includes/header.php";}
 if (isset($_GET['logout'])) {header("Location: ../index.php");}
 
@@ -153,8 +154,9 @@ function closeForm() {
               if (isset($_GET['kiosk'])) {
                 echo '<li><a href="?kiosk">Kiosk Mode enabled</a></li>';
                 echo '<li><a href="?logout">Logout</a></li>';
-              } else { echo '
-              <li><a href="?kiosk">Kiosk Mode</a></li>
+              } else { 
+                #echo '<li><a href="?kiosk">Kiosk Mode</a></li>';
+                echo '
             </ul>
             <div class="dropdown">
               <ul><li><button class="sqmenubutton">Search</button></li></ul>
