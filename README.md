@@ -3,22 +3,17 @@
 <img src="/screenshots/CapHubLogin.png">
 
 
-LATEST VERSION: v1.6  
+LATEST VERSION: v1.8B  
 
-    06 March 2023
+    31 August 2023
     Change Log
 
-    Added PT testing page
-    Added ability to un-retire members
-    Added Date Range search
-    Fixed export to .csv bug (DF-1.5.1)
-    Moved search dropdown to left menu bar for Squadron page
-    Raised Meeting sign-in box
-    Switched search results to Last, First
-    Added Settings page with timezone selector in Settings page
-    CAP members from one squadron can now log into another squadron's meeting
+    Added new statistics under squadron.
+    Removed Kiosk Mode... For now.
 
-Main areas of CAPhub
+<hr>
+
+CAPhub Main Menu
 
 SQUADRON:
     Allows you to add, remove, search, and retire members from CAPhub only.
@@ -42,6 +37,10 @@ LOG OUT:
     Logs you out of CAPhub.
 
 <br />
+
+<hr>
+
+<h2>About:</h2>
 
 CAPhub is a US-based, hosted website designed to track squadron-level activities outside the scope of eServices. There are no direct or indirect connections to eServices. It uses the LAMP stack of open-source tools.
 
