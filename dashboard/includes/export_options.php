@@ -1,4 +1,5 @@
 <?php
+  // This is currently not in use! My be replaced or worked into /search/*
   require "../includes/header.php";
 ?>
 

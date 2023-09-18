@@ -1,5 +1,8 @@
 <?php
   session_start();
+  /* This code block is checking if the 'kiosk' parameter is not set in the GET request. If it is not
+  set, it then checks if the 'kiosk' parameter is set in the POST request and its value is 2. If
+  neither of these conditions are met, it requires the "control_access.php" file. */
   if (!isset($_GET['kiosk'])) {
     if (isset($_POST['kiosk']) && $_POST['kiosk'] == 2) {
     } else {
@@ -10,6 +13,8 @@
     require "control_access.php";
   }
 
+  /* This code block is checking if the current request method is "POST". If it is, it means that the
+  form in the HTML code has been submitted. It is used to INSERT a guest signin. */
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
     require "../includes/config_m.php";
     $firstname = $_POST['firstname'];
@@ -32,12 +37,24 @@
     $date = date("Y/m/d");
     $time = date("H:i:s");
 
+    /* The `` variable is storing an SQL query that inserts a new record into the
+    "meeting_nights" table. The query specifies the columns (date, name, time_in, member_type,
+    phone_number, email, visited) and their corresponding values. The values are obtained from the
+    variables ``, ``, ``, ``, ``, ``, and
+    `['FQSN']`. The `['FQSN']` value is concatenated with the rest of the query
+    using the dot (.) operator. */
     $query = "INSERT INTO meeting_nights (date, name, time_in, member_type, phone_number, email, visited) VALUES
      ('$date', '$name', '$time', '$membertype', '$phonenumber', '$email', '" . $_SESSION['FQSN'] . "')";
     $conn->query($query);
     $conn->close();
 
     $_SESSION['message'] = "Thanks for signing in!";
+   /* This code block is checking if the 'kiosk' parameter is set in the POST request and its value is
+   2. If this condition is met, it redirects the user to the "meeting_nights.php" page with the
+   'kiosk' parameter in the URL. 
+   If the condition is not met, it redirects the user to the
+   "meeting_nights.php" page without the 'kiosk' parameter in the URL. The `die` function is used to
+   stop the execution of the script after the redirection. */
     if (isset($_POST['kiosk']) && $_POST['kiosk'] == 2) {
       header("Location: ../protected/meeting_nights.php?kiosk");
       die;
@@ -60,6 +77,9 @@ input {
 }
 </style>
 
+<!-- The code block you provided is an HTML form that allows users to sign in as a guest. It includes
+input fields for the user's first name, last name, phone number, and email. The form has a submit
+button that triggers the PHP code block above it when clicked. -->
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">

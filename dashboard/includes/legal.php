@@ -1,5 +1,9 @@
 <?php
 //require "../includes/control_access.php";
+
+/* The code block `if (isset(['legal']))` checks if the `legal` parameter is present in the URL
+query string. If it is present, it calls the `showLegal()` function and then echoes an HTML code
+block. */
 if (isset($_GET['legal'])) {
 	showLegal();
 	echo "<html>
@@ -23,12 +27,21 @@ if (isset($_GET['legal'])) {
 </html>";
 }
 
+/* This code block is checking if the `['capid']` variable is set in the `` superglobal array. If
+it is set, it connects to the database using the `config_m.php` file and executes an SQL query to
+update the `TOS` (Terms of Service) column in the `sq_members` table. It sets the value of `TOS` to
+1 (indicating that the user has accepted the terms of service) where the `cap_id` matches the value
+of `['capid']`. */
 if(isset($_POST['capid'])) {
 	require '../includes/config_m.php';
 	$query = "UPDATE sq_members SET TOS=1 WHERE cap_id='" . $_POST['capid'] . "'";
 	$result = $conn->query($query);
 }
 
+/**
+ * The function "showLegal" displays a disclaimer overlay on a website and allows the user to accept it
+ * by clicking anywhere on the overlay.
+ */
 function showLegal() {
 	echo '
 	<div id="overlay" onclick="off()">
@@ -69,6 +82,10 @@ function showLegal() {
 	';
 }
 
+/* This code block is checking if the `['capid']` variable is set. If it is set, it connects
+to the database using the `config_m.php` file and executes a query to select the `TOS` (Terms of
+Service) value from the `sq_members` table where the `cap_id` matches the `['capid']`
+value. */
 if (isset($_SESSION['capid'])){
 	require '../includes/config_m.php';
 	$query = "SELECT TOS FROM sq_members WHERE cap_id='" . $_SESSION['capid'] . "'";
@@ -93,6 +110,8 @@ if (isset($_SESSION['capid'])){
 <script src="../libs/tabulator/jquery-3.2.1.js"></script>
 <script src="../libs/tabulator/jquery-ui.js"></script>
 <script type="text/javascript">
+/* The `off()` function is a JavaScript function that is called when the user clicks anywhere on the
+overlay. It hides the overlay by setting the `display` property of the overlay element to "none". */
 	function off() {
 		document.getElementById("overlay").style.display = "none";
 		jQuery.ajax({

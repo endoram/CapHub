@@ -1,5 +1,9 @@
 <?php
-
+/* The code below is a PHP code snippet that generates the HTML markup for a footer section of a
+web page. It includes a container with a dark blue background and white text. Inside the container,
+there is a text section with a disclaimer about the affiliation of CAPhub with Civil Air Patrol
+(CAP) and eServices. It also includes a link to view the full disclaimer. Below the text section,
+there is a copyright notice with the current year and a link to the CAPhub website. */
 ?>
 
 <!-- Footer -->

@@ -1,10 +1,14 @@
 <?php
+/* The above code is a PHP script that handles updating member information in a squadron database. */
 require "../includes/header.php";
 require "config_m.php";
 $y = 0;
 $x = 0;
 
 
+/* This code block is responsible for updating member information in a squadron database. It first
+checks if the request method is POST and then retrieves the values from the form fields (firstname,
+lastname, capid, cadetornot, priv, password_password). */
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $firstname = $_POST['firstname'];
   $lastname = $_POST['lastname'];
@@ -14,6 +18,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $password_password = $_POST['password'];
   $cap_ID = $capid;
 
+ /* The code block is checking if the form field with the name "cap-id" is set in the POST request. If
+ it is set, it then checks if the value of the  variable is empty or not numeric. If it is
+ empty or not numeric, it sets the  variable to "Invalid Cap ID". If the  variable is
+ not empty and is numeric, it creates an SQL update query to update the "cap_id" field in the
+ "sq_members" table. The query is added to the  array. */
   $querys = array();
   if (isset($_POST['cap-id'])) {
     if ($capid == "" or !is_numeric($capid)) {
@@ -24,6 +33,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
   }
 
+ /* The code block is checking if the form field with the name "fname" is set in the POST request. If
+ it is set, it then checks if the value of the variable  is NULL or contains any
+ characters other than letters (A-Z, a-z). */
   if (isset($_POST['fname'])) {
     if ($firstname == NULL or preg_match('/[^A-Za-z]/', $firstname)) {
       $errorMsg = "Invalid Firstname";
@@ -33,6 +45,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
   }
 
+ /* This code block is checking if the form field with the name "lname" is set in the POST request. If
+ it is set, it then checks if the value of the variable  is NULL or contains any characters
+ other than letters (A-Z, a-z). */
   if (isset($_POST['lname'])) {
     if ($lastname == NULL or preg_match('/[^A-Za-z]/', $lastname)) {
       $errorMsg = "Invalid lastname";
@@ -42,6 +57,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
   }
 
+  /* This code block is checking if the form field with the name "cadet" is set in the POST request. If
+  it is set, it then checks if the value of the variable  is an empty string. If it is
+  empty, it sets the  variable to "Invalid cadet or senior option". */
   if (isset($_POST['cadet'])) {
     if ($cadetornot == ""){
       $errorMsg = "Invalid cadet or senior option";
@@ -53,6 +71,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $querys[] = $query3 = "UPDATE sq_members SET member_type ='" . "$cadetornot" . "' WHERE cap_id=" . $_SESSION['cap_id'] ;
     }
   }
+
+ /* This code block is checking if the form field with the name "priv" is set in the POST request. If
+ it is set, it then checks if the form field with the name "privlage_level" is also set. If both
+ fields are set, it checks if the value of the variable  is an empty string or not in the array
+ ['0','1', '2', '3']. */
   if (isset($_POST['priv'])){
     if(isset($_POST['privlage_level'])){
       if ($priv == "" or !in_array($priv, array('0','1', '2', '3'), true )) {
@@ -64,6 +87,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
   }
 
+  /* This code block is checking if the form field with the name "pass" is set in the POST request. If it
+  is set, it then checks if the form field with the name "password" is also set. If both fields are
+  set, it checks if the value of the variable  is an empty string. If it is empty,
+  it sets the  variable to "Invalid password". If the  variable is not
+  empty, it generates a random 20-byte string using the random_bytes() function and converts it to a
+  hexadecimal string using the bin2hex() function. It then concatenates the generated string with the
+  value of the  variable. The resulting string is hashed using the SHA-256 algorithm
+  using the hash() function. The resulting hashed password is then used in an SQL update query to
+  update the "user_passSHA" and "hash" fields in the "sq_members" table, where the "cap_id" field
+  matches the value stored in the ['cap_id'] variable. The SQL update query is added to the
+  array. */
   if (isset($_POST['pass'])) {
     if (isset($_POST['password'])){
       if ($password_password == "") {
@@ -79,6 +113,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
   }
 
+  /* The code block is iterating over the `` array, which contains SQL update queries. For each
+  query, it requires the "config_m.php" file, which likely contains the database connection code. It
+  then executes the query using the `query()` method of the database connection object ``.
+  After executing the query, it sets the variable `` to 1. If the user's privilege level
+  (`['privlv']`) is greater than or equal to 3, it also echoes the query. */
   foreach ($querys as $value) {
     require "config_m.php";
     $conn->query($value);
@@ -87,6 +126,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       echo $value;
     }
   }
+
+  /* This code block is checking if the variable `` is equal to 1. If it is, it proceeds to check if
+  the variable `` is not empty. If it is not empty, it sets the variable `` to a string
+  that includes a SQL WHERE clause. The WHERE clause filters the results of a SELECT query to only
+  include rows where the `cap_id` column starts with the value of `` and the `FQSN` column is
+  equal to the value stored in `['FQSN']`. */
   if ($y == 1) {
     if ($cap_ID != '') {
       $data = "WHERE cap_id LIKE '" . $cap_ID . "%' && FQSN=" . $_SESSION['FQSN'];
@@ -98,6 +143,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   }
 }
 
+/**
+ * The above PHP function performs a database query to retrieve member information based on a CAPID
+ * input, and then displays the results in an HTML table.
+ * 
+ * @param data The `` parameter is a string that is used to construct the SQL query. It is
+ * appended to the SELECT statement to filter the results based on certain conditions. In this case, it
+ * is used to filter the results based on the CAPID (Civil Air Patrol ID) entered by the user.
+ */
 function queryit($data) {
   require "config_m.php";
   $query = "SELECT * FROM sq_members " . $data;
@@ -141,11 +194,21 @@ function queryit($data) {
 }
 
 
+/* The below code is checking if the HTTP request method is POST. If it is, it checks if the 'CAPid'
+parameter is set in the POST data. If it is, it assigns the value of 'CAPid' to the variable 
+and sets  to 1. */
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  /* The below code is checking if a POST variable named 'CAPid' is set. If it is set, it assigns the
+  value of the POST variable to the variable . It then sets the variable  to 1. */
   if (isset($_POST['CAPid'])) {
     $CAPid = $_POST['CAPid'];
     $x = 1;
 
+    /* The below code is checking if the variable  is not empty or if it is a numeric value. If
+    either condition is true, it sets the  variable to a SQL query string that includes a WHERE
+    clause to filter records based on the cap_id column matching the value of . It also sets
+    the ['cap_id'] variable to the value of . Finally, it calls the queryit()
+    function with the  variable as an argument. */
     if (!$CAPid == "" or is_numeric($CAPid)) {
       $data = "WHERE cap_id LIKE '" . $CAPid . "%'";
       $_SESSION['cap_id'] = $CAPid;
@@ -156,6 +219,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 
+/* The below code is a PHP script that handles a form submission. It checks if the request method is
+POST and if the submit button was clicked. If both conditions are true, it displays a form with
+various input fields and checkboxes. */
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if (isset($_POST['submit'])) {
     ?>
@@ -164,6 +230,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         display: none;
       }
     </style>
+    <!-- The above code is a PHP code snippet that generates an HTML form for updating member
+    information. -->
     <div class="addmemberform">
       <p>Select the checkbox next to the item you wish to update.</p>
       <p>Type in the information you want to set to it.</p>
@@ -216,6 +284,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if(isset($errorMsg) && $errorMsg) {
           echo "<p style=\"color: red;\">*",htmlspecialchars($errorMsg),"</p>\n\n";
         }?>
+     <!-- The below code is a PHP code snippet. It checks if the variable  is equal to 1. If it is, it
+     displays a heading "Is this the user you want?" and a form with a submit button labeled
+     "Confirmed". The form is submitted to the same PHP script that is currently being executed
+     (['PHP_SELF']). -->
       <?php if ($x == 1){ ?>
           <h3>Is this the user you want?</h3>
             <form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" accept-charset="UTF-8">
@@ -237,6 +309,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
  <div class="navbar fixed-bottom">
     <div class="container-fluid p-0">
     <?php
+     /* The below code is including the "footer.php" file from the "../includes" directory. */
       require "../includes/footer.php";
     ?>
     </div>

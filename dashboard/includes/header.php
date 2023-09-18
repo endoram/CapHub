@@ -1,4 +1,6 @@
 <?php
+  /* This PHP code is responsible for setting up the session, checking if the user is logged in, and
+  retrieving the user's time zone from the database. */
   session_start();
   if(!isset($_SESSION['password'])){
     header("Location: ../index.php");
@@ -9,10 +11,12 @@
     header("Location: ../index.php");
   }
 
-  require "../includes/legal.php";
-
+  require "../includes/legal.php"; // Checks if they have accepted legal disclaimer
 
   require "../includes/config_m.php";
+  /* The `` variable is storing a SQL query that selects the `time_zone` column from the `squads`
+  table where the `FQSN` (Fully Qualified Squadron Name) matches the value stored in the
+  `['FQSN']` variable. */
   $query = "SELECT time_zone FROM squads WHERE FQSN='" . $_SESSION['FQSN'] . "'";
 
   $result = $conn->query($query);
@@ -27,6 +31,7 @@
     $conn->close();
   }
 ?>
+
 <html lang="en">
   <head>
     <!-- Google Tag Manager -->
@@ -68,7 +73,17 @@
         </div>
       </div>
     <div class="container-fluid p-0">
-      <div class="menubar">
+      <!-- The `<div class="menubar">` and `<div class="dropdownheader">` sections are creating a
+      navigation menu for the website. The menu items are displayed as a list (`<ul>`) with each
+      item represented by a list item (`<li>`). Each list item contains a link (`<a>`) that points
+      to a specific page within the website. 
+      The menu items include options such as "Squadron",
+      "Meetings", "Comms", "PT", "Events", "Settings", "Help", and "Log out". The menu is displayed
+      as a regular horizontal menu in the `<div class="menubar">` section, and as a dropdown menu in
+      the `<div class="dropdownheader">` section. The visibility of certain menu items is controlled
+      by PHP code that checks the user's privilege level (`['privlv']`) and only displays
+      certain options if the privilege level is greater than or equal to 2. */
+      <div class="menubar"> -->
         <ul>
           <li><a href="../protected/sqmembers.php">Squadron</a></li>
           <li><a href="../protected/meeting_nights.php">Meetings</a></li>
@@ -103,7 +118,3 @@
     </div>
   </body>
 </html>
-<script type="text/javascript">
-  var bootstrap_enabled = (typeof $().modal == 'function');
-  console.log(bootstrap_enabled);
-</script>
