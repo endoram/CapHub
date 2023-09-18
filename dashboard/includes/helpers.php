@@ -288,7 +288,7 @@ function exportMe($query, $rowHeaders) {
 
 function ARP($cap_id) {
   require '../includes/config_m.php';
-  $query = "SELECT first_name, last_name FROM sq_members WHERE FQSN='".$_SESSION['FQSN']."' && cap_id=$cap_id";
+  $query = "SELECT first_name, last_name FROM sq_members WHERE cap_id=$cap_id";
   $result = $conn->query($query);
 
   if ($result->num_rows > 0) {

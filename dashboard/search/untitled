@@ -1,0 +1,12 @@
+
+
+
+1. If you log out, you can't log back in on the login page.
+2. Fully Operational?  What are you the Death Star?  Just call the table column Radio Status
+3. Link from User's Equipment table sends you to Event Home, not Equipment page.
+4. Events Menu Item should be the same color as the Event Tracker menu bar when you are in Events.
+5. Delete Events?  Admin only?
+6. You can set events for the past. Should have a JavaScript that compares the date to current date and not let you set an event
+for the past. The future is fine. Check the calendar app to see if you can gray out days before current date
+7. Ensure it only shows what equipment or radio you have assigned for the event
+8. Comms Resources page for tracking HT's assigned to the event

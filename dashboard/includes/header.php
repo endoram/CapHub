@@ -75,7 +75,7 @@
           <li><a href="../protected/comms.php">Comms</a></li>
           <li><a href="../protected/physical_testing.php">PT</a></li>
       <!--    <li><a href="../protected/flights.php">Flights</a></li>  !-->
-    <!--  <li><a href="events.php">Events</a></li>      !-->
+          <li><a href="../events/index.php">Events</a></li>
     <!--  <li><a href="vehicles.php">Vehicles</a></li>  !-->
           <?php if($_SESSION['privlv'] >= 2){ ?>
             <li><a href="../protected/admin_conf.php">Settings</a></li>
@@ -92,7 +92,7 @@
           <a href="../protected/comms.php">Comms</a>
           <a href="../protected/physical_testing.php">PT</a>
         <!--  <a href="../protected/flights.php">Flights</a> !-->
-    <!--      <a href="events.php">Events</a> !-->
+          <a href="../events/index.php">Events</a>
           <?php if($_SESSION['privlv'] >= 2){ ?>
             <a href="../protected/admin_conf.php">Settings</a>
           <?php } ?>

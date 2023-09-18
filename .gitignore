@@ -20,3 +20,7 @@ tests/__pycache__/
 tests/ch_version/
 
 tests/chromedriver
+
+backup/
+
+.gptignore

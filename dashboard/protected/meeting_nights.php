@@ -156,7 +156,7 @@ function closeForm() {
                 echo '<li><a href="?logout">Logout</a></li>';
               } else { 
                 #echo '<li><a href="?kiosk">Kiosk Mode</a></li>';
-                echo '
+               /* echo '
             </ul>
             <div class="dropdown">
               <ul><li><button class="sqmenubutton">Search</button></li></ul>
@@ -168,7 +168,9 @@ function closeForm() {
                 <a href="?date_range=1">Date Range</a>
               </div>
             </div>
-            ';} ?>
+            ';*/
+              echo '<li><a href="../search/index.php">Search</a></li>';
+                }?>
           </div>
         </div>
         <br>
@@ -206,11 +208,9 @@ function closeForm() {
     </div>
   </body>
 
-  <div class="navbar fixed-bottom">
-    <div class="container-fluid p-0">
+  <div class="container-fluid p-0">
     <?php
-      require "../includes/footer.php";
+    require "../includes/footer.php";
     ?>
-    </div>
   </div>
 </html>
