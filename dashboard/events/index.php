@@ -1,9 +1,7 @@
 <?php
-include '../includes/header.php';
-
-// Include the database configuration file
-include '../includes/config_m.php';
-include 'event_helpers.php';
+include '../includes/header.php';    // Standard Header include   
+include '../includes/config_m.php';  // Include the database configuration file
+include 'event_helpers.php';         // Helper functions used by event related scripts
 
 $events = getEvents();
 ?>
@@ -41,7 +39,7 @@ $events = getEvents();
         </div>
         <a href="create_event.php" class="btn btn-success">Create Event</a>
     </div>
-    <!-- Include Bootstrap JS and jQuery -->
+    <!-- The code block is including three JavaScript files: jQuery, Popper.js, and Bootstrap. --> 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

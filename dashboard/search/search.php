@@ -1,4 +1,6 @@
 <?php
+/* The code you provided is a PHP script that performs a database query based on user input and returns
+the results as JSON. */
 session_start();
 require "../includes/control_access.php";
 

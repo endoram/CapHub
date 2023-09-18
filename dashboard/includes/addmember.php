@@ -1,7 +1,12 @@
 <?php
+  /* The code is using the `require` statement to include two PHP files: "../includes/header.php" and
+  "helpers.php". */
   require "../includes/header.php";
   require "helpers.php";
 
+  /* This code block is checking if the HTTP request method is "POST". If it is, it retrieves the
+  values of the form fields (firstname, lastname, capid, cadetornot) using the  superglobal
+  array. */
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $firstname = $_POST['firstname'];
     $lastname = $_POST['lastname'];
@@ -39,6 +44,7 @@ input {
   </head>
   <body>
     <div class="column">
+      <!-- The code is creating a form for adding a new member. -->
       <div class="addmemberform">
         <form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" accept-charset="UTF-8">
           <?php

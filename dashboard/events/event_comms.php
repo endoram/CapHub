@@ -1,14 +1,17 @@
 <?php
-include '../includes/header.php';
-
-// Include the database configuration file
-include '../includes/config_m.php';
-include 'event_helpers.php';
-include '../includes/helpers.php';
+/* The code is a PHP script that is used to display event details and equipment information. It
+includes various PHP files and database configurations. */
+include '../includes/header.php';     // Standard Header include
+include '../includes/config_m.php';   // Include the database configuration file
+include 'event_helpers.php';          // Helper functions used by event related scripts
+include '../includes/helpers.php';    // Regular script helper functions
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+<?/* The code block is responsible for creating the HTML structure of the webpage. It includes the
+necessary meta tags for character encoding and viewport settings. It also sets the title of the
+webpage to "Event Tracker - Home". */ ?>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -34,9 +37,14 @@ include '../includes/helpers.php';
         if (isset($_GET['cap_id'])) {
             $capid = $_GET['cap_id'];
 
+            /* The above code is a PHP script that performs the following tasks: */
             if ($capid == "" or !is_numeric($capid)) {$errorMsg = "Invalid Cap ID";}    //Validate all numbers
             else {
                 $cadet = arp($capid);
+                /* The line of code ` = "SELECT * FROM comms WHERE name='" .  . "'";` is
+                creating a SQL query to retrieve all columns (`*`) from the "comms" table where the
+                "name" column is equal to the value stored in the `` variable. This query is
+                used to fetch the communication equipment details for a specific cadet. */
                 $query = "SELECT * FROM comms WHERE name='" . $cadet . "'";
                 $result = $conn->query($query);
 
@@ -77,6 +85,15 @@ include '../includes/helpers.php';
                 
                 <br> <hr style="height:2px;border-width:2;color:black;background-color:black">
                 <?php
+                    /* The below code is a PHP script that retrieves data from a database table called
+                    "comms" based on certain conditions. It then displays the retrieved data in an
+                    HTML table format. */
+                      /* The code `SELECT * FROM comms WHERE radio_type='VHF' AND in_out='IN'
+                        AND FQSN='" . ['FQSN'] . "'"` is a SQL query that retrieves
+                        data from the "comms" table. It selects all columns (`*`) where the
+                        "radio_type" column is equal to 'VHF', the "in_out" column is equal to
+                        'IN', and the "FQSN" column is equal to the value stored in the
+                        `['FQSN']` variable. */
                     $table = array(
                       array("SELECT * FROM comms WHERE radio_type='VHF' AND in_out='IN' AND FQSN='" . $_SESSION['FQSN'] . "'", "Equipment In"),
                     );  
@@ -135,8 +152,17 @@ include '../includes/helpers.php';
         }
 
 
+        /* The code block is checking if the 'id' parameter is set in the URL and if it is a numeric
+        value. If both conditions are true, it includes the 'config_m.php' file, executes a SQL
+        query to retrieve data from the 'participants' and 'comms' tables based on the event ID and
+        where the 'radio' column is set to 'YES'. It then displays the retrieved data in a table
+        format on the webpage. */
         if (isset($_GET['id']) && is_numeric($_GET['id'])) {
             require "../includes/config_m.php";
+            /* The query variable is storing a SQL query that retrieves data from the `participants`
+            and `comms` tables. It uses an inner join to combine the two tables based on the
+            condition that the `participant_name` column in the `participants` table is equal to the
+            `name` column in the `comms` table. */
             $query = "SELECT * FROM participants 
                         INNER JOIN comms 
                         ON participants.participant_name = comms.name 
@@ -195,12 +221,12 @@ include '../includes/helpers.php';
         </div>
     </div>
 </div>
-    <!-- Include Bootstrap JS and jQuery -->
+    <!-- The code block is including three JavaScript files: jQuery, Popper.js, and Bootstrap. -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
   <?php
-    require "../includes/footer.php";
+    require "../includes/footer.php";   // Require standard footer
   ?>
 </html>

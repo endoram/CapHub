@@ -30,6 +30,10 @@
         <div class="radiotable">
           <?php
             require "../includes/config_m.php";
+            /* The `query` variable is storing a SQL query that selects all columns (`*`) from the
+            `comms_log` table where the `FQSN` column is equal to the value stored in the
+            `['FQSN']` variable. The results are then ordered by the `id` column in
+            descending order and limited to 100 rows. */
             $query = "SELECT * FROM comms_log WHERE FQSN='".$_SESSION['FQSN']."' ORDER BY id DESC LIMIT 100";
             $result = $conn->query($query);
             if ($result->num_rows > 0) {

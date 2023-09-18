@@ -1,4 +1,7 @@
 <?php
+/* The code you provided is a PHP file that creates a form for creating an event. It starts with some
+PHP code that starts a session and includes a file called "control_access.php" from the
+"../includes" directory. */
 session_start();
 include "../includes/control_access.php";
 ?>
@@ -17,6 +20,7 @@ include "../includes/control_access.php";
         <a class="navbar-brand" href="#">Event Tracker</a>
         <!-- Add navigation links if needed -->
     </nav>
+    <!-- The code below is creating a form for creating an event using POST request. -->
     <div class="container mt-5">
         <h1>Create Event</h1>
         <form method="POST" action="process_create_event.php">
@@ -59,7 +63,7 @@ include "../includes/control_access.php";
         <!-- Go back button -->
         <a href="index.php" class="btn btn-secondary">Go Back</a>
     </div>
-    <!-- Include Bootstrap JS and jQuery -->
+    <!-- The code block is including three JavaScript files: jQuery, Popper.js, and Bootstrap. -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

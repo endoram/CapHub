@@ -1,4 +1,6 @@
 <?php
+/* This PHP script that creates a web page with a search and filter functionality using
+the Tabulator library. */
 session_start();
 require "../includes/control_access.php";
 ?>
@@ -33,11 +35,15 @@ require "../includes/control_access.php";
         <div id="searchResults"></div>
     </div>
 
+    <!-- These lines of code are including the necessary JavaScript libraries for the Tabulator library. -->
     <script src="../libs/tabulator/jquery-3.2.1.js"></script>
     <script src="../libs/tabulator/jquery-ui.js"></script>
     <script src="../libs/tabulator/tabulator.min.js"></script>
     <script>
-        // JavaScript function to perform search and display data using Tabulator
+        /**
+         * The function `searchData()` is used to search and display data in a Tabulator table using
+         * AJAX and PHP.
+         */
         function searchData() {
             const searchInput = document.getElementById("searchInput").value;
             const filterColumn = document.getElementById("filterColumn").value;

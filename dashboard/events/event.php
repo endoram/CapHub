@@ -1,10 +1,12 @@
 <?php
-// Include the database configuration file
+/* These lines of code are including external PHP files into the current PHP script. */
 include '../includes/header.php';
 include '../includes/config_m.php';
 include 'event_helpers.php';
 
 // Handle participant sign-in/sign-out actions
+/* The below code is a PHP script that handles a form submission. It checks if a POST request with the
+key 'rmuser0' is set. If it is, it retrieves the value of 'capidrm' from the POST data. */
 if (isset($_POST['rmuser0'])) {
     $capid = $_POST['capidrm'];
 
@@ -47,6 +49,9 @@ if (isset($_POST['rmuser0'])) {
             //  if($FQSN == $_SESSION['FQSN']) {
             //    echo'<script>alert("Hey $name are you visisting $_SESSION["FQSN"]?");</script>';
             //  }
+              /* The `query` variable is storing an SQL query that inserts a new row into the
+              "participants" table in the database. The values being inserted are obtained from
+              various variables and session data. Here is a breakdown of the query: */
               $query = "INSERT INTO participants (event_id, cap_id, participant_name, participant_status, time_in, member_type, FQSN) VALUES ('" . $_SESSION['id'] . "', '" . $capid . "', '" .  $name . "', '" . $partStatus . "', '" . $time . "','" . $membertype . "','" . $FQSN . "')";
                $conn->query($query);
               }
@@ -57,6 +62,11 @@ if (isset($_POST['rmuser0'])) {
     }
 }
 
+/* The code block is checking if the `radio_id` and `cap_id` parameters are set in the URL query
+string. If both parameters are set, it calls the `checkoutRadio()` function with the `radio_id` and
+`cap_id` values as arguments and echoes the result. Similarly, if the `sign_in` and `cap_id`
+parameters are set, it calls the `checkinRadio()` function with the `sign_in` and `cap_id` values as
+arguments and echoes the result. */
 if (isset($_GET['radio_id']) && isset($_GET['cap_id'])) {
   echo (checkoutRadio($_GET['radio_id'], $_GET['cap_id']));
 }
@@ -65,22 +75,23 @@ if (isset($_GET['sign_in']) && isset($_GET['cap_id'])) {
 }
 
 
-// Export participant data as CSV
+/* This code block is checking if the `export` parameter is set in the URL query string and if its
+value is 'csv'. If both conditions are true, it performs the following actions: */
 if (isset($_GET['export']) && $_GET['export'] == 'csv') {
-    header('Content-Type: text/csv');
-    header('Content-Disposition: attachment; filename="event_participants.csv"');
+  header('Content-Type: text/csv');
+  header('Content-Disposition: attachment; filename="event_participants.csv"');
 
-    $output = fopen('php://output', 'w');
-    fputcsv($output, array('Participant Name', 'Status'));
+  $output = fopen('php://output', 'w');
+  fputcsv($output, array('Participant Name', 'Status'));
 
-    $eventId = $_GET['id'];
-    $participants = getEventParticipants($eventId);
+  $eventId = $_GET['id'];
+  $participants = getEventParticipants($eventId);
 
-    foreach ($participants as $participant) {
-        fputcsv($output, array($participant['participant_name'], $participant['participant_status']));
-    }
+  foreach ($participants as $participant) {
+      fputcsv($output, array($participant['participant_name'], $participant['participant_status']));
+  }
 
-    fclose($output);
+  fclose($output);
 }
 
 if (isset($_GET['id'])) {
@@ -214,8 +225,7 @@ if (isset($_GET['id'])) {
         </div>
     </div>
 
-
-    <!-- Include Bootstrap JS and jQuery -->
+   <!-- The code block is including three JavaScript files: jQuery, Popper.js, and Bootstrap. -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
